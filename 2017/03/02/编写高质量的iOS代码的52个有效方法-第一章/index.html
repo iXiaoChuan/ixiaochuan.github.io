@@ -15,12 +15,12 @@
 #第一章 熟悉我们所使用的Objective-C(以后简称OC)第1条 了解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记_书籍_<<编写高质量iOS和OS X代码的52个有效方法>>_第一章">
-<meta property="og:url" content="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法/index.html">
+<meta property="og:url" content="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法-第一章/index.html">
 <meta property="og:site_name" content="上善若水|坚持者|思考者">
 <meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;最近看了几本书,挑了里面几个内容比较好的做了笔记,比较精髓的就分享到博客里面.&amp;#160; &amp;#160; &amp;#160; &amp;#160;这本是《Effective Objective-C 2.0》,里面的内容非常好,通过分条的形式来总结知识点,这边呢我会时常更新笔记内容.
 #第一章 熟悉我们所使用的Objective-C(以后简称OC)第1条 了解">
 <meta property="og:image" content="http://i1.piimg.com/567571/7746f80f602a329d.jpg">
-<meta property="og:updated_time" content="2017-03-15T19:22:48.000Z">
+<meta property="og:updated_time" content="2017-03-16T13:48:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记_书籍_<<编写高质量iOS和OS X代码的52个有效方法>>_第一章">
 <meta name="twitter:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;最近看了几本书,挑了里面几个内容比较好的做了笔记,比较精髓的就分享到博客里面.&amp;#160; &amp;#160; &amp;#160; &amp;#160;这本是《Effective Objective-C 2.0》,里面的内容非常好,通过分条的形式来总结知识点,这边呢我会时常更新笔记内容.
@@ -90,7 +90,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/02/编写高质量的iOS代码的52个有效方法/" title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章" itemprop="url">笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章</a>
+      <a href="/2017/03/02/编写高质量的iOS代码的52个有效方法-第一章/" title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章" itemprop="url">笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章</a>
   </h1>
   <p class="article-author">By
        
@@ -111,7 +111,7 @@
 		</div>
 		
 		<p>&#160; &#160; &#160; &#160;最近看了几本书,挑了里面几个内容比较好的做了笔记,比较精髓的就分享到博客里面.<br>&#160; &#160; &#160; &#160;这本是《Effective Objective-C 2.0》,里面的内容非常好,通过分条的形式来总结知识点,这边呢我会时常更新笔记内容.</p>
-<h2 id="第一章-熟悉我们所使用的Objective-C-以后简称OC"><a href="#第一章-熟悉我们所使用的Objective-C-以后简称OC" class="headerlink" title="#第一章 熟悉我们所使用的Objective-C(以后简称OC)"></a><strong>#第一章 熟悉我们所使用的Objective-C(以后简称OC)</strong></h2><h3 id="第1条-了解OC起源"><a href="#第1条-了解OC起源" class="headerlink" title="第1条 了解OC起源"></a><strong>第1条 了解OC起源</strong></h3><p>&#160; &#160; &#160; &#160;首先要了解我们使用的OC语言是消息型语言,知道它是从消息语言的鼻祖Smalltalk语言演化而来的就可以了.这里主要分析一下两种主要类型语言的区别:消息型语言、函数型语言.<br>这里主要区别是:消息型语言,运行时所执行的代码是由运行环境决定的;相对的,函数型语言则由编译器决定.  </p>
+<h2 id="第一章-熟悉我们所使用的Objective-C-以后简称OC"><a href="#第一章-熟悉我们所使用的Objective-C-以后简称OC" class="headerlink" title="#第一章 熟悉我们所使用的Objective-C(以后简称OC)"></a><strong>#第一章 熟悉我们所使用的Objective-C(以后简称OC)</strong></h2><h3 id="第1条-了解OC起源"><a href="#第1条-了解OC起源" class="headerlink" title="第1条 了解OC起源"></a><strong>第1条 了解OC起源</strong></h3><p>&#160; &#160; &#160; &#160;首先要了解我们使用的OC语言是消息型语言,知道它是从消息语言的鼻祖Smalltalk语言演化而来的就可以了.这里主要分析一下两种主要类型语言的区别:消息型语言、函数型语言.这里主要区别是:消息型语言,运行时所执行的代码是由运行环境决定的;相对的,函数型语言则由编译器决定.  </p>
 <p>&#160; &#160; &#160; &#160;在实现多态[^不详解] 时区别比较明显.函数型语言需要借助”虚方法表”[^不详解],而消息型语言不管是不是多态,总是在运行时才查找要执行的方法,这个过程叫”动态绑定”.  </p>
 <p>&#160; &#160; &#160; &#160;那么OC最重要的组件来了:Runtime component(运行时组件),OC的大部分功能都需要依赖它来实现,这里还有一个相比于函数型语言的优点,就是运行时方式可以只更新运行时组件,不需要重新编译源码,就可以获得程序性能的提升.  </p>
 <p>&#160; &#160; &#160; &#160;最后一点是OC是C的超集,所有C的功能在OC里面均可用,这里还有一点需要注意的是,其实OC为了性能,并没有将基础数据类型进行对象化,还有像是CGRect和CGSize也是结构体来的,并没有进行对象化,这是合理和需要注意的.</p>
@@ -136,7 +136,7 @@
 <p>&#160; &#160; &#160; &#160;下面就来解释解释大家肯定比较关心的问题 <code>static</code>、<code>const</code>啥意思啊?干啥的啊?其实说到底都是C的API,简单点来解释呢就是:const修饰的是编译器级别的死值,如果你敢妄动,那就给你报错!而static修饰呢,说明该变量是隐私的,只有定义这个变量的编译单元可以使用,别问我啥是编译单元,我会杀人的…</p>
 <p>&#160; &#160; &#160; &#160;而有时候呢我又想放一个别类也能用的参数怎么办?可以办,把static改成extern,这样在其他的类中就可以取到了,这个在发通知的时候用来做”注册类型”比较好使,其实就像是定义一个枚举给它类用一样的意思.</p>
 <p>&#160; &#160; &#160; &#160;这里还有一个Tip: <code>NSString const * str</code>和<code>NSString * const str</code>的区别还记得么?想一想~</p>
-<p>&#160; &#160; &#160; &#160;跑偏了,回来回来继续说明为啥少用预处理,多用类型常量,因为预处理可能会被无意中篡改,那你本来希望用的是一样的,结果就黑了.</p>
+<p>&#160; &#160; &#160; &#160;跑偏了,回来回来继续说明为啥少用预处理,多用类型常量,因为预处理可能会被无意中篡改,和你本来希望用的是不一样的,结果就黑了.</p>
 <h3 id="第5条-用枚举表示状态、选项、状态码"><a href="#第5条-用枚举表示状态、选项、状态码" class="headerlink" title="第5条 用枚举表示状态、选项、状态码"></a><strong>第5条 用枚举表示状态、选项、状态码</strong></h3><p>&#160; &#160; &#160; &#160;还记得之前留下的小Tip么?~<code>typedef NS_OPTIONS</code>和<code>typedef NS_ENUM</code>现在就来解决这个HD.怎么说呢,其实enum是除了预定义以外,我最喜欢从C那儿拿来用的语法,只能说不用不知道,用的偷偷笑~  </p>
 <p>&#160; &#160; &#160; &#160;本来呢enum是需要这么定义的<code>enum AnimationType type = AnimationTypeFromTop</code>,很麻烦吼,但是呢咖啡有伴侣,enum有typedef~通过typedef这么一幻化,叮~</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">enum AnimationType&#123;</div><div class="line">AnimationTop,</div><div class="line">AnimationLeft,</div><div class="line">AnimationRight,</div><div class="line">&#125;;</div><div class="line">typedef enum AnimationType AnimatioTYpoe;</div></pre></td></tr></table></figure>
@@ -173,7 +173,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法/" data-title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 上善若水|坚持者|思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法-第一章/" data-title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 上善若水|坚持者|思考者" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -188,9 +188,9 @@
  
 
 <div class="next">
-<a href="/2017/02/22/2017年-展望与规划/"  title="2017年 展望与规划">
+<a href="/2017/03/02/编写高质量的iOS代码的52个有效方法-第二章/"  title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第二章">
  <strong>下一篇：</strong><br/> 
- <span>2017年 展望与规划
+ <span>笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第二章
 </span>
 </a>
 </div>
@@ -199,7 +199,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/03/02/编写高质量的iOS代码的52个有效方法/" data-title="笔记_书籍_<<编写高质量iOS和OS X代码的52个有效方法>>_第一章" data-url="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/02/编写高质量的iOS代码的52个有效方法-第一章/" data-title="笔记_书籍_<<编写高质量iOS和OS X代码的52个有效方法>>_第一章" data-url="https://ixiaochuan.top/2017/03/02/编写高质量的iOS代码的52个有效方法-第一章/"></div>
 </section>
 
 
@@ -237,7 +237,7 @@
 		  
 		
 		  
-			<li><a href="/categories/笔记/" title="笔记">笔记<sup>1</sup></a></li>
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>2</sup></a></li>
 		  
 		
 		</ul>
@@ -250,15 +250,15 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/书籍/" title="书籍">书籍<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/笔记/" title="笔记">笔记<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/书籍/" title="书籍">书籍<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -278,6 +278,12 @@
           <li>
             
             	<a href="http://www.liaoxuefeng.com" target="_blank" title="廖雪峰的技术博客">廖雪峰的技术博客</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://kittenyang.com" target="_blank" title="杨骑滔动画经验">杨骑滔动画经验</a>
             
           </li>
         
