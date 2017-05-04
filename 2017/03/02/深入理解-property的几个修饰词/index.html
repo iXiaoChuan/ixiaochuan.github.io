@@ -25,7 +25,7 @@
 @property到底什么东西?它后面可以有哪些修饰符?
 什么情况使用weak关键字,相比assign有什么不同?
 怎么用copy关键字?哪些时候可以用,哪些时候必须用,哪些时候用了会出">
-<meta property="og:updated_time" content="2017-04-26T06:24:56.000Z">
+<meta property="og:updated_time" content="2017-04-26T07:26:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解@property及其修饰词">
 <meta name="twitter:description" content="@property(属性)这个iOS开发中最常用的东西肯定都不陌生~那大家聊一下属性及其修饰符,肯定也是说起来一套一套的,然而是不是都真的理解了属性,还有属性的修饰符的意义呢?可以用以下几个问题来考察一下自己:
@@ -158,7 +158,7 @@
 <h4 id="▪集合类及深浅拷贝的讨论-代表有NSArray和NSMutableArray"><a href="#▪集合类及深浅拷贝的讨论-代表有NSArray和NSMutableArray" class="headerlink" title="▪集合类及深浅拷贝的讨论(代表有NSArray和NSMutableArray)"></a>▪集合类及深浅拷贝的讨论(代表有NSArray和NSMutableArray)</h4><p>这里只讨论一下深拷贝浅拷贝的问题,关于深拷贝和浅拷贝,每个人理解不同,我比较倾向于这种三个深度的理解:浅拷贝就是指针拷贝,深拷贝就是完全拷贝,个人认为还应该区分出一种中间程度的拷贝叫内容拷贝.这里需要澄清一点就是:copy操作和mutableCopy并非是深拷贝和浅拷贝!!!通过一些对象的拷贝来对比一下就比较容易理解了:<br><br> <strong>非集合对象:</strong><br>典型的以NSString为代表.<br>对mutable非集合对象(e.g.NSMutablestring)的copy和mutableCopy都是深拷贝,就是另外开辟一个空间,并生成一个指向该地址的指针,所以就算是修改原对象,新得到的对象也不受影响,形象化来讲就是有两座房子,每个人一座,自己有自己的钥匙;<br>而对immutable非集合对象(e.g.NSString)的copy,是浅拷贝,就是生成一个指向同样一块内存地址(也就是对象)的指针,哪个操作改变都会改变原对象,形象化来讲就是两个人合租,两个人每人一把钥匙,都能开这房子的门;而mutableCopy就是深拷贝,同上道理,不赘言了.总结如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[immutableObject copy]        // 浅拷贝</div><div class="line">[immutableObject mutableCopy] // 深拷贝</div><div class="line"></div><div class="line">[mutableObject copy]          // 深拷贝</div><div class="line">[mutableObject mutableCopy]   // 深拷贝</div></pre></td></tr></table></figure>
 <p><br><strong>集合对象:</strong><br>集合类对象以数组、字典、集合为代表.<br>在集合类对象中,对immutable对象进行copy,是指针拷贝,mutableCopy是内容拷贝;对mutable对象进行copy和mutableCopy都是内容拷贝.这里所说的内容拷贝,个人认为内容拷贝的概念独立于深拷贝,是因为内容拷贝并非是严格意义上的深拷贝,其实是指对集合对象的拷贝仅限于对象本身,对象内元素仍然是指针拷贝的.也就是说,我要拷贝数组,把数组重新复制了一份,但是数组内的对象指针指向的还是原数组内对象指针所指向的空间.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[immutableObject copy]        // 浅拷贝</div><div class="line">[immutableObject mutableCopy] // 单层深拷贝 - 内容拷贝</div><div class="line"></div><div class="line">[mutableObject copy]          // 单层深拷贝 - 内容拷贝</div><div class="line">[mutableObject mutableCopy]   // 单层深拷贝 - 内容拷贝</div></pre></td></tr></table></figure></p>
-<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><h6 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h6><p><a href="http://blog.sina.com.cn/s/blog_134b6ff380102v1y1.html" target="_blank" rel="external">1.block为什么可以用weak修饰</a><br><br><a href="http://www.cocoachina.com/ios/20151102/14007.html" target="_blank" rel="external">2.关于 @synchronized，这儿比你想知道的还要多</a><br><br><a href="https://my.oschina.net/openlab/blog/89354" target="_blank" rel="external">3.形象解释属性修饰符的内存操作原理</a><br></p>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><h6 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h6><p><a href="http://blog.sina.com.cn/s/blog_134b6ff380102v1y1.html" target="_blank" rel="external">1.block为什么可以用weak修饰</a><br><br><a href="http://www.cocoachina.com/ios/20151102/14007.html" target="_blank" rel="external">2.关于 @synchronized，这儿比你想知道的还要多</a><br><br><a href="https://my.oschina.net/openlab/blog/89354" target="_blank" rel="external">3.形象解释属性修饰符的内存操作原理</a><br><br><a href="http://www.cocoachina.com/ios/20170328/18962.html" target="_blank" rel="external">4.最强weak内涵解释!!</a></p>
 <h6 id="开发文档"><a href="#开发文档" class="headerlink" title="开发文档"></a>开发文档</h6><p><a href="https://developer.apple.com/library/content/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank" rel="external">Transitioning to ARC Release Notes</a><br><br><a href="http://clang.llvm.org/docs/AutomaticReferenceCounting.html" target="_blank" rel="external">Objective-C Automatic Reference Counting (ARC)</a><br><br><br><br><br><br><br><br><br><br><br></p>
   
 	</div>
@@ -288,19 +288,25 @@
         
           <li>
             
-            	<a href="http://blog.devtang.com" target="_blank" title="唐巧的技术博客">唐巧的技术博客</a>
+            	<a href="http://blog.devtang.com" target="_blank" title="猿题库_唐巧_iOS进阶">猿题库_唐巧_iOS进阶</a>
             
           </li>
         
           <li>
             
-            	<a href="http://www.liaoxuefeng.com" target="_blank" title="廖雪峰的技术博客">廖雪峰的技术博客</a>
+            	<a href="http://www.liaoxuefeng.com" target="_blank" title="技术写作大牛_廖雪峰_综合">技术写作大牛_廖雪峰_综合</a>
             
           </li>
         
           <li>
             
-            	<a href="http://kittenyang.com" target="_blank" title="杨骑滔动画经验">杨骑滔动画经验</a>
+            	<a href="http://kittenyang.com" target="_blank" title="独立开发者_杨骑滔_动画经验">独立开发者_杨骑滔_动画经验</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.wanglongshuai.com" target="_blank" title="趣点_王隆帅_iOS|PHP">趣点_王隆帅_iOS|PHP</a>
             
           </li>
         
