@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>深入理解@property及其修饰词 | 上善若水|坚持者|思考者</title>
+    <title>深入理解@property及其修饰词 | 上善若水•坚持者•思考者</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解@property及其修饰词">
 <meta property="og:url" content="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/index.html">
-<meta property="og:site_name" content="上善若水|坚持者|思考者">
+<meta property="og:site_name" content="上善若水•坚持者•思考者">
 <meta property="og:description" content="@property(属性)这个iOS开发中最常用的东西肯定都不陌生~那大家聊一下属性及其修饰符,肯定也是说起来一套一套的,然而是不是都真的理解了属性,还有属性的修饰符的意义呢?可以用以下几个问题来考察一下自己:
 
 @property到底什么东西?它后面可以有哪些修饰符?
@@ -35,7 +35,7 @@
 怎么用copy关键字?哪些时候可以用,哪些时候必须用,哪些时候用了会出">
 
     
-    <link rel="alternative" href="/atom.xml" title="上善若水|坚持者|思考者" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -53,11 +53,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="上善若水|坚持者|思考者" title="上善若水|坚持者|思考者"/></a>
+				<a href="/"><img src="/img/logo.png" alt="上善若水•坚持者•思考者" title="上善若水•坚持者•思考者"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="上善若水|坚持者|思考者">上善若水|坚持者|思考者</a></h1>
+				<h1 class="site-name"><a href="/" title="上善若水•坚持者•思考者">上善若水•坚持者•思考者</a></h1>
 				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
@@ -182,7 +182,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/" data-title="深入理解@property及其修饰词 | 上善若水|坚持者|思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/" data-title="深入理解@property及其修饰词 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -195,6 +195,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2018/02/26/Python学习笔记-08-错误、调试和测试/" title="Python学习笔记_08_错误、调试和测试">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Python学习笔记_08_错误、调试和测试</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2017/02/10/编写高质量的iOS代码的52个有效方法-第二章/"  title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第二章">
@@ -242,7 +250,15 @@
 		<ul>
 		
 		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>3</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/学习笔记/" title="学习笔记">学习笔记<sup>3</sup></a></li>
 		  
 		
 		  
@@ -263,6 +279,10 @@
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/学习笔记/" title="学习笔记">学习笔记<sup>3</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
 			
 		
@@ -271,11 +291,11 @@
 			
 		
 			
-				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+				<li><a href="/tags/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -343,10 +363,6 @@
     </ul>
 </div>
 
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
 </aside>
 </div>
     </div>
@@ -376,9 +392,11 @@
 		
 		
 		
-		<a href="http://www.zhihu.com/people/zhang-xiao-chuan-11" target="_blank" class="icon-zhihu" title="知乎"></a>
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
 		
 		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
 		
 	</div>
 			

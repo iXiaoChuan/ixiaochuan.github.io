@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>爱与坚持，iOS开发的坚持者! | 上善若水•坚持者•思考者</title>
+    <title>Python学习笔记_10_进程和线程 | 上善若水•坚持者•思考者</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
     
 
     
-    <meta name="description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
+    <meta name="description" content="09 IO编程文件读写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爱与坚持，iOS开发的坚持者!">
-<meta property="og:url" content="https://ixiaochuan.top/2017/01/01/热爱与坚持/index.html">
+<meta property="og:title" content="Python学习笔记_10_进程和线程">
+<meta property="og:url" content="https://ixiaochuan.top/2018/02/28/Python学习笔记-10-进程和线程/index.html">
 <meta property="og:site_name" content="上善若水•坚持者•思考者">
-<meta property="og:description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
-<meta property="og:updated_time" content="2017-04-20T15:08:19.000Z">
+<meta property="og:description" content="09 IO编程文件读写">
+<meta property="og:updated_time" content="2018-02-28T07:49:56.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爱与坚持，iOS开发的坚持者!">
-<meta name="twitter:description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
+<meta name="twitter:title" content="Python学习笔记_10_进程和线程">
+<meta name="twitter:description" content="09 IO编程文件读写">
 
     
     <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
@@ -85,14 +85,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/01/01/热爱与坚持/" title="爱与坚持，iOS开发的坚持者!" itemprop="url">爱与坚持，iOS开发的坚持者!</a>
+      <a href="/2018/02/28/Python学习笔记-10-进程和线程/" title="Python学习笔记_10_进程和线程" itemprop="url">Python学习笔记_10_进程和线程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
   <p class="article-time">
-    <time datetime="2017-01-01T13:10:55.000Z" itemprop="datePublished"> 发表于 01-01-2017</time>
+    <time datetime="2018-02-28T14:17:49.000Z" itemprop="datePublished"> 发表于 02-28-2018</time>
     
   </p>
 </header>
@@ -101,15 +101,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#09-IO编程"><span class="toc-number">1.</span> <span class="toc-text">09 IO编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件读写"><span class="toc-number">1.1.</span> <span class="toc-text">文件读写</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		  
+		<a id="more"></a>
+<h1 id="09-IO编程"><a href="#09-IO编程" class="headerlink" title="09 IO编程"></a>09 IO编程</h1><h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>►<a class="article-category-link" href="/categories/Python/学习笔记/">学习笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/学习笔记/">学习笔记</a>
+  </div>
 
 </div>
 
@@ -117,7 +128,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2017/01/01/热爱与坚持/" data-title="爱与坚持，iOS开发的坚持者! | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2018/02/28/Python学习笔记-10-进程和线程/" data-title="Python学习笔记_10_进程和线程 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,20 +141,20 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/01/22/2017年-展望与规划/" title="2017年 展望与规划">
-  <strong>上一篇：</strong><br/>
-  <span>
-  2017年 展望与规划</span>
+
+<div class="next">
+<a href="/2018/02/27/Python学习笔记-09-IO编程/"  title="Python学习笔记_09_IO编程">
+ <strong>下一篇：</strong><br/> 
+ <span>Python学习笔记_09_IO编程
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/01/01/热爱与坚持/" data-title="爱与坚持，iOS开发的坚持者!" data-url="https://ixiaochuan.top/2017/01/01/热爱与坚持/"></div>
+	<div class="ds-thread" data-thread-key="2018/02/28/Python学习笔记-10-进程和线程/" data-title="Python学习笔记_10_进程和线程" data-url="https://ixiaochuan.top/2018/02/28/Python学习笔记-10-进程和线程/"></div>
 </section>
 
 
@@ -153,7 +164,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#09-IO编程"><span class="toc-number">1.</span> <span class="toc-text">09 IO编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件读写"><span class="toc-number">1.1.</span> <span class="toc-text">文件读写</span></a></li></ol></li></ol>
  
   </div>
 
