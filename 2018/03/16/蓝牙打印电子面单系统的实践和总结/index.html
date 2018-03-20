@@ -1,0 +1,653 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>蓝牙打印电子面单系统iOS端的技术实现和总结 | 上善若水•坚持者•思考者</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="首先简要介绍本文内容(最好有一定蓝牙开发基础):
+
+第一部分:蓝牙打印电子面单的需求来源
+第二部分:蓝牙打印电子面单的需求分析.
+第三部分:具体实现(大体内容),遇到的问题,以及解决方案.
+第四部分:需要注意的细节总结.
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线,快递员可以通过该App实现向中邮速递易相关智能设备投件,以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
+<meta property="og:url" content="https://ixiaochuan.top/2018/03/16/蓝牙打印电子面单系统的实践和总结/index.html">
+<meta property="og:site_name" content="上善若水•坚持者•思考者">
+<meta property="og:description" content="首先简要介绍本文内容(最好有一定蓝牙开发基础):
+
+第一部分:蓝牙打印电子面单的需求来源
+第二部分:蓝牙打印电子面单的需求分析.
+第三部分:具体实现(大体内容),遇到的问题,以及解决方案.
+第四部分:需要注意的细节总结.
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线,快递员可以通过该App实现向中邮速递易相关智能设备投件,以">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UQChh.md.jpg">
+<meta property="og:updated_time" content="2018-03-20T07:15:37.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
+<meta name="twitter:description" content="首先简要介绍本文内容(最好有一定蓝牙开发基础):
+
+第一部分:蓝牙打印电子面单的需求来源
+第二部分:蓝牙打印电子面单的需求分析.
+第三部分:具体实现(大体内容),遇到的问题,以及解决方案.
+第四部分:需要注意的细节总结.
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线,快递员可以通过该App实现向中邮速递易相关智能设备投件,以">
+<meta name="twitter:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="上善若水•坚持者•思考者" title="上善若水•坚持者•思考者"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="上善若水•坚持者•思考者">上善若水•坚持者•思考者</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/16/蓝牙打印电子面单系统的实践和总结/" title="蓝牙打印电子面单系统iOS端的技术实现和总结" itemprop="url">蓝牙打印电子面单系统iOS端的技术实现和总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-16T07:01:15.000Z" itemprop="datePublished"> 发表于 03-16-2018</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="UYjAX.md.png"></a></p>
+<p>首先简要介绍本文内容(最好有一定蓝牙开发基础):</p>
+<ul>
+<li>第一部分:蓝牙打印电子面单的需求来源</li>
+<li>第二部分:蓝牙打印电子面单的需求分析.</li>
+<li>第三部分:具体实现(大体内容),遇到的问题,以及解决方案.</li>
+<li>第四部分:需要注意的细节总结.</li>
+</ul>
+<blockquote>
+<h2 id="需求来源"><a href="#需求来源" class="headerlink" title="需求来源"></a>需求来源</h2></blockquote>
+<p>蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线,快递员可以通过该App实现向中邮速递易相关智能设备<font color="red">投件</font>,以及从中<font color="red">取件</font>的交互流程.<br></p>
+<p>而打印电子面单的需求来源于取件流程,取件流程需要快递员从智能设备中取出用户所投快件,并生成相应面单<font color="gray">(手填面单,站点机打面单,便携机打面单)</font>,并将面单贴到快件上,完成标记发货流程.然而手填面单效率极低,并且出错率很高;而站点机打面单也存在需要额外标记措施,快件送回站点过程中易混乱,并且效率也比较低等等问题;所以,现在主流快递公司很多 采用了蓝牙便携设备打印电子面单的方案,可以方便快递员实现现场发货操作,极大提高了取件效率,同时也大大降低了人工操作的出错率.<br></p>
+<p>而本次的需求就是:<font color="red">实现快递员App支持多家快递公司、多种蓝牙便携打印设备的电子面单打印功能.</font><br></p>
+<blockquote>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2></blockquote>
+<p>经过技术调研,发现移动端Android和iOS两边的技术实现不尽相同,Android那边采用的是比较通用的端口输入输出流的方式,和其他的硬件操作比较类似,并且普适了各种设备;而iOS这边技术采用更多元化,但是从技术更新角度来看,采用BLE4.0的CoreBluetooth框架更合适.<br></p>
+<p>而后台系统,则采用了快递鸟的API通用接口,获取各家快递公司的面单单号支持,然后将订单数据绑定到对应的面单号上,生成我们特用的模板.<br></p>
+<p>考虑到Android和iOS系统不同的实现方式,为了实现统一和复用,最后跟后台人员数次会议商议后敲定了如下整体方案:<font color="red">蓝牙打印电子面单采用CPCL指令集下发的模式,先由App端开发人员根据实际面单编写(对应公司+对应设备型号)CPCL指令集,然后交由后台配置数据,再统一管理、下发给移动端,移动端再将模板下发便携蓝牙设备,打印出电子面单.</font>但是仍然存在有不使用电子面单的快递公司,所以这里在实现蓝牙打印电子面单的同时,保留了手写面单绑定的入口,这样就可以全面的满足快递员<font color="red">取件+发货</font>的需求了.<br></p>
+<blockquote>
+<h2 id="代码实现与问题解决"><a href="#代码实现与问题解决" class="headerlink" title="代码实现与问题解决"></a>代码实现与问题解决</h2></blockquote>
+<p>本篇主要提供iOS端的技术实现方案.<br></p>
+<h3 id="CoreBluetooth框架介绍"><a href="#CoreBluetooth框架介绍" class="headerlink" title="CoreBluetooth框架介绍"></a>CoreBluetooth框架介绍</h3><p>iOS的CoreBluetooth库,解决了大部分跟硬件直接交互的问题,给开发人员提供了友好便捷的集成方式.CoreBluetooth框架主要分为以下两种模式:</p>
+<ul>
+<li>CBCentralMannager中心模式 :以手机(app)作为中心,连接其他外设.(本次主要使用的方式)</li>
+<li>CBPeripheralManager外设模式：以手机作为外设,连接其他中心设备.</li>
+</ul>
+<p>本次需求的场景,使用到的是CBCentralManager中心模式.CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构:<br><br><a href=""><img src="https://s1.ax2x.com/2018/03/19/UQChh.md.jpg" alt="层级图片"></a></p>
+<p><font color="red">CBPerpheral外设</font>==(包含多个)==&gt;<font color="red">CBService服务</font>==(包含多个)==&gt;<font color="red">CBCharacteristic特征</font>==(包含多个)==&gt;<font color="red">Description描述</font><br></p>
+<p><font color="red">外设</font>是CoreBluetooth对外部设备的抽象对象,外设具有<font color="red">name</font>等属性,一个外设可以包含多种<font color="red">服务</font>,服务具有一个唯一的标识量:<font color="green">UUID</font>,服务集合中的每个服务都提供不同的服务内容,比方说提供设备信息、提供写入数据接口等,对于硬件开发商来说可以自己定制自己的服务,不过一般都有默认的服务提供;一个服务可以包含多个<font color="red">特征值</font>,每个特征值也具有自己的唯一标识量:<font color="green">UUID</font>,每个特征值提供具体的比方写入、读取、广播等可操作行为,是一般蓝牙开发操作的最小单位;一个特征值包含多个<font color="red">描述</font>.<br></p>
+<p>CoreBluetooth框架秉承了Objective-C语言系统框架的一贯风格,采用了协议代理的开发方式.主要遵循两个协议CBCentralManagerDelegate和CBPeripheralDelegate.CBCentralManagerDelegate主要包含了中心对象连接外设时的操作方法和状态获取回调方法;而CBPeripheralDelegate则主要包含了外设对象的服务、特征值等等的发现回调方法.</p>
+<p>而CoreBluetooth框架的<font color="red">中心模式</font>的开发规则如下:</p>
+<ol>
+<li><p>创建CBCentralManager实例,配置代理控制器,然后调用扫描外设方法<figure class="highlight plain"><figcaption><span>(void)scanForPeripheralsWithServices:(nullable NSArray<cbuuid *=""> *)serviceUUIDs options:(nullable NSDictionary<nsstring *,="" id=""> *)options;```</nsstring></cbuuid></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2. 在代理控制器中,实现扫描到外设的代理方法:```-  void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *, id&gt; *)advertisementData RSSI:(NSNumber *)RSSI;```,在该方法中可以获取到扫描到的外设列表,用来进行相应的展示或者操作.</div><div class="line">3. 在扫描到的外设列表中,选择需要的外设,调用CBCentralManager的连接外设方法:```- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *, id&gt; *)options;</div></pre></td></tr></table></figure></p>
+</li>
+<li><p>在代理控制器中,实现连接到外设的代理方法:<figure class="highlight plain"><figcaption><span>(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral;```,在该方法中,继续调用发现服务的方法:```- (void)discoverServices:(nullable NSArray<cbuuid *=""> *)serviceUUIDs;```</cbuuid></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5. 在代理控制器中,实现发现外设服务的代理方法:```- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs;```,在该方法中,继续调用发现特征值的方法:```- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service;</div></pre></td></tr></table></figure></p>
+</li>
+<li><p>在代理服务其中,实现发现特征值的代理方法:<code>- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error</code>,在该方法中就可以获取到对应的特征值,具体的写入和读取操作,就来源于这些特征值.</p>
+</li>
+</ol>
+<h3 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h3><p>因为考虑到蓝牙设备的全局唯一性和通用性,所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容.而管理类处理大多数跟系统蓝牙沟通的问题,通过自身的协议,只对外公开一些业务相关的操作即可:扫描到外设、</p>
+<blockquote>
+<h2 id="细节注意问题总结"><a href="#细节注意问题总结" class="headerlink" title="细节注意问题总结"></a>细节注意问题总结</h2></blockquote>
+<p>大坑手机啊</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2018/03/16/蓝牙打印电子面单系统的实践和总结/" data-title="蓝牙打印电子面单系统iOS端的技术实现和总结 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/03/06/Python学习笔记-12-常用内建模块/"  title="Python学习笔记_12_常用内建模块">
+ <strong>下一篇：</strong><br/> 
+ <span>Python学习笔记_12_常用内建模块
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/03/16/蓝牙打印电子面单系统的实践和总结/" data-title="蓝牙打印电子面单系统iOS端的技术实现和总结" data-url="https://ixiaochuan.top/2018/03/16/蓝牙打印电子面单系统的实践和总结/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/学习笔记/" title="学习笔记">学习笔记<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/学习笔记/" title="学习笔记">学习笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/笔记/" title="笔记">笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/书籍/" title="书籍">书籍<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里团队_苹果核_电商动态解决方案">阿里团队_苹果核_电商动态解决方案</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.devtang.com" target="_blank" title="猿题库_唐巧_iOS进阶">猿题库_唐巧_iOS进阶</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.liaoxuefeng.com" target="_blank" title="技术写作者_廖雪峰_综合">技术写作者_廖雪峰_综合</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.wanglongshuai.com" target="_blank" title="趣点_王隆帅_iOS|PHP">趣点_王隆帅_iOS|PHP</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://kittenyang.com" target="_blank" title="独立开发者_杨骑滔_动画经验">独立开发者_杨骑滔_动画经验</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://lvwenhan.com" target="_blank" title="独立开发者_吕文翰_PHP|iOS">独立开发者_吕文翰_PHP|iOS</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="技术大牛博客集">技术大牛博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS杂货铺">iOS杂货铺</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com" target="_blank" title="Github">Github</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@IXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
