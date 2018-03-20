@@ -37,7 +37,7 @@
 蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线,快递员可以通过该App实现向中邮速递易相关智能设备投件,以">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UQChh.md.jpg">
-<meta property="og:updated_time" content="2018-03-20T07:15:37.242Z">
+<meta property="og:updated_time" content="2018-03-20T07:25:05.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
 <meta name="twitter:description" content="首先简要介绍本文内容(最好有一定蓝牙开发基础):
@@ -136,7 +136,7 @@
 		</div>
 		
 		<a id="more"></a>
-<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="UYjAX.md.png"></a></p>
+<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a></p>
 <p>首先简要介绍本文内容(最好有一定蓝牙开发基础):</p>
 <ul>
 <li>第一部分:蓝牙打印电子面单的需求来源</li>
@@ -157,25 +157,35 @@
 <blockquote>
 <h2 id="代码实现与问题解决"><a href="#代码实现与问题解决" class="headerlink" title="代码实现与问题解决"></a>代码实现与问题解决</h2></blockquote>
 <p>本篇主要提供iOS端的技术实现方案.<br></p>
-<h3 id="CoreBluetooth框架介绍"><a href="#CoreBluetooth框架介绍" class="headerlink" title="CoreBluetooth框架介绍"></a>CoreBluetooth框架介绍</h3><p>iOS的CoreBluetooth库,解决了大部分跟硬件直接交互的问题,给开发人员提供了友好便捷的集成方式.CoreBluetooth框架主要分为以下两种模式:</p>
+<blockquote>
+<h3 id="CoreBluetooth框架介绍"><a href="#CoreBluetooth框架介绍" class="headerlink" title="CoreBluetooth框架介绍"></a>CoreBluetooth框架介绍</h3></blockquote>
+<p>iOS的CoreBluetooth库,解决了大部分跟硬件直接交互的问题,给开发人员提供了友好便捷的集成方式.CoreBluetooth框架主要分为以下两种模式:</p>
 <ul>
 <li>CBCentralMannager中心模式 :以手机(app)作为中心,连接其他外设.(本次主要使用的方式)</li>
 <li>CBPeripheralManager外设模式：以手机作为外设,连接其他中心设备.</li>
 </ul>
-<p>本次需求的场景,使用到的是CBCentralManager中心模式.CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构:<br><br><a href=""><img src="https://s1.ax2x.com/2018/03/19/UQChh.md.jpg" alt="层级图片"></a></p>
+<p>本次需求的场景,使用到的是CBCentralManager中心模式.CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构:<br><br><a href=""><img src="https://s1.ax2x.com/2018/03/19/UQChh.md.jpg" alt="层级介绍"></a></p>
 <p><font color="red">CBPerpheral外设</font>==(包含多个)==&gt;<font color="red">CBService服务</font>==(包含多个)==&gt;<font color="red">CBCharacteristic特征</font>==(包含多个)==&gt;<font color="red">Description描述</font><br></p>
 <p><font color="red">外设</font>是CoreBluetooth对外部设备的抽象对象,外设具有<font color="red">name</font>等属性,一个外设可以包含多种<font color="red">服务</font>,服务具有一个唯一的标识量:<font color="green">UUID</font>,服务集合中的每个服务都提供不同的服务内容,比方说提供设备信息、提供写入数据接口等,对于硬件开发商来说可以自己定制自己的服务,不过一般都有默认的服务提供;一个服务可以包含多个<font color="red">特征值</font>,每个特征值也具有自己的唯一标识量:<font color="green">UUID</font>,每个特征值提供具体的比方写入、读取、广播等可操作行为,是一般蓝牙开发操作的最小单位;一个特征值包含多个<font color="red">描述</font>.<br></p>
 <p>CoreBluetooth框架秉承了Objective-C语言系统框架的一贯风格,采用了协议代理的开发方式.主要遵循两个协议CBCentralManagerDelegate和CBPeripheralDelegate.CBCentralManagerDelegate主要包含了中心对象连接外设时的操作方法和状态获取回调方法;而CBPeripheralDelegate则主要包含了外设对象的服务、特征值等等的发现回调方法.</p>
 <p>而CoreBluetooth框架的<font color="red">中心模式</font>的开发规则如下:</p>
 <ol>
-<li><p>创建CBCentralManager实例,配置代理控制器,然后调用扫描外设方法<figure class="highlight plain"><figcaption><span>(void)scanForPeripheralsWithServices:(nullable NSArray<cbuuid *=""> *)serviceUUIDs options:(nullable NSDictionary<nsstring *,="" id=""> *)options;```</nsstring></cbuuid></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2. 在代理控制器中,实现扫描到外设的代理方法:```-  void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *, id&gt; *)advertisementData RSSI:(NSNumber *)RSSI;```,在该方法中可以获取到扫描到的外设列表,用来进行相应的展示或者操作.</div><div class="line">3. 在扫描到的外设列表中,选择需要的外设,调用CBCentralManager的连接外设方法:```- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *, id&gt; *)options;</div></pre></td></tr></table></figure></p>
+<li><p>创建CBCentralManager实例,配置代理控制器,然后调用扫描外设方法<code>- (void)scanForPeripheralsWithServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs options:(nullable NSDictionary&lt;NSString *, id&gt; *)options;</code></p>
 </li>
-<li><p>在代理控制器中,实现连接到外设的代理方法:<figure class="highlight plain"><figcaption><span>(void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral;```,在该方法中,继续调用发现服务的方法:```- (void)discoverServices:(nullable NSArray<cbuuid *=""> *)serviceUUIDs;```</cbuuid></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5. 在代理控制器中,实现发现外设服务的代理方法:```- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs;```,在该方法中,继续调用发现特征值的方法:```- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service;</div></pre></td></tr></table></figure></p>
+<li><p>在代理控制器中,实现扫描到外设的代理方法:<code>-  void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *, id&gt; *)advertisementData RSSI:(NSNumber *)RSSI;</code>,在该方法中可以获取到扫描到的外设列表,用来进行相应的展示或者操作.</p>
+</li>
+<li><p>在扫描到的外设列表中,选择需要的外设,调用CBCentralManager的连接外设方法:<code>- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *, id&gt; *)options;</code></p>
+</li>
+<li><p>在代理控制器中,实现连接到外设的代理方法:<code>- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral;</code>,在该方法中,继续调用发现服务的方法:<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs;</code></p>
+</li>
+<li><p>在代理控制器中,实现发现外设服务的代理方法:<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs;</code>,在该方法中,继续调用发现特征值的方法:<code>- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service;</code></p>
 </li>
 <li><p>在代理服务其中,实现发现特征值的代理方法:<code>- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error</code>,在该方法中就可以获取到对应的特征值,具体的写入和读取操作,就来源于这些特征值.</p>
 </li>
 </ol>
-<h3 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h3><p>因为考虑到蓝牙设备的全局唯一性和通用性,所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容.而管理类处理大多数跟系统蓝牙沟通的问题,通过自身的协议,只对外公开一些业务相关的操作即可:扫描到外设、</p>
+<blockquote>
+<h3 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h3></blockquote>
+<p>因为考虑到蓝牙设备的全局唯一性和通用性,所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容.而管理类处理大多数跟系统蓝牙沟通的问题,通过自身的协议,只对外公开一些业务相关的操作即可:扫描到外设、</p>
 <blockquote>
 <h2 id="细节注意问题总结"><a href="#细节注意问题总结" class="headerlink" title="细节注意问题总结"></a>细节注意问题总结</h2></blockquote>
 <p>大坑手机啊</p>
