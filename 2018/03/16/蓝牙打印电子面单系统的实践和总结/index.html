@@ -11,7 +11,7 @@
     
 
     
-    <meta name="description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：
+    <meta name="description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
 
 第一部分：蓝牙打印电子面单的需求来源。
 第二部分：蓝牙打印电子面单的需求分析。
@@ -21,12 +21,12 @@
 
 
 需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App">
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
 <meta property="og:url" content="https://ixiaochuan.top/2018/03/16/蓝牙打印电子面单系统的实践和总结/index.html">
 <meta property="og:site_name" content="上善若水•坚持者•思考者">
-<meta property="og:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：
+<meta property="og:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
 
 第一部分：蓝牙打印电子面单的需求来源。
 第二部分：蓝牙打印电子面单的需求分析。
@@ -36,15 +36,15 @@
 
 
 需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App">
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPzOl.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPFXY.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UyUSK.jpg">
-<meta property="og:updated_time" content="2018-03-21T05:04:45.362Z">
+<meta property="og:updated_time" content="2018-03-21T06:51:09.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
-<meta name="twitter:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：
+<meta name="twitter:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
 
 第一部分：蓝牙打印电子面单的需求来源。
 第二部分：蓝牙打印电子面单的需求分析。
@@ -54,7 +54,7 @@
 
 
 需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App">
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
 <meta name="twitter:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
 
     
@@ -136,13 +136,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
 		
 		</div>
 		
 		<a id="more"></a>
-<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a></p>
-<p>首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：</p>
+<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a>   </p>
+<p>首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   </p>
 <ul>
 <li>第一部分：蓝牙打印电子面单的需求来源。</li>
 <li>第二部分：蓝牙打印电子面单的需求分析。</li>
@@ -152,31 +152,79 @@
 </ul>
 <blockquote>
 <h2 id="需求来源"><a href="#需求来源" class="headerlink" title="需求来源"></a>需求来源</h2></blockquote>
-<p>蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App实现向中邮速递易相关智能设备<font color="red">投件</font>，以及从中<font color="red">取件</font>的交互流程。<br></p>
-<p>而打印电子面单的需求来源于取件流程，取件流程需要快递员从智能设备中取出用户所投快件，并生成相应面单<font color="gray">(手填面单，站点机打面单，便携机打面单)</font>，并将面单贴到快件上，完成标记发货流程。然而手填面单效率极低，并且出错率很高；而站点机打面单也存在需要额外标记措施，快件送回站点过程中易混乱，并且效率也比较低等等问题；所以，现在主流快递公司很多采用了蓝牙便携设备打印电子面单的方案，可以方便快递员实现现场发货操作，极大提高了取件效率，同时也大大降低了人工操作的出错率。<br></p>
-<p>而本次的需求就是：<font color="red">实现快递员App支持多家快递公司、多种型号蓝牙便携打印设备的电子面单打印功能。</font><br></p>
+<p>蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App实现向中邮速递易相关智能设备<font color="red">投件</font>，以及从中<font color="red">取件</font>的交互流程。   </p>
+<p>而打印电子面单的需求来源于取件流程，取件流程需要快递员从智能设备中取出用户所投快件，并生成相应面单<font color="gray">(手填面单，站点机打面单，便携机打面单)</font>，并将面单贴到快件上，完成标记发货流程。然而手填面单效率极低，并且出错率很高；而站点机打面单也存在需要额外标记措施，快件送回站点过程中易混乱，并且效率也比较低等等问题；所以，现在主流快递公司很多采用了蓝牙便携设备打印电子面单的方案，可以方便快递员实现现场发货操作，极大提高了取件效率，同时也大大降低了人工操作的出错率。   </p>
+<p>而本次的需求就是：<font color="red">实现快递员App支持多家快递公司、多种型号蓝牙便携打印设备的电子面单打印功能。</font>   </p>
 <blockquote>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2></blockquote>
-<p>经过技术调研，发现移动端Android和iOS两边的技术实现不尽相同，Android那边采用的是比较通用的端口输入输出流的方式，和其他的硬件操作比较类似，并且普适了各种设备；而iOS这边技术更多元化，但是从技术实用和更新角度来看，采用BLE4.0的CoreBluetooth框架更合适。<br></p>
-<p>而后台系统，则采用了快递鸟的API通用接口，获取各家快递公司的面单单号支持，然后将订单数据绑定到对应的面单号上，生成特有的模板。<br></p>
-<p>考虑到Android和iOS系统不同的实现方式，为了实现统一和复用，最后跟后台人员数次会议商议后敲定了如下整体方案：<font color="red">蓝牙打印电子面单采用CPCL指令集下发的模式，先由App端开发人员根据实际面单格式编写(对应公司+对应设备型号)CPCL指令集，然后交由后台配置数据，再统一管理、下发给移动端，移动端再将模板下发便携蓝牙打印设备，打印出电子面单，快递员再将面单贴到快件上完成整个打印电子面单、标记、发货流程。</font>但是仍然存在不使用电子面单的快递公司无法覆盖到的问题，所以这里在实现蓝牙打印电子面单的同时，保留了手写面单绑定的入口，这样就可以全面的满足快递员<font color="red">取件+发货</font>的需求了。<br></p>
+<p>经过技术调研，发现移动端Android和iOS两边的技术实现不尽相同，Android那边采用的是比较通用的端口输入输出流的方式，和其他的硬件操作比较类似，并且普适了各种设备；而iOS这边技术更多元化，但是从技术实用和更新角度来看，采用BLE4.0的CoreBluetooth框架更合适。   </p>
+<p>而后台系统，则采用了快递鸟的API通用接口，获取各家快递公司的面单单号支持，然后将订单数据绑定到对应的面单号上，生成特有的模板。   </p>
+<p>考虑到Android和iOS系统不同的实现方式，为了实现统一和复用，最后跟后台人员数次会议商议后敲定了如下整体方案：<font color="red">蓝牙打印电子面单采用CPCL指令集下发的模式，先由App端开发人员根据实际面单格式编写(对应公司+对应设备型号)CPCL指令集，然后交由后台配置数据，再统一管理、下发给移动端，移动端再将模板下发便携蓝牙打印设备，打印出电子面单，快递员再将面单贴到快件上完成整个打印电子面单、标记、发货流程。</font>但是仍然存在不使用电子面单的快递公司无法覆盖到的问题，所以这里在实现蓝牙打印电子面单的同时，保留了手写面单绑定的入口，这样就可以全面的满足快递员<font color="red">取件+发货</font>的需求了。   </p>
 <blockquote>
 <h2 id="代码实现与问题解决"><a href="#代码实现与问题解决" class="headerlink" title="代码实现与问题解决"></a>代码实现与问题解决</h2></blockquote>
-<p>本篇主要提供iOS端的技术实现方案。<br></p>
+<p>本篇主要提供iOS端的技术实现方案。   </p>
 <blockquote>
 <h3 id="CoreBluetooth框架介绍"><a href="#CoreBluetooth框架介绍" class="headerlink" title="CoreBluetooth框架介绍"></a>CoreBluetooth框架介绍</h3></blockquote>
-<p>iOS端的CoreBluetooth库，解决了大部分跟硬件直接交互的问题，给开发人员提供了友好便捷的集成方式。CoreBluetooth框架主要分为以下两种模式：</p>
+<p>iOS端的CoreBluetooth库，解决了大部分跟硬件直接交互的问题，给开发人员提供了友好便捷的集成方式。CoreBluetooth框架主要分为以下两种模式：   </p>
 <ul>
 <li>CBCentralMannager中心模式 ：以手机(app)作为中心，连接其他外设。(本次主要使用的方式)</li>
-<li>CBPeripheralManager外设模式：以手机作为外设，连接其他中心设备。</li>
+<li>CBPeripheralManager外设模式：以手机作为外设，连接其他中心设备。  </li>
 </ul>
-<p>本次需求的场景，使用到的是CBCentralManager中心模式。CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构：<br><br><img src="https://s1.ax2x.com/2018/03/20/UPzOl.jpg" alt="层级介绍"></p>
-<font color="red">CBPerpheral外设</font>==(包含多个)==&gt;<font color="red">CBService服务</font>==(包含多个)==&gt;<font color="red">CBCharacteristic特征</font>==(包含多个)==&gt;<font color="red">Description描述</font><br><br><br><font color="red">外设</font>是CoreBluetooth对外部设备的抽象对象，外设具有<font color="red">name</font>等属性，一个外设可以包含多种<font color="red">服务</font>，服务具有一个唯一的标识量：<font color="green">UUID</font>，服务集合中的每个服务都提供不同的服务内容，比方说提供设备信息、提供写入数据接口等，对于硬件开发商来说可以自己定制自己的服务，不过一般都有默认的服务提供；一个服务可以包含多个<font color="red">特征值</font>，每个特征值也具有自己的唯一标识量：<font color="green">UUID</font>，每个特征值提供具体的比方写入、读取、广播等可操作行为，是一般蓝牙开发操作的最小单位；一个特征值包含多个<font color="red">描述</font>。<br><br><br>CoreBluetooth框架秉承了Objective-C语言编写的系统框架的一贯风格，采用了协议代理的开发方式。主要遵循两个协议CBCentralManagerDelegate和CBPeripheralDelegate。CBCentralManagerDelegate主要包含了中心对象连接外设时的状态获取回调方法；而CBPeripheralDelegate则主要包含了外设对象的服务、特征值等等的发现回调方法。<br><br><br>而CoreBluetooth框架的<font color="red">中心模式</font>的开发规则如下：<br><br>1. 创建CBCentralManager实例，配置代理控制器，然后调用扫描外设方法<code>- (void)scanForPeripheralsWithServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs options:(nullable NSDictionary&lt;NSString *， id&gt; *)options；</code><br><br>2. 在代理控制器中，实现扫描到外设的代理方法:<code>-  void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *， id&gt; *)advertisementData RSSI:(NSNumber *)RSSI；</code>，在该方法中可以获取到扫描到的外设列表，用来进行相应的展示或者操作。<br><br>3. 在扫描到的外设列表中，选择需要的外设，调用CBCentralManager的连接外设方法:<code>- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *， id&gt; *)options；</code><br><br>4. 在代理控制器中，实现连接到外设的代理方法:<code>- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral；</code>，在该方法中，继续调用发现服务的方法：<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code><br><br>5. 在代理控制器中，实现发现外设服务的代理方法：<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code>，在该方法中，继续调用发现特征值的方法：<code>- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service；</code><br><br>6. 在代理控制器中，实现发现特征值的代理方法：<code>- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error</code>，在该方法中就可以获取到对应的特征值，具体的写入和读取操作，就来源于这些特征值。<br><br>7. 在第6步中获取到的特征值中，筛选出需要的特征值，进行相应的写入、读取、注册广播操作。<br><br>&gt;### 技术实现<br><br>因为考虑到蓝牙设备的全局唯一性和通用性，所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容。而管理类作为CBCenterManager代理，处理大多数跟系统蓝牙沟通的问题：<br><br><img src="https://s1.ax2x.com/2018/03/20/UPFXY.jpg" alt="系统代理方法"><br><br>然后配置一套自身的协议，只对外公开一些必要的业务相关的操作即可：<br><br><img src="https://s1.ax2x.com/2018/03/20/UyUSK.jpg" alt="管理类公开方法"><br><br>通过两层协议(PrintManager遵守系统协议、业务层遵守PrintManager协议)的方式，将与系统蓝牙框架交互的处理跟与业务层交互的处理分离开了，并将项目中使用蓝牙的操作分为了如下几个阶段：<br><br><br><em> <strong>搜索外设阶段</strong><br><br>这里在系统蓝牙硬件搜索到外设的时候，CBCenterManager的回调方法每次都是扫描到外设就会回调，包含可能已经扫描到过的外设，所以这里需要进行排除重复处理。<br><br><br>这里有个小处理，就是业务里面有一个需求，链接过某个设备之后，如果手机打开了蓝牙，那就自动连接之前的设备。所以这里添加了自动连接的属性配置，如果打开自动链接，会在搜索阶段从本地缓存取出之前最后一次链接过的外设的identifier，然后对比扫描到的外设，如果符合，则会自动调用连接方法，从而实现<font color="red">“自动连接”</font>。<br><br><br>这里还有个小技巧，就是连接方法，系统提供了根据对应服务UUID集合扫描含有特定服务的外设的方法，根据业务需求，可以将特定的服务UUID集合传入给扫描方法，这样可以排除很多具有蓝牙但是不为打印业务所用的设备。<br><br><br>而在对应的系统回调方法里，还可以获取到外设的广播信息，以及外设的信号强度信息，在有需要的项目里可以使用，本项目未使用到，就不多做解释了。<br><br><br>最后PrintManager通过协议，将扫描到的设备信息，回调给业务层使用。<br>
+<p>本次需求的场景，使用到的是CBCentralManager中心模式。CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构：   </p>
+<div align="center"><img src="https://s1.ax2x.com/2018/03/20/UPzOl.jpg" alt="&lt;font size=2&gt;&lt;font color=red&gt;CBPerpheral外设&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;CBService服务&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;CBCharacteristic特征&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;Description描述&lt;/font&gt;&lt;/font&gt;"></div>
 
-</em> <strong>链接外设阶段</strong><br><br>PrintManager自动连接，或者业务层主动调用PrintManager的链接方法，主动链接某个外设后，会有链接成功和连接失败的回调方法，如果主动调用了断开连接的方法，还有断开连接回调的方法。<br><br><br>这里在连接成功后，对连上的外设的identifier进行了本地缓存处理，以供下次自动链接时使用，同时通过PrintManager协议方法，将获取到的状态信息回调给业务层处理，然后自动调用了系统发现服务的方法。<br><br><br>而在连接失败的方法里面也进行了同样的回调处理，将重连或者其他操作的权限，交给了业务层。<br><br><br><em> <strong>发现服务阶段</strong><br><br>发现服务阶段，同样的会有系统回调方法，操作和上面的连接回调方法基本类似，PrintManager对发现的服务将继续进行发现特征值操作，PrintManager同样的会将该步骤回调给业务层，业务层将对发现服务的外设进行相应的处理。<br><br><br>这里有个小问题，因为我们是便携蓝牙打印机，大部分厂商的机型都提供了一个通用UUID<code>类似FF00或者49535343-FE7D-4AE5-8FA9-9FAFD205E455</code>的带有可写入特征值的服务，所以只需要发现对应UUID服务下的特征值并写入模板就可以了。这里还有一个<font color="red">除杂</font>的操作比较有意思，就是在发现的各种蓝牙设备里面，只有蓝牙打印设备才具有某个特殊的服务UUID，所以这里还在业务层进行了除杂操作，就是将不符合UUID的外设，在连接之前就排除掉了，这样省去了连接到其他类型设备的冗余操作。<br>
+<p><font color="red">外设</font>是CoreBluetooth对外部设备的抽象对象，外设具有<font color="red">name</font>等属性，一个外设可以包含多种<font color="red">服务</font>，服务具有一个唯一的标识量：<font color="green">UUID</font>，服务集合中的每个服务都提供不同的服务内容，比方说提供设备信息、提供写入数据接口等，对于硬件开发商来说可以自己定制自己的服务，不过一般都有默认的服务提供；一个服务可以包含多个<font color="red">特征值</font>，每个特征值也具有自己的唯一标识量：<font color="green">UUID</font>，每个特征值提供具体的比方写入、读取、广播等可操作行为，是一般蓝牙开发操作的最小单位；一个特征值包含多个<font color="red">描述</font>。   </p>
+<p>CoreBluetooth框架秉承了Objective-C语言编写的系统框架的一贯风格，采用了协议代理的开发方式。主要遵循两个协议CBCentralManagerDelegate和CBPeripheralDelegate。CBCentralManagerDelegate主要包含了中心对象连接外设时的状态获取回调方法；而CBPeripheralDelegate则主要包含了外设对象的服务、特征值等等的发现回调方法。   </p>
+<p>而CoreBluetooth框架的<font color="red">中心模式</font>的开发规则如下：  </p>
+<ol>
+<li><p>创建CBCentralManager实例，配置代理控制器，然后调用扫描外设方法：<code>-(void)scanForPeripheralsWithServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs options:(nullable NSDictionary&lt;NSString *,id&gt; *)options;</code></p>
+</li>
+<li><p>在代理控制器中，实现扫描到外设的代理方法: <code>-(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *, id&gt; *)advertisementData RSSI:(NSNumber *)RSSI;</code> ，在该方法中可以获取到扫描到的外设列表，用来进行相应的展示或者操作。</p>
+</li>
+<li><p>在扫描到的外设列表中，选择需要的外设，调用CBCentralManager的连接外设方法: <code>- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *, id&gt; *)options；</code></p>
+</li>
+<li><p>在代理控制器中，实现连接到外设的代理方法: <code>- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral；</code>，在该方法中，继续调用发现服务的方法：<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code> </p>
+</li>
+<li><p>在代理控制器中，实现发现外设服务的代理方法： <code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code>，在该方法中，继续调用发现特征值的方法：<code>- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service；</code> </p>
+</li>
+<li><p>在代理控制器中，实现发现特征值的代理方法： <code>- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error</code>，在该方法中就可以获取到对应的特征值，具体的写入和读取操作，就来源于这些特征值。</p>
+</li>
+<li><p>在第6步中获取到的特征值中，筛选出需要的特征值，进行相应的写入、读取、注册广播操作。     </p>
+</li>
+</ol>
+<blockquote>
+<h3 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h3></blockquote>
+<p>因为考虑到蓝牙设备的全局唯一性和通用性，所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容。而管理类作为CBCenterManager代理，处理大多数跟系统蓝牙沟通的问题：   </p>
+<div align="center"><img src="https://s1.ax2x.com/2018/03/20/UPFXY.jpg" alt="系统代理方法"></div><br>然后配置一套自身的协议，只对外公开一些必要的业务相关的操作即可：<br><div align="center"><img src="https://s1.ax2x.com/2018/03/20/UyUSK.jpg" alt="管理类公开方法"></div>
 
-</em> <strong>发现特征值阶段</strong><br><br>这里有个小技巧，涉及到我们业务上的一些有意思的东西，因为我们采用了CPCL指令集下发的形式，并且便携蓝牙打印机的型号比较多，需要定位到某一个型号的打印机，并且对应到是哪个快递公司的，才能唯一确定下发的模板。而通过对各个型号的打印机提供的服务的整理分析，大部分打印机都会有一个通用UUID的服务里提供了通用的写入特征值，可以写入对应的模板，但是有部分打印机的通用服务下的通用特征值并不能支持，所以这里需要根据相应的机型进行判断处理，将对应的写入特征值缓存到本地，特殊机型使用特殊的特征值写入。<br><br><br>还有一个问题，因为服务下的写入特征值是不同属性的，分为如下两种：<code>CBCharacteristicWriteWithResponse</code>和<code>CBCharacteristicWriteWithoutResponse</code>，写入带回调和写入不带回调，而取用不同的属性的特征值，将直接影响到数据的写入操作，所以使用的时候要根据相应的业务进行特殊处理，这里我们项目中取用了带有写入回调属性的特征值。<br><br><br>* <font color="red"><strong>写数据阶段</strong></font>
-
+<p>通过两层协议(PrintManager遵守系统协议、业务层遵守PrintManager协议)的方式，将与系统蓝牙框架交互的处理跟与业务层交互的处理分离开了，并将项目中使用蓝牙的操作分为了如下几个阶段：<br></p>
+<ul>
+<li><strong>搜索外设阶段</strong></li>
+</ul>
+<p>这里在系统蓝牙硬件搜索到外设的时候，CBCenterManager的回调方法每次都是扫描到外设就会回调，包含可能已经扫描到过的外设，所以这里需要进行排除重复处理。<br></p>
+<p>这里有个小处理，就是业务里面有一个需求，链接过某个设备之后，如果手机打开了蓝牙，那就自动连接之前的设备。所以这里添加了自动连接的属性配置，如果打开自动链接，会在搜索阶段从本地缓存取出之前最后一次链接过的外设的identifier，然后对比扫描到的外设，如果符合，则会自动调用连接方法，从而实现<font color="red">“自动连接”</font>。<br></p>
+<p>这里还有个小技巧，就是连接方法，系统提供了根据对应服务UUID集合扫描含有特定服务的外设的方法，根据业务需求，可以将特定的服务UUID集合传入给扫描方法，这样可以排除很多具有蓝牙但是不为打印业务所用的设备。<br></p>
+<p>而在对应的系统回调方法里，还可以获取到外设的广播信息，以及外设的信号强度信息，在有需要的项目里可以使用，本项目未使用到，就不多做解释了。<br></p>
+<p>最后PrintManager通过协议，将扫描到的设备信息，回调给业务层使用。<br></p>
+<ul>
+<li><strong>链接外设阶段</strong></li>
+</ul>
+<p>PrintManager自动连接，或者业务层主动调用PrintManager的链接方法，主动链接某个外设后，会有链接成功和连接失败的回调方法，如果主动调用了断开连接的方法，还有断开连接回调的方法。<br></p>
+<p>这里在连接成功后，对连上的外设的identifier进行了本地缓存处理，以供下次自动链接时使用，同时通过PrintManager协议方法，将获取到的状态信息回调给业务层处理，然后自动调用了系统发现服务的方法。<br></p>
+<p>而在连接失败的方法里面也进行了同样的回调处理，将重连或者其他操作的权限，交给了业务层。<br></p>
+<ul>
+<li><strong>发现服务阶段</strong></li>
+</ul>
+<p>发现服务阶段，同样的会有系统回调方法，操作和上面的连接回调方法基本类似，PrintManager对发现的服务将继续进行发现特征值操作，PrintManager同样的会将该步骤回调给业务层，业务层将对发现服务的外设进行相应的处理。<br></p>
+<p>这里有个小问题，因为我们是便携蓝牙打印机，大部分厂商的机型都提供了一个通用UUID<code>类似FF00或者49535343-FE7D-4AE5-8FA9-9FAFD205E455</code>的带有可写入特征值的服务，所以只需要发现对应UUID服务下的特征值并写入模板就可以了。这里还有一个<font color="red">除杂</font>的操作比较有意思，就是在发现的各种蓝牙设备里面，只有蓝牙打印设备才具有某个特殊的服务UUID，所以这里还在业务层进行了除杂操作，就是将不符合UUID的外设，在连接之前就排除掉了，这样省去了连接到其他类型设备的冗余操作。<br></p>
+<ul>
+<li><strong>发现特征值阶段</strong></li>
+</ul>
+<p>这里有个小技巧，涉及到我们业务上的一些有意思的东西，因为我们采用了CPCL指令集下发的形式，并且便携蓝牙打印机的型号比较多，需要定位到某一个型号的打印机，并且对应到是哪个快递公司的，才能唯一确定下发的模板。而通过对各个型号的打印机提供的服务的整理分析，大部分打印机都会有一个通用UUID的服务里提供了通用的写入特征值，可以写入对应的模板，但是有部分打印机的通用服务下的通用特征值并不能支持，所以这里需要根据相应的机型进行判断处理，将对应的写入特征值缓存到本地，特殊机型使用特殊的特征值写入。<br></p>
+<p>还有一个问题，因为服务下的写入特征值是不同属性的，分为如下两种：<code>CBCharacteristicWriteWithResponse</code>和<code>CBCharacteristicWriteWithoutResponse</code>，写入带回调和写入不带回调，而取用不同的属性的特征值，将直接影响到数据的写入操作，所以使用的时候要根据相应的业务进行特殊处理，这里我们项目中取用了带有写入回调属性的特征值。<br></p>
+<ul>
+<li><strong>写数据阶段</strong></li>
+</ul>
 <p>首先最需要注意的就是，不管之前连接的设备是什么状态的，都要在写入数据之前进行判断，当前的设备是不是还在连接开启状态，只有连接开启状态的设备才能进行写入操作。<br></p>
 <p>这里还有几个比较有意思的小事情。<font color="red">一个是关于写入类型的：</font>因为系统给特征值的写入方法如下：<code>- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type；</code>，这里需要注意type必须传入之前提到过的枚举类型，如果是带有回调的类型，可以在PrintManager里面实现相应的回调方法，并在相应的方法里面进行一些业务操作。<br></p>
 <p><font color="red">另一个是关于下发数据类型的：</font>需要注意的是数据下发是以NSData类型下发的，而我们项目采用的是CPCL指令集下发的方案，移动端从后台直接获取的是一段文本，这里需要将文本类型转换成NSData类型，并且要注意使用相应的编码规范，这里我们使用<code>kCFStringEncodingGB_18030_2000</code>。<br></p>
@@ -216,6 +264,16 @@
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/知识点总结/">知识点总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/蓝牙开发/">蓝牙开发</a>
+  </div>
 
 </div>
 
@@ -259,7 +317,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
  
   </div>
 
@@ -299,6 +357,10 @@
 		  
 		
 		  
+			<li><a href="/categories/知识点总结/" title="知识点总结">知识点总结<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/笔记/" title="笔记">笔记<sup>2</sup></a></li>
 		  
 		
@@ -329,6 +391,10 @@
 		
 			
 				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙开发/" title="蓝牙开发">蓝牙开发<sup>1</sup></a></li>
 			
 		
 		</ul>
