@@ -4,22 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>上善若水•坚持者•思考者</title>
+    <title>iOS开发中的单元测试 | 上善若水•坚持者•思考者</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
     
 
     
-    <meta name="description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
-<meta property="og:type" content="website">
-<meta property="og:title" content="上善若水•坚持者•思考者">
-<meta property="og:url" content="https://ixiaochuan.top/page/2/index.html">
+    <meta name="description" content="iOS开发中的单元测试
+单元测试:是指对软件中最小可测试单元的检查和验证.在其他类型的语言中可以表现为类、函数,甚至窗口和菜单等.而在iOS开发中,单元测试基本体现在一下几个方面:逻辑测试、UI测试、性能测试.
+单元测试是一个非常有趣也非常有用的功能.但是,听很多开发的朋友说在iOS中单元测试很鸡肋,很多公司他们不用单元测试,也可以好好的开发和发布啊,并没有什么影响,听起来确实是的,因为很多公">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发中的单元测试">
+<meta property="og:url" content="https://ixiaochuan.top/2018/04/16/iOS开发中的单元测试/index.html">
 <meta property="og:site_name" content="上善若水•坚持者•思考者">
-<meta property="og:description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
+<meta property="og:description" content="iOS开发中的单元测试
+单元测试:是指对软件中最小可测试单元的检查和验证.在其他类型的语言中可以表现为类、函数,甚至窗口和菜单等.而在iOS开发中,单元测试基本体现在一下几个方面:逻辑测试、UI测试、性能测试.
+单元测试是一个非常有趣也非常有用的功能.但是,听很多开发的朋友说在iOS中单元测试很鸡肋,很多公司他们不用单元测试,也可以好好的开发和发布啊,并没有什么影响,听起来确实是的,因为很多公">
+<meta property="og:updated_time" content="2018-04-16T08:10:14.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上善若水•坚持者•思考者">
-<meta name="twitter:description" content="零散知识整理、技术脉络总结、自我管理、时间与规划、阅读文章留存">
+<meta name="twitter:title" content="iOS开发中的单元测试">
+<meta name="twitter:description" content="iOS开发中的单元测试
+单元测试:是指对软件中最小可测试单元的检查和验证.在其他类型的语言中可以表现为类、函数,甚至窗口和菜单等.而在iOS开发中,单元测试基本体现在一下几个方面:逻辑测试、UI测试、性能测试.
+单元测试是一个非常有趣也非常有用的功能.但是,听很多开发的朋友说在iOS中单元测试很鸡肋,很多公司他们不用单元测试,也可以好好的开发和发布啊,并没有什么影响,听起来确实是的,因为很多公">
 
     
     <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
@@ -78,55 +85,92 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/01/22/2017年-展望与规划/" title="2017年 展望与规划" itemprop="url">
-  
-    <h1 itemprop="name">2017年 展望与规划</h1>
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
     
-     
-           <p itemprop="description" >转眼毕业工作已经两年多了,然回头看,实觉一直碌碌于工作中,缺少了对自己掌握的知识的有条理的总结.虽然从大学就养成的总结习惯一路坚持着跟了自己两年,然而忙于工作,一直考虑自己搭建一个个人博客,把这两年多的工作经验和技术知识点从各种笔记和书签中整理出来,希望接下来的工作不要太忙,希望</p>
-        
+      <a href="/2018/04/16/iOS开发中的单元测试/" title="iOS开发中的单元测试" itemprop="url">iOS开发中的单元测试</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2018-04-16T06:05:02.000Z" itemprop="datePublished"> 发表于 04-16-2018</time>
     
-    <time datetime="2017-01-22T13:10:55.000Z" itemprop="datePublished">01-22-2017</time>
-  </a>
-</section>
-
-
-
-
-
-
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS开发中的单元测试"><span class="toc-number">1.</span> <span class="toc-text">iOS开发中的单元测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS开发中单元测试的实现"><span class="toc-number">2.</span> <span class="toc-text">iOS开发中单元测试的实现</span></a></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<blockquote>
+<h1 id="iOS开发中的单元测试"><a href="#iOS开发中的单元测试" class="headerlink" title="iOS开发中的单元测试"></a>iOS开发中的单元测试</h1></blockquote>
+<p>单元测试:是指对软件中最小可测试单元的检查和验证.在其他类型的语言中可以表现为类、函数,甚至窗口和菜单等.而在iOS开发中,单元测试基本体现在一下几个方面:逻辑测试、UI测试、性能测试.</p>
+<p>单元测试是一个非常有趣也非常有用的功能.但是,听很多开发的朋友说在iOS中单元测试很鸡肋,很多公司他们不用单元测试,也可以好好的开发和发布啊,并没有什么影响,听起来确实是的,因为很多公司是业务驱动开发,在业务需求紧张的情况下还要额外编写测试代码,并且没有这些代码,测试部门也可以正常的走测试流程,所以就感觉很鸡肋嘛~</p>
+<p>不过,如果能够对单元测试有系统的认知和长期的坚持,你就会发现它是非常有趣,也非常值得坚持实施的一个功能~</p>
+<p>其实因为体量的问题,iOS开发中的app功能没有复杂到一定程度,使用单元测试相比较开发人员的手动测试好像并没有高效到哪里,但是如果是以下这些情况呢:编写的app体量相当之大,开发测试过程繁复,并且很难测试到每个模块,极容易出现改了旧问题,出现新问题的情况;或者app某个模块层次深入,需要启动模拟器,手动点击多次,才能到达测试位置,然而因为中间某个地方出现问题,可能又需要重新跑一遍……而在这些情况下,单元测试可以说是完美的解决了痛点,虽然单纯把单元测试放到这个用途上,感觉屈才了,但是能解决痛点的功能就是必要的功能,就有开始使用的价值,先入门而后谈精深对不对~</p>
+<blockquote>
+<h1 id="iOS开发中单元测试的实现"><a href="#iOS开发中单元测试的实现" class="headerlink" title="iOS开发中单元测试的实现"></a>iOS开发中单元测试的实现</h1></blockquote>
   
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2017/01/01/热爱与坚持/" title="爱与坚持，iOS开发的坚持者!" itemprop="url">
-  
-    <h1 itemprop="name">爱与坚持，iOS开发的坚持者!</h1>
-    
-     
-           <p itemprop="description" ></p>
-        
-    
-    <time datetime="2017-01-01T13:10:55.000Z" itemprop="datePublished">01-01-2017</time>
-  </a>
-</section>
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
 
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 </div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2018/04/16/iOS开发中的单元测试/" data-title="iOS开发中的单元测试 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/03/16/蓝牙打印电子面单系统的实践和总结/"  title="蓝牙打印电子面单系统iOS端的技术实现和总结">
+ <strong>下一篇：</strong><br/> 
+ <span>蓝牙打印电子面单系统iOS端的技术实现和总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/04/16/iOS开发中的单元测试/" data-title="iOS开发中的单元测试" data-url="https://ixiaochuan.top/2018/04/16/iOS开发中的单元测试/"></div>
+</section>
+
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS开发中的单元测试"><span class="toc-number">1.</span> <span class="toc-text">iOS开发中的单元测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS开发中单元测试的实现"><span class="toc-number">2.</span> <span class="toc-text">iOS开发中单元测试的实现</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -361,14 +405,103 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
@@ -466,4 +599,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
