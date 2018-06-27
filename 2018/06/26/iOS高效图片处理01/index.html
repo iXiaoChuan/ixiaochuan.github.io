@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>iOS高效图片IO框架实践 | 上善若水•坚持者•思考者</title>
+    <title>iOS高效图片处理01_底层图片IO技术优化 | 上善若水•坚持者•思考者</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
@@ -13,8 +13,8 @@
     
     <meta name="description" content="说起图片处理,一直以来都是移动端开发的一个重点区域. 基于移动端设备内存、CUP等硬件的局限性,图片处理在移动端的操作就显得异常需要细心,尤其是在iOS端的开发过程中,如果图片处理稍有不慎,就有可能会造成内存泄漏,严重的甚至直接崩溃或者被系统杀死.刚好前几天看的有个之前在做Linux的技术博主,写了一篇《关于图片IO操作的高效框架的练成》的技术博文,并且深入到了计算机底层的内存处理技术,进行了非">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS高效图片IO框架实践">
-<meta property="og:url" content="https://ixiaochuan.top/2018/06/26/iOS高效图片IO框架实践/index.html">
+<meta property="og:title" content="iOS高效图片处理01_底层图片IO技术优化">
+<meta property="og:url" content="https://ixiaochuan.top/2018/06/26/iOS高效图片处理01/index.html">
 <meta property="og:site_name" content="上善若水•坚持者•思考者">
 <meta property="og:description" content="说起图片处理,一直以来都是移动端开发的一个重点区域. 基于移动端设备内存、CUP等硬件的局限性,图片处理在移动端的操作就显得异常需要细心,尤其是在iOS端的开发过程中,如果图片处理稍有不慎,就有可能会造成内存泄漏,严重的甚至直接崩溃或者被系统杀死.刚好前几天看的有个之前在做Linux的技术博主,写了一篇《关于图片IO操作的高效框架的练成》的技术博文,并且深入到了计算机底层的内存处理技术,进行了非">
 <meta property="og:image" content="https://simplecodesky.com/images/ios-efficient-image-io/1523343490248.jpg">
@@ -27,9 +27,9 @@
 <meta property="og:image" content="https://simplecodesky.com/images/ios-efficient-image-io/15235197670131.gif">
 <meta property="og:image" content="https://simplecodesky.com/images/ios-efficient-image-io/15235244516302.jpg">
 <meta property="og:image" content="https://simplecodesky.com/images/ios-efficient-image-io/20160114201303391">
-<meta property="og:updated_time" content="2018-06-26T08:52:03.748Z">
+<meta property="og:updated_time" content="2018-06-27T03:24:48.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS高效图片IO框架实践">
+<meta name="twitter:title" content="iOS高效图片处理01_底层图片IO技术优化">
 <meta name="twitter:description" content="说起图片处理,一直以来都是移动端开发的一个重点区域. 基于移动端设备内存、CUP等硬件的局限性,图片处理在移动端的操作就显得异常需要细心,尤其是在iOS端的开发过程中,如果图片处理稍有不慎,就有可能会造成内存泄漏,严重的甚至直接崩溃或者被系统杀死.刚好前几天看的有个之前在做Linux的技术博主,写了一篇《关于图片IO操作的高效框架的练成》的技术博文,并且深入到了计算机底层的内存处理技术,进行了非">
 <meta name="twitter:image" content="https://simplecodesky.com/images/ios-efficient-image-io/1523343490248.jpg">
 
@@ -96,7 +96,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/26/iOS高效图片IO框架实践/" title="iOS高效图片IO框架实践" itemprop="url">iOS高效图片IO框架实践</a>
+      <a href="/2018/06/26/iOS高效图片处理01/" title="iOS高效图片处理01_底层图片IO技术优化" itemprop="url">iOS高效图片处理01_底层图片IO技术优化</a>
   </h1>
   <p class="article-author">By
        
@@ -245,7 +245,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2018/06/26/iOS高效图片IO框架实践/" data-title="iOS高效图片IO框架实践 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2018/06/26/iOS高效图片处理01/" data-title="iOS高效图片处理01_底层图片IO技术优化 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -279,7 +279,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2018/06/26/iOS高效图片IO框架实践/" data-title="iOS高效图片IO框架实践" data-url="https://ixiaochuan.top/2018/06/26/iOS高效图片IO框架实践/"></div>
+	<div class="ds-thread" data-thread-key="2018/06/26/iOS高效图片处理01/" data-title="iOS高效图片处理01_底层图片IO技术优化" data-url="https://ixiaochuan.top/2018/06/26/iOS高效图片处理01/"></div>
 </section>
 
 
@@ -325,7 +325,7 @@
 		  
 		
 		  
-			<li><a href="/categories/项目技术总结/" title="项目技术总结">项目技术总结<sup>2</sup></a></li>
+			<li><a href="/categories/项目技术总结/" title="项目技术总结">项目技术总结<sup>3</sup></a></li>
 		  
 		
 		</ul>
@@ -338,7 +338,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>6</sup></a></li>
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>7</sup></a></li>
 			
 		
 			
@@ -346,7 +346,7 @@
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>3</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>4</sup></a></li>
 			
 		
 			
