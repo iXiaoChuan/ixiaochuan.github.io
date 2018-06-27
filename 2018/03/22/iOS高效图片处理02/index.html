@@ -1,0 +1,628 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>iOS高效图片处理02_图片压缩技术的性能比较 | 上善若水•坚持者•思考者</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="之前在浏览简书技术博客的时候,看到了一篇关于图片的底层存储技术的博文,然后引发了对于图片处理方面的兴趣,就大量查阅和研读了关于iOS端的图片处理技术相关的技术文档和一些比较有意思的技术博文,然后准备系统地将图片处理这个比较常用、比较大的技术点研究透彻一些.
+之前转载过一篇关于图片IO的技术博,今天就来研讨一下关于图片处理的另一个方面–图片压缩技术.
+一、图片渲染的编码原理(WWDC2018关于图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS高效图片处理02_图片压缩技术的性能比较">
+<meta property="og:url" content="https://ixiaochuan.top/2018/03/22/iOS高效图片处理02/index.html">
+<meta property="og:site_name" content="上善若水•坚持者•思考者">
+<meta property="og:description" content="之前在浏览简书技术博客的时候,看到了一篇关于图片的底层存储技术的博文,然后引发了对于图片处理方面的兴趣,就大量查阅和研读了关于iOS端的图片处理技术相关的技术文档和一些比较有意思的技术博文,然后准备系统地将图片处理这个比较常用、比较大的技术点研究透彻一些.
+之前转载过一篇关于图片IO的技术博,今天就来研讨一下关于图片处理的另一个方面–图片压缩技术.
+一、图片渲染的编码原理(WWDC2018关于图">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9109258?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb4b7ad8f?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb922755f?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fbfadd78f?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9d5d691?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb4caff0a?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df750714e5f06?imageView2/0/w/1280/h/960/ignore-error/1">
+<meta property="og:updated_time" content="2018-06-27T08:23:21.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS高效图片处理02_图片压缩技术的性能比较">
+<meta name="twitter:description" content="之前在浏览简书技术博客的时候,看到了一篇关于图片的底层存储技术的博文,然后引发了对于图片处理方面的兴趣,就大量查阅和研读了关于iOS端的图片处理技术相关的技术文档和一些比较有意思的技术博文,然后准备系统地将图片处理这个比较常用、比较大的技术点研究透彻一些.
+之前转载过一篇关于图片IO的技术博,今天就来研讨一下关于图片处理的另一个方面–图片压缩技术.
+一、图片渲染的编码原理(WWDC2018关于图">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9109258?imageView2/0/w/1280/h/960/ignore-error/1">
+
+    
+    <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="上善若水•坚持者•思考者" title="上善若水•坚持者•思考者"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="上善若水•坚持者•思考者">上善若水•坚持者•思考者</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/22/iOS高效图片处理02/" title="iOS高效图片处理02_图片压缩技术的性能比较" itemprop="url">iOS高效图片处理02_图片压缩技术的性能比较</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-22T14:23:40.000Z" itemprop="datePublished"> 发表于 03-22-2018</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、图片渲染的编码原理-WWDC2018关于图片渲染的Session-WWDC2018-Image-and-Graphics-Best-Practices"><span class="toc-number">1.</span> <span class="toc-text">一、图片渲染的编码原理(WWDC2018关于图片渲染的Session:WWDC2018 Image and Graphics Best Practices)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-图片渲染管线"><span class="toc-number">1.1.</span> <span class="toc-text">1.图片渲染管线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-缓冲区"><span class="toc-number">1.2.</span> <span class="toc-text">2.缓冲区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-解码-Decoding"><span class="toc-number">1.3.</span> <span class="toc-text">3.解码(Decoding)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-图片来源-Image-Sources"><span class="toc-number">1.4.</span> <span class="toc-text">4.图片来源(Image Sources)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-自定义绘制-Custom-Drawing"><span class="toc-number">1.5.</span> <span class="toc-text">5.自定义绘制(Custom Drawing)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-离屏绘制-Drawing-Off-Screen"><span class="toc-number">1.6.</span> <span class="toc-text">6.离屏绘制(Drawing Off-Screen)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、常见图片压缩方式"><span class="toc-number">2.</span> <span class="toc-text">二、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">2.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">2.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">2.2.</span> <span class="toc-text">2、CoreGraphics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">2.3.</span> <span class="toc-text">3、ImageIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">2.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">2.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<p>之前在浏览简书技术博客的时候,看到了一篇关于图片的底层存储技术的博文,然后引发了对于图片处理方面的兴趣,就大量查阅和研读了关于iOS端的图片处理技术相关的技术文档和一些比较有意思的技术博文,然后准备系统地将图片处理这个比较常用、比较大的技术点研究透彻一些.</p>
+<p>之前转载过一篇关于图片IO的技术博,今天就来研讨一下关于图片处理的另一个方面–图片压缩技术.</p>
+<h2 id="一、图片渲染的编码原理-WWDC2018关于图片渲染的Session-WWDC2018-Image-and-Graphics-Best-Practices"><a href="#一、图片渲染的编码原理-WWDC2018关于图片渲染的Session-WWDC2018-Image-and-Graphics-Best-Practices" class="headerlink" title="一、图片渲染的编码原理(WWDC2018关于图片渲染的Session:WWDC2018 Image and Graphics Best Practices)"></a>一、图片渲染的编码原理<br><font size="3">(WWDC2018关于图片渲染的Session:<a href="https://developer.apple.com/videos/play/wwdc2018/219/" target="_blank" rel="external">WWDC2018 Image and Graphics Best Practices</a></font>)</h2><h3 id="1-图片渲染管线"><a href="#1-图片渲染管线" class="headerlink" title="1.图片渲染管线"></a>1.图片渲染管线</h3><p>iOS的框架是基于MVC的架构设计和实现的,所以MVC的思维模式深入到了方方面面,包括图像渲染的设计思路.而从MVC架构来讲,<code>UIImage</code>代表了Model,而<code>UIImageView</code>则代表了View,所以渲染的过程就可以如下图这样表示:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9109258?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample1"></p>
+<p>Image负责图片数据的加载,而ImageView则负责将图片数据渲染到屏幕上.但是~实际上这么区分的话,有一个非常重要的部分被忽略掉了,那就是图片数据的<code>解码</code>过程:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb4b7ad8f?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample2"></p>
+<p>而图片处理中相当耗费计算资源,会出现资源瓶颈的地方也就是解码这个地方,而为了更加清晰的了解关于图片解码的原理,我们先来了解一下计算机中<code>Buffer</code>这个概念,然后一步一步地深入.</p>
+<h3 id="2-缓冲区"><a href="#2-缓冲区" class="headerlink" title="2.缓冲区"></a>2.缓冲区</h3><p><code>Buffer</code>这个概念在计算机领域通常被定义为一段连续的内存,作为表达某种数据元素的队列来使用,可以简单理解为内存中用来表示同一对象储存内容的意思.而在图像处理领域,主要需要了解一下几种Buffer:</p>
+<p><strong><code>Image Buffers</code></strong>代表了图像(Image)在内存中的表示.每个元素代表一个像素点的颜色,Buffer大小与图像的大小成正比.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb922755f?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample3"></p>
+<p><strong><code>The Frame Buffers</code></strong>代表了图像中一帧在内存中的表示.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fbfadd78f?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample4"></p>
+<p><strong><code>Data Buffers</code></strong>代表了图像的真实文件(ImageFile)在内存中的表示.这个才是真正的图片元数据,也就是表示的是图片真实的Byte数据.而不同的图片有不同的编码格式来储存.<code>Data Buffers</code>并不像<code>ImageBuffer</code>,它并不直接描述像素点的内容,而是和其他文件一样,都是以相应编码格式编码后的Byte表示的.而图像渲染的重点步骤<code>Decode</code>这一流程的操作就是将<code>DataBuffer</code>转换为真正的代表像素点的<code>ImageBuffer</code>.</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9d5d691?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample5"></p>
+<p>所以图像渲染管线的流程实际上是<code>UIImage</code>读取加载到内存的<code>图像元数据(Data Buffers)</code>,然后经过<code>Decode</code>,将元数据解码为直接表示像素点信息的<code>Image Buffer</code>,最后交由<code>UIImageView</code>渲染到屏幕上.流程如下图所示的:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb4caff0a?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample6"></p>
+<h3 id="3-解码-Decoding"><a href="#3-解码-Decoding" class="headerlink" title="3.解码(Decoding)"></a>3.解码(Decoding)</h3><p>而解码过程(将<code>DataBuffer</code>解码到<code>Image Buffers</code>)是一个高密度计算的操作,需要CPU的高强度的计算来满足.而解码过程中,处理数据量的大小只与<code>Data Buffer</code>保存到原数据大小相关,跟渲染的UIImageView大小是没关系的.</p>
+<p>所以,这其中就有一个地方其实是有优化的余地的~比方说如果我们的应用需要加载多张清晰度较高的照片,如果没有任何优化处理,直接读取图片,然后直接渲染,那么在Decode步骤的时候,就会发现操作”吃掉”了内存和CPU的大部资源,甚至会直接造成卡死.但是,其实我们用来展示的<code>图片(ImageView)</code>的大小,完全用不到<code>DataBuffer</code>表示的这么大原始数据量.</p>
+<p>所以以上步骤我们就有优化的余地~怎么优化呢,通过<code>缩略图</code>的方式:</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df750714e5f06?imageView2/0/w/1280/h/960/ignore-error/1" alt="sample7"></p>
+<h3 id="4-图片来源-Image-Sources"><a href="#4-图片来源-Image-Sources" class="headerlink" title="4.图片来源(Image Sources)"></a>4.图片来源(Image Sources)</h3><h3 id="5-自定义绘制-Custom-Drawing"><a href="#5-自定义绘制-Custom-Drawing" class="headerlink" title="5.自定义绘制(Custom Drawing)"></a>5.自定义绘制(Custom Drawing)</h3><h3 id="6-离屏绘制-Drawing-Off-Screen"><a href="#6-离屏绘制-Drawing-Off-Screen" class="headerlink" title="6.离屏绘制(Drawing Off-Screen)"></a>6.离屏绘制(Drawing Off-Screen)</h3><h2 id="二、常见图片压缩方式"><a href="#二、常见图片压缩方式" class="headerlink" title="二、常见图片压缩方式"></a>二、常见图片压缩方式</h2><h3 id="1、UIKit"><a href="#1、UIKit" class="headerlink" title="1、UIKit"></a>1、UIKit</h3><h4 id="UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><a href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect" class="headerlink" title="UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:"></a>UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:</h4><h3 id="2、CoreGraphics"><a href="#2、CoreGraphics" class="headerlink" title="2、CoreGraphics"></a>2、CoreGraphics</h3><h3 id="3、ImageIO"><a href="#3、ImageIO" class="headerlink" title="3、ImageIO"></a>3、ImageIO</h3><h3 id="4、CoreImage"><a href="#4、CoreImage" class="headerlink" title="4、CoreImage"></a>4、CoreImage</h3><h3 id="5、vImage"><a href="#5、vImage" class="headerlink" title="5、vImage"></a>5、vImage</h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/项目技术总结/">项目技术总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS进阶/">iOS进阶</a><a href="/tags/iOS优化/">iOS优化</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2018/03/22/iOS高效图片处理02/" data-title="iOS高效图片处理02_图片压缩技术的性能比较 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/04/16/iOS开发中的单元测试/" title="iOS开发中的单元测试">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS开发中的单元测试</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/03/16/蓝牙打印电子面单系统的实践和总结/"  title="蓝牙打印电子面单系统iOS端的技术实现和总结">
+ <strong>下一篇：</strong><br/> 
+ <span>蓝牙打印电子面单系统iOS端的技术实现和总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/03/22/iOS高效图片处理02/" data-title="iOS高效图片处理02_图片压缩技术的性能比较" data-url="https://ixiaochuan.top/2018/03/22/iOS高效图片处理02/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、图片渲染的编码原理-WWDC2018关于图片渲染的Session-WWDC2018-Image-and-Graphics-Best-Practices"><span class="toc-number">1.</span> <span class="toc-text">一、图片渲染的编码原理(WWDC2018关于图片渲染的Session:WWDC2018 Image and Graphics Best Practices)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-图片渲染管线"><span class="toc-number">1.1.</span> <span class="toc-text">1.图片渲染管线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-缓冲区"><span class="toc-number">1.2.</span> <span class="toc-text">2.缓冲区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-解码-Decoding"><span class="toc-number">1.3.</span> <span class="toc-text">3.解码(Decoding)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-图片来源-Image-Sources"><span class="toc-number">1.4.</span> <span class="toc-text">4.图片来源(Image Sources)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-自定义绘制-Custom-Drawing"><span class="toc-number">1.5.</span> <span class="toc-text">5.自定义绘制(Custom Drawing)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-离屏绘制-Drawing-Off-Screen"><span class="toc-number">1.6.</span> <span class="toc-text">6.离屏绘制(Drawing Off-Screen)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、常见图片压缩方式"><span class="toc-number">2.</span> <span class="toc-text">二、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">2.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">2.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">2.2.</span> <span class="toc-text">2、CoreGraphics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">2.3.</span> <span class="toc-text">3、ImageIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">2.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">2.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/个人规划/" title="个人规划">个人规划<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/学习笔记/" title="学习笔记">学习笔记<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/项目技术总结/" title="项目技术总结">项目技术总结<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2017年度规划/" title="2017年度规划">2017年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙开发/" title="蓝牙开发">蓝牙开发<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里团队_苹果核_电商动态解决方案">阿里团队_苹果核_电商动态解决方案</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://blog.devtang.com" target="_blank" title="猿题库_唐巧_iOS进阶">猿题库_唐巧_iOS进阶</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.liaoxuefeng.com" target="_blank" title="技术写作者_廖雪峰_综合">技术写作者_廖雪峰_综合</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.wanglongshuai.com" target="_blank" title="趣点_王隆帅_iOS|PHP">趣点_王隆帅_iOS|PHP</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://kittenyang.com" target="_blank" title="独立开发者_杨骑滔_动画经验">独立开发者_杨骑滔_动画经验</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://lvwenhan.com" target="_blank" title="独立开发者_吕文翰_PHP|iOS">独立开发者_吕文翰_PHP|iOS</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="技术大牛博客集">技术大牛博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS杂货铺">iOS杂货铺</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com" target="_blank" title="Github">Github</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@IXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
