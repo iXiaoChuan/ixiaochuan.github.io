@@ -11,22 +11,28 @@
     
 
     
-    <meta name="description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:2、CoreGraphics3、ImageIO4、CoreImage5、vImage二、相关资料
-WWDC2018 Image and Graphics Best Practices
-WWDC心得: Advanced Graphics">
+    <meta name="description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:用于图像大小调整的最高级API可以在UIKit框架中找到.给定一个UIImage,可以使用临时图形上下文来渲染缩放版本.这种方式最简单,效果也不错,但我不太建议使用这种方式,至于原因会在最后讲到.
+
+2、CoreGraphicsCGB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS高效图片处理03_常见的图片压缩方式">
 <meta property="og:url" content="https://ixiaochuan.top/2018/06/28/iOS高效图片处理03/index.html">
 <meta property="og:site_name" content="上善若水•坚持者•思考者">
-<meta property="og:description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:2、CoreGraphics3、ImageIO4、CoreImage5、vImage二、相关资料
-WWDC2018 Image and Graphics Best Practices
-WWDC心得: Advanced Graphics">
-<meta property="og:updated_time" content="2018-06-28T08:14:09.109Z">
+<meta property="og:description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:用于图像大小调整的最高级API可以在UIKit框架中找到.给定一个UIImage,可以使用临时图形上下文来渲染缩放版本.这种方式最简单,效果也不错,但我不太建议使用这种方式,至于原因会在最后讲到.
+
+2、CoreGraphicsCGB">
+<meta property="og:image" content="https://s1.ax2x.com/2018/06/28/njakQ.md.png">
+<meta property="og:image" content="https://s1.ax2x.com/2018/06/28/njrD2.md.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2018/06/28/njLoS.md.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-2bd17bae458fe9cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-672daeaaa893f24c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:updated_time" content="2018-06-28T09:28:12.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS高效图片处理03_常见的图片压缩方式">
-<meta name="twitter:description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:2、CoreGraphics3、ImageIO4、CoreImage5、vImage二、相关资料
-WWDC2018 Image and Graphics Best Practices
-WWDC心得: Advanced Graphics">
+<meta name="twitter:description" content="一、常见图片压缩方式1、UIKitUIGraphicsBeginImageContextWithOptions &amp;amp; UIImage -drawInRect:用于图像大小调整的最高级API可以在UIKit框架中找到.给定一个UIImage,可以使用临时图形上下文来渲染缩放版本.这种方式最简单,效果也不错,但我不太建议使用这种方式,至于原因会在最后讲到.
+
+2、CoreGraphicsCGB">
+<meta name="twitter:image" content="https://s1.ax2x.com/2018/06/28/njakQ.md.png">
 
     
     <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
@@ -107,12 +113,36 @@ WWDC心得: Advanced Graphics">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、常见图片压缩方式"><span class="toc-number">1.</span> <span class="toc-text">一、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">1.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">1.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">1.2.</span> <span class="toc-text">2、CoreGraphics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">1.3.</span> <span class="toc-text">3、ImageIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">1.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">1.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、相关资料"><span class="toc-number">2.</span> <span class="toc-text">二、相关资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、常见图片压缩方式"><span class="toc-number">1.</span> <span class="toc-text">一、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">1.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">1.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">1.2.</span> <span class="toc-text">2、CoreGraphics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CGBitmapContextCreate-amp-CGContextDrawImage"><span class="toc-number">1.2.1.</span> <span class="toc-text">CGBitmapContextCreate & CGContextDrawImage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">1.3.</span> <span class="toc-text">3、ImageIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CGImageSourceCreateThumbnailAtIndex"><span class="toc-number">1.3.1.</span> <span class="toc-text">CGImageSourceCreateThumbnailAtIndex</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">1.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">1.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、5种技术表现对比"><span class="toc-number">2.</span> <span class="toc-text">二、5种技术表现对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、相关资料"><span class="toc-number">3.</span> <span class="toc-text">三、相关资料</span></a></li></ol>
 		
 		</div>
 		
 		<a id="more"></a>
-<h2 id="一、常见图片压缩方式"><a href="#一、常见图片压缩方式" class="headerlink" title="一、常见图片压缩方式"></a>一、常见图片压缩方式</h2><h3 id="1、UIKit"><a href="#1、UIKit" class="headerlink" title="1、UIKit"></a>1、UIKit</h3><h4 id="UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><a href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect" class="headerlink" title="UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:"></a>UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:</h4><h3 id="2、CoreGraphics"><a href="#2、CoreGraphics" class="headerlink" title="2、CoreGraphics"></a>2、CoreGraphics</h3><h3 id="3、ImageIO"><a href="#3、ImageIO" class="headerlink" title="3、ImageIO"></a>3、ImageIO</h3><h3 id="4、CoreImage"><a href="#4、CoreImage" class="headerlink" title="4、CoreImage"></a>4、CoreImage</h3><h3 id="5、vImage"><a href="#5、vImage" class="headerlink" title="5、vImage"></a>5、vImage</h3><h2 id="二、相关资料"><a href="#二、相关资料" class="headerlink" title="二、相关资料"></a>二、相关资料</h2><ol>
+<h2 id="一、常见图片压缩方式"><a href="#一、常见图片压缩方式" class="headerlink" title="一、常见图片压缩方式"></a>一、常见图片压缩方式</h2><h3 id="1、UIKit"><a href="#1、UIKit" class="headerlink" title="1、UIKit"></a>1、UIKit</h3><h4 id="UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><a href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect" class="headerlink" title="UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:"></a>UIGraphicsBeginImageContextWithOptions &amp; UIImage -drawInRect:</h4><p>用于图像大小调整的最高级API可以在UIKit框架中找到.给定一个UIImage,可以使用临时图形上下文来渲染缩放版本.这种方式最简单,效果也不错,但我不太建议使用这种方式,至于原因会在最后讲到.</p>
+<p><img src="https://s1.ax2x.com/2018/06/28/njakQ.md.png" alt="njakQ.md.png"></p>
+<h3 id="2、CoreGraphics"><a href="#2、CoreGraphics" class="headerlink" title="2、CoreGraphics"></a>2、CoreGraphics</h3><h4 id="CGBitmapContextCreate-amp-CGContextDrawImage"><a href="#CGBitmapContextCreate-amp-CGContextDrawImage" class="headerlink" title="CGBitmapContextCreate &amp; CGContextDrawImage"></a>CGBitmapContextCreate &amp; CGContextDrawImage</h4><p>CoreGraphics / Quartz 2D提供了一套较低级别的API,允许进行更高级的配置. 给定一个CGImage,使用临时位图上下文来渲染缩放后的图像.<br>使用CoreGraphics图像的质量与UIKit图像相同. 至少我无法察觉到任何区别,并且imagediff也没有任何区别. 表现稍有不同之处:</p>
+<p><img src="https://s1.ax2x.com/2018/06/28/njrD2.md.jpg" alt="njrD2.md.jpg"></p>
+<h3 id="3、ImageIO"><a href="#3、ImageIO" class="headerlink" title="3、ImageIO"></a>3、ImageIO</h3><h4 id="CGImageSourceCreateThumbnailAtIndex"><a href="#CGImageSourceCreateThumbnailAtIndex" class="headerlink" title="CGImageSourceCreateThumbnailAtIndex"></a>CGImageSourceCreateThumbnailAtIndex</h4><p>Image I / O是一个功能强大但鲜为人知的用于处理图像的框架. 独立于Core Graphics,它可以在许多不同格式之间读取和写入,访问照片元数据以及执行常见的图像处理操作. 这个库提供了该平台上最快的图像编码器和解码器,具有先进的缓存机制,甚至可以逐步加载图像.</p>
+<p><img src="https://s1.ax2x.com/2018/06/28/njLoS.md.jpg" alt="njLoS.md.jpg"></p>
+<h3 id="4、CoreImage"><a href="#4、CoreImage" class="headerlink" title="4、CoreImage"></a>4、CoreImage</h3><p>CoreImage是IOS5中新加入的一个Objective-c的框架,里面提供了强大高效的图像处理功能,用来对基于像素的图像进行操作与分析.IOS提供了很多强大的滤镜(Filter),这些Filter提供了各种各样的效果,并且还可以通过滤镜链将各种效果的Filter叠加起来,形成强大的自定义效果,如果你对该效果不满意,还可以子类化滤镜.</p>
+<h3 id="5、vImage"><a href="#5、vImage" class="headerlink" title="5、vImage"></a>5、vImage</h3><p>vImage可能是这几种技术中被了解最少的,使用时需要 import Accelerate</p>
+<p>使用CPU的矢量处理器处理大图像. 强大的图像处理功能,包括Core Graphics和Core Video互操作,格式转换和图像处理.</p>
+<p>这个不是很流行并且文档很少的小框架却十分强大. 结果令人惊讶.这样可以产生最佳效果,并且图像清晰平衡. 没有CG那么模糊,又不像CI那样明亮的不自然.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">extension UIImage &#123;</div><div class="line">    </div><div class="line">    //vImage</div><div class="line">    func resizeVI(size:CGSize) -&gt; UIImage? &#123;</div><div class="line">        </div><div class="line">        guard  let cgImage = self.cgImage else &#123; return nil &#125;</div><div class="line">        </div><div class="line">        var format = vImage_CGImageFormat(bitsPerComponent: 8, bitsPerPixel: 32, colorSpace: nil,</div><div class="line">                                          bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue),</div><div class="line">                                          version: 0, decode: nil, renderingIntent: .defaultIntent)</div><div class="line">        </div><div class="line">        var sourceBuffer = vImage_Buffer()</div><div class="line">        defer &#123;</div><div class="line">            free(sourceBuffer.data)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        var error = vImageBuffer_InitWithCGImage(&amp;sourceBuffer, &amp;format, nil, cgImage, numericCast(kvImageNoFlags))</div><div class="line">        guard error == kvImageNoError else &#123; return nil &#125;</div><div class="line">        </div><div class="line">        // create a destination buffer</div><div class="line">        let scale = self.scale</div><div class="line">        let destWidth = Int(size.width)</div><div class="line">        let destHeight = Int(size.height)</div><div class="line">        let bytesPerPixel = cgImage.bitsPerPixel / 8</div><div class="line">        let destBytesPerRow = destWidth * bytesPerPixel</div><div class="line">        </div><div class="line">        let destData = UnsafeMutablePointer&lt;UInt8&gt;.allocate(capacity: destHeight * destBytesPerRow)</div><div class="line">        defer &#123;</div><div class="line">            destData.deallocate(capacity: destHeight * destBytesPerRow)</div><div class="line">        &#125;</div><div class="line">        var destBuffer = vImage_Buffer(data: destData, height: vImagePixelCount(destHeight), width: vImagePixelCount(destWidth), rowBytes: destBytesPerRow)</div><div class="line">        </div><div class="line">        // scale the image</div><div class="line">        error = vImageScale_ARGB8888(&amp;sourceBuffer, &amp;destBuffer, nil, numericCast(kvImageHighQualityResampling))</div><div class="line">        guard error == kvImageNoError else &#123; return nil &#125;</div><div class="line">        </div><div class="line">        // create a CGImage from vImage_Buffer</div><div class="line">        var destCGImage = vImageCreateCGImageFromBuffer(&amp;destBuffer, &amp;format, nil, nil, numericCast(kvImageNoFlags), &amp;error)?.takeRetainedValue()</div><div class="line">        guard error == kvImageNoError else &#123; return nil &#125;</div><div class="line">        </div><div class="line">        // create a UIImage</div><div class="line">        let resizedImage = destCGImage.flatMap &#123;</div><div class="line">            UIImage(cgImage: $0, scale: 0.0, orientation: self.imageOrientation)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        destCGImage = nil</div><div class="line">        return resizedImage</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="二、5种技术表现对比"><a href="#二、5种技术表现对比" class="headerlink" title="二、5种技术表现对比"></a>二、5种技术表现对比</h2><p>测试设备是系统为iOS8.4的iPhone6</p>
+<p>JPEG</p>
+<p>加载,缩放和显示的大尺寸高分辨率图片来自NASA Visible Earth,原图（12000×12000像素,20 MB JPEG）,缩放尺寸为1/10：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2086987-2bd17bae458fe9cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example1"></p>
+<p>PNG</p>
+<p>图片来自Postgres.app Icon,原图(1024 ⨉ 1024 px 1MB PNG),缩放尺寸为1/10：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2086987-672daeaaa893f24c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example2"></p>
+<p>通过上面测试可以看到Core Image表现最差.Core Graphics 和 Image I/O最好.实际上,在苹果官方在 Performance Best Practices section of the Core Image Programming Guide 部分中特别推荐使用Core Graphics或Image I / O功能预先裁剪或缩小图像.</p>
+<p>其实微信最早是使用UIKit,后来改使用ImageIO.</p>
+<blockquote>
+<p>UIKit处理大分辨率图片时,往往容易出现OOM,原因是-[UIImage drawInRect:]在绘制时,先解码图片,再生成原始分辨率大小的bitmap,这是很耗内存的.解决方法是使用更低层的ImageIO接口,避免中间bitmap产生.</p>
+</blockquote>
+<p>所以最后我比较建议和微信一样使用ImageIO.</p>
+<h2 id="三、相关资料"><a href="#三、相关资料" class="headerlink" title="三、相关资料"></a>三、相关资料</h2><ol>
 <li><a href="https://developer.apple.com/videos/play/wwdc2018/219/" target="_blank" rel="external">WWDC2018 Image and Graphics Best Practices</a></li>
 <li><a href="https://github.com/100mango/zen/blob/master/WWDC心得：Advanced%20Graphics%20and%20Animations%20for%20iOS%20Apps/Advanced%20Graphics%20and%20Animations%20for%20iOS%20Apps.md" target="_blank" rel="external">WWDC心得: Advanced Graphics and Animations for iOS Apps</a></li>
 <li><a href="https://juejin.im/post/5b1a7c2c5188257d5a30c820?from=文章页内链接" target="_blank" rel="external">WWDC2018图像最佳实践</a></li>
@@ -131,7 +161,7 @@ WWDC心得: Advanced Graphics">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS优化/">iOS优化</a><a href="/tags/iOS进阶/">iOS进阶</a>
+  <span></span> <a href="/tags/iOS进阶/">iOS进阶</a><a href="/tags/iOS优化/">iOS优化</a>
   </div>
 
 </div>
@@ -153,6 +183,14 @@ WWDC心得: Advanced Graphics">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2018/06/29/深入理解RunLoop/" title="深入理解RunLoop">
+  <strong>上一篇：</strong><br/>
+  <span>
+  深入理解RunLoop</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2018/06/27/Runtime给类别添加属性/"  title="Runtime给类别添加属性">
@@ -176,7 +214,7 @@ WWDC心得: Advanced Graphics">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、常见图片压缩方式"><span class="toc-number">1.</span> <span class="toc-text">一、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">1.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">1.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">1.2.</span> <span class="toc-text">2、CoreGraphics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">1.3.</span> <span class="toc-text">3、ImageIO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">1.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">1.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、相关资料"><span class="toc-number">2.</span> <span class="toc-text">二、相关资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、常见图片压缩方式"><span class="toc-number">1.</span> <span class="toc-text">一、常见图片压缩方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、UIKit"><span class="toc-number">1.1.</span> <span class="toc-text">1、UIKit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UIGraphicsBeginImageContextWithOptions-amp-UIImage-drawInRect"><span class="toc-number">1.1.1.</span> <span class="toc-text">UIGraphicsBeginImageContextWithOptions & UIImage -drawInRect:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、CoreGraphics"><span class="toc-number">1.2.</span> <span class="toc-text">2、CoreGraphics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CGBitmapContextCreate-amp-CGContextDrawImage"><span class="toc-number">1.2.1.</span> <span class="toc-text">CGBitmapContextCreate & CGContextDrawImage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、ImageIO"><span class="toc-number">1.3.</span> <span class="toc-text">3、ImageIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CGImageSourceCreateThumbnailAtIndex"><span class="toc-number">1.3.1.</span> <span class="toc-text">CGImageSourceCreateThumbnailAtIndex</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、CoreImage"><span class="toc-number">1.4.</span> <span class="toc-text">4、CoreImage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、vImage"><span class="toc-number">1.5.</span> <span class="toc-text">5、vImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、5种技术表现对比"><span class="toc-number">2.</span> <span class="toc-text">二、5种技术表现对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、相关资料"><span class="toc-number">3.</span> <span class="toc-text">三、相关资料</span></a></li></ol>
  
   </div>
 
@@ -208,7 +246,11 @@ WWDC心得: Advanced Graphics">
 		  
 		
 		  
-			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>4</sup></a></li>
+			<li><a href="/categories/旧知新解/学习笔记/" title="学习笔记">学习笔记<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>5</sup></a></li>
 		  
 		
 		  
@@ -225,7 +267,7 @@ WWDC心得: Advanced Graphics">
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>8</sup></a></li>
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>9</sup></a></li>
 			
 		
 			
@@ -241,7 +283,27 @@ WWDC心得: Advanced Graphics">
 			
 		
 			
-				<li><a href="/tags/蓝牙开发/" title="蓝牙开发">蓝牙开发<sup>1</sup></a></li>
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
 			
 		
 		</ul>
