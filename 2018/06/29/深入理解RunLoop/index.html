@@ -29,7 +29,8 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-61f8570e16e458b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://s1.ax2x.com/2018/06/30/natVA.md.jpg">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-bb89752d3ede3309..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2018-06-30T02:16:08.868Z">
+<meta property="og:image" content="https://s1.ax2x.com/2018/06/30/nalud.md.jpg">
+<meta property="og:updated_time" content="2018-06-30T02:27:36.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop">
 <meta name="twitter:description" content="在简书上浏览到了一篇文章对于Runloop有个总结,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
@@ -151,7 +152,8 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 </li>
 </ul>
 <h5 id="CFRunLoopTimerRef"><a href="#CFRunLoopTimerRef" class="headerlink" title="CFRunLoopTimerRef"></a>CFRunLoopTimerRef</h5><p>它是基于时间的触发器,它和NSTimer是toll-free bridged的,可以混用(底层基于使用mk_timer实现).它受RunLoop的Mode影响(GCD的定时器不受RunLoop的Mode影响),当其加入到RunLoop时,RunLoop会注册对应的时间点,当时间点到时,RunLoop会被唤醒以执行那个回调.如果线程阻塞或者步子啊这个Mode下,触发点将不会执行,一直等到下一个周期时间点触发.</p>
-<h5 id="CFRunLoopObserverRef"><a href="#CFRunLoopObserverRef" class="headerlink" title="CFRunLoopObserverRef"></a>CFRunLoopObserverRef</h5><p>它是观察者,每个Observer都包含了一个回调(函数指针),当RunLoop的状态发生变化时,观察者就能通过回调接收到这个</p>
+<h5 id="CFRunLoopObserverRef"><a href="#CFRunLoopObserverRef" class="headerlink" title="CFRunLoopObserverRef"></a>CFRunLoopObserverRef</h5><p>它是观察者,每个Observer都包含了一个回调(函数指针),当RunLoop的状态发生变化时,观察者就能通过回调接收到这个变化.可以观测的时间点有以下几个:</p>
+<p><img src="https://s1.ax2x.com/2018/06/30/nalud.md.jpg" alt="nalud.md.jpg"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -291,11 +293,11 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 			
 		
 			
-				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>1</sup></a></li>
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>1</sup></a></li>
 			
 		
 			
