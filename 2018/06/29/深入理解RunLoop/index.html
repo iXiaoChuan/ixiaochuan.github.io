@@ -32,7 +32,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <meta property="og:image" content="https://s1.ax2x.com/2018/06/30/nalud.md.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/07/03/nxnfQ.md.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/07/03/nxwJa.png">
-<meta property="og:updated_time" content="2018-07-04T06:27:07.069Z">
+<meta property="og:updated_time" content="2018-07-05T01:11:35.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop">
 <meta name="twitter:description" content="在简书上浏览到了一篇文章,总结了Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
@@ -166,6 +166,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <h2 id="RunLoop主要处理以下6类事件"><a href="#RunLoop主要处理以下6类事件" class="headerlink" title="RunLoop主要处理以下6类事件"></a>RunLoop主要处理以下6类事件</h2><p><img src="https://s1.ax2x.com/2018/07/03/nxnfQ.md.jpg" alt="Example6"></p>
 <h1 id="RunLoop的Mode"><a href="#RunLoop的Mode" class="headerlink" title="RunLoop的Mode"></a>RunLoop的Mode</h1><p>CFRunLoopMode和CFRunLoop的结构大致如下:</p>
 <p><img src="https://s1.ax2x.com/2018/07/03/nxwJa.png" alt="Example7"></p>
+<p>一个RunLoop</p>
 <h1 id="RunLoop的运行机制"><a href="#RunLoop的运行机制" class="headerlink" title="RunLoop的运行机制"></a>RunLoop的运行机制</h1><h2 id="RunLoop的挂起"><a href="#RunLoop的挂起" class="headerlink" title="RunLoop的挂起"></a>RunLoop的挂起</h2><h2 id="RunLoop的唤醒"><a href="#RunLoop的唤醒" class="headerlink" title="RunLoop的唤醒"></a>RunLoop的唤醒</h2><h2 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h2><h2 id="事件处理完成进行判断"><a href="#事件处理完成进行判断" class="headerlink" title="事件处理完成进行判断"></a>事件处理完成进行判断</h2><h2 id="RunLoop的底层实现"><a href="#RunLoop的底层实现" class="headerlink" title="RunLoop的底层实现"></a>RunLoop的底层实现</h2><h1 id="RunLoop和线程"><a href="#RunLoop和线程" class="headerlink" title="RunLoop和线程"></a>RunLoop和线程</h1><h1 id="苹果用RunLoop实现的功能"><a href="#苹果用RunLoop实现的功能" class="headerlink" title="苹果用RunLoop实现的功能"></a>苹果用RunLoop实现的功能</h1><h2 id="Autoreleasepool"><a href="#Autoreleasepool" class="headerlink" title="Autoreleasepool"></a>Autoreleasepool</h2><h2 id="NSTimer-timer触发"><a href="#NSTimer-timer触发" class="headerlink" title="NSTimer(timer触发)"></a>NSTimer(timer触发)</h2><h2 id="和GCD的关系"><a href="#和GCD的关系" class="headerlink" title="和GCD的关系"></a>和GCD的关系</h2><h2 id="PerformSelector"><a href="#PerformSelector" class="headerlink" title="PerformSelector"></a>PerformSelector</h2><h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><h2 id="事件响应"><a href="#事件响应" class="headerlink" title="事件响应"></a>事件响应</h2><h2 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h2><h2 id="UI更新"><a href="#UI更新" class="headerlink" title="UI更新"></a>UI更新</h2><p><br><br><br><br><br><br><br><br><br></p>
   
 	</div>
