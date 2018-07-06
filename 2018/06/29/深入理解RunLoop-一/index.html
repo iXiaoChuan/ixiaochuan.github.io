@@ -38,7 +38,11 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <meta property="og:image" content="https://s1.ax2x.com/2018/07/05/oXgTz.png">
 <meta property="og:image" content="https://s1.ax2x.com/2018/07/05/oXn4S.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/07/05/omFaO.jpg">
-<meta property="og:updated_time" content="2018-07-05T10:07:50.411Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-516db05812aa7345.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-d8227ba5a5004f3b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-21e297f7c2b41e98..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/502">
+<meta property="og:image" content="https://s1.ax2x.com/2018/07/06/oYpJq.jpg">
+<meta property="og:updated_time" content="2018-07-06T02:55:55.732Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop(一)">
 <meta name="twitter:description" content="在简书上浏览到了一篇文章,总结了Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
@@ -127,7 +131,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop是什么"><span class="toc-number">1.</span> <span class="toc-text">Runloop是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop的组成"><span class="toc-number">2.</span> <span class="toc-text">Runloop的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Runloop构成"><span class="toc-number">2.1.</span> <span class="toc-text">Runloop构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop主要处理以下6类事件"><span class="toc-number">2.2.</span> <span class="toc-text">RunLoop主要处理以下6类事件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的Mode"><span class="toc-number">3.</span> <span class="toc-text">RunLoop的Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的运行机制"><span class="toc-number">4.</span> <span class="toc-text">RunLoop的运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的挂起和唤醒"><span class="toc-number">4.1.</span> <span class="toc-text">RunLoop的挂起和唤醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的挂起"><span class="toc-number">4.1.1.</span> <span class="toc-text">RunLoop的挂起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的唤醒"><span class="toc-number">4.1.2.</span> <span class="toc-text">RunLoop的唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理事件"><span class="toc-number">4.1.3.</span> <span class="toc-text">处理事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理完成进行判断"><span class="toc-number">4.1.4.</span> <span class="toc-text">事件处理完成进行判断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的底层实现"><span class="toc-number">4.2.</span> <span class="toc-text">RunLoop的底层实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop和线程"><span class="toc-number">5.</span> <span class="toc-text">RunLoop和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#苹果用RunLoop实现的功能"><span class="toc-number">6.</span> <span class="toc-text">苹果用RunLoop实现的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Autoreleasepool"><span class="toc-number">6.1.</span> <span class="toc-text">Autoreleasepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-timer触发"><span class="toc-number">6.2.</span> <span class="toc-text">NSTimer(timer触发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和GCD的关系"><span class="toc-number">6.3.</span> <span class="toc-text">和GCD的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PerformSelector"><span class="toc-number">6.4.</span> <span class="toc-text">PerformSelector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-number">6.5.</span> <span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件响应"><span class="toc-number">6.6.</span> <span class="toc-text">事件响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手势识别"><span class="toc-number">6.7.</span> <span class="toc-text">手势识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI更新"><span class="toc-number">6.8.</span> <span class="toc-text">UI更新</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop是什么"><span class="toc-number">1.</span> <span class="toc-text">Runloop是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop的组成"><span class="toc-number">2.</span> <span class="toc-text">Runloop的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Runloop构成"><span class="toc-number">2.1.</span> <span class="toc-text">Runloop构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop主要处理以下6类事件"><span class="toc-number">2.2.</span> <span class="toc-text">RunLoop主要处理以下6类事件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的Mode"><span class="toc-number">3.</span> <span class="toc-text">RunLoop的Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的运行机制"><span class="toc-number">4.</span> <span class="toc-text">RunLoop的运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的挂起和唤醒"><span class="toc-number">4.1.</span> <span class="toc-text">RunLoop的挂起和唤醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的挂起"><span class="toc-number">4.1.1.</span> <span class="toc-text">RunLoop的挂起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的唤醒"><span class="toc-number">4.1.2.</span> <span class="toc-text">RunLoop的唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理事件"><span class="toc-number">4.1.3.</span> <span class="toc-text">处理事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理完成进行判断"><span class="toc-number">4.1.4.</span> <span class="toc-text">事件处理完成进行判断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的底层实现"><span class="toc-number">4.2.</span> <span class="toc-text">RunLoop的底层实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop和线程"><span class="toc-number">5.</span> <span class="toc-text">RunLoop和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#苹果用RunLoop实现的功能"><span class="toc-number">6.</span> <span class="toc-text">苹果用RunLoop实现的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Autoreleasepool"><span class="toc-number">6.1.</span> <span class="toc-text">Autoreleasepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-timer触发"><span class="toc-number">6.2.</span> <span class="toc-text">NSTimer(timer触发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和GCD的关系"><span class="toc-number">6.3.</span> <span class="toc-text">和GCD的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PerformSelector"><span class="toc-number">6.4.</span> <span class="toc-text">PerformSelector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-number">6.5.</span> <span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件响应"><span class="toc-number">6.6.</span> <span class="toc-text">事件响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手势识别"><span class="toc-number">6.7.</span> <span class="toc-text">手势识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI更新"><span class="toc-number">6.8.</span> <span class="toc-text">UI更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">7.</span> <span class="toc-text">参考资料</span></a></li></ol>
 		
 		</div>
 		
@@ -269,7 +273,65 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <p>当调用dispatch_async(dispatch_get_main_queue(),block)时,libDispatch会向主线程的RunLoop发送消息,RunLoop会被唤醒,并从消息中取得这个block,并在回调CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE()里执行这个block.但是这个逻辑仅限于dispatch到主线程,dispatch到其他线程仍然是由libDispatch处理的.同理,GCD的dispatch_after在dispatch到main_queue时的timer机制才与RunLoop有关.</p>
 <h2 id="PerformSelector"><a href="#PerformSelector" class="headerlink" title="PerformSelector"></a>PerformSelector</h2><p>NSObject的<code>performSelecter:afterDelay:</code>实际上其内部会创建一个Timer并添加到当前线程的Runloop中,所以如果当前线程么有RunLoop,则这个方法会失效.<br>NSObject的<code>performSelector:onThread:</code>实际上会传建一个Timer加到对应的线程中去,同样的,如果对应的线程没有RunLoop,那么该方法也会失效.<br>其实这种操作有种说法叫做创建常驻线程(内存),AFNetworking也用到这种方法,举个例子,如果把RunLoop去掉,那么test方法就不会执行:</p>
 <p><img src="https://s1.ax2x.com/2018/07/05/omFaO.jpg" alt="Example13"></p>
-<h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><h2 id="事件响应"><a href="#事件响应" class="headerlink" title="事件响应"></a>事件响应</h2><h2 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h2><h2 id="UI更新"><a href="#UI更新" class="headerlink" title="UI更新"></a>UI更新</h2><p><br><br><br><br><br><br><br><br><br></p>
+<h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><p>iOS中的网络请求接口自上而下有这么几层:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2086987-516db05812aa7345.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example14"></p>
+<p>其中CFSocket和CFNetwork偏底层一些,比较知名的网络请求框架AFNetWorking的早先1.0、2.0版本都是基于NSURLConnection编写的,iOS7之后新增了URLSession,NSURLSession的底层用到了NSURLConnection的部分功能(e.g. com.apple.NSURLConnectionLoader线程),之后新版本的AFNetworking和Alamofire(Swift版本)就是基于这个封装的了.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2086987-d8227ba5a5004f3b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example15"></p>
+<blockquote>
+<p>通常使用NSURLConnection的时候,会传入一个delegate,当调用了[connection start]之后,这个delegate就会不停的回调.而实际上,start函数的内部会获取CurrentRunLoop,然后在其中的DefaultMode添加了4个Source0(即需要手动出发的Source),CFMultiplexerSource是负责各种delegate回调的,CFHTTPCookieStorage是处理各种Cookie的.</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>开始网络传输时,NSURLConnection创建了两个新线程com.apple.NSURLConnectionLoader和com.apple.CFSocket.private.</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>其中CFSocket线程是处理底层socket链接的,NSURLConnectionLoade中的RunLoop通过一些基于mach port的Source1接收来自底层CFSocket的通知.当收到通知后,其会在合适的时机向CFMultiplexerSource等Source0发送通知,同时唤醒delegate线程的RunLoop来让其处理这些通知,CFMultiplexerSource会在delegate线程的RunLoop对delegate执行实际的回调.</p>
+</blockquote>
+<h2 id="事件响应"><a href="#事件响应" class="headerlink" title="事件响应"></a>事件响应</h2><blockquote>
+<p>苹果注册了一个Source1(基于mach port的)用来接受系统事件,其回调函数为_IOHIDEventSystemClientQueueCallback().</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>当一个硬件事件发生后(触摸/锁屏/摇晃等),首先由IOKit.framework生成一个IOHIDEvent事件并由SpringBoard接收,SpringBoard只接收按键(锁屏/静音等)、触摸、加速、接近传感器等几种Event,随后用mach port转发给需要的app进程.</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>触摸事件其实是Source1在接收系统事件后在回调_IOHIDEventSystemClientQueueCallback()内触发的Source0,Source0再触发的_UIApplicationHandleEventQueue().Source0一定是要唤醒RunLoop即时响应并执行的,如果RunLoop此时在休眠等待系统的mach_msg事件,那么就会通过Source1来唤醒RunLoop执行.</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>_UIApplicationHandleEventQueue()会把IOHIDEvent处理并包装成UIEvent进行处理或分发,其中包括识别UIGesture/处理屏幕旋转/发送给UIWindow等.</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/2086987-21e297f7c2b41e98..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/502" alt="Example16"></p>
+<h2 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h2><p>当上边说到的_UIApplicationHandleEventQueue()识别到一个手势时,其首先会调用cancel将当前的touchesBegin/Move/End系列回调打断.随后系统将对应的UIGestureRecognizer标记为待处理.</p>
+<p>苹果注册了一个Observer检测BeforeWaiting(loop即将进入休眠)事件,这个Observer的回调函数是_UIGestureRecognizerUpdateObserver(),其内部会获取所有刚被标记为待处理的GestureRecognizer,并执行GestureRecognizer的回调.</p>
+<p>当有UIGestureRecognizer的变化时(创建/销毁/状态改变),这个回调都会进行相应处理.</p>
+<h2 id="UI更新"><a href="#UI更新" class="headerlink" title="UI更新"></a>UI更新</h2><p>Core Animation在RunLoop中注册了一个Observer监听BeforeWaiting(即将进入休眠)和Exit(即将退出Loop)事件.当在操作UI时,比如改变了Frame、更新了UIView/CALayer的层次时,或者手动调用了UIView/CALayer的setNeedsLayout/setNeedsDisplay方法后,这个UIView/CALayer就会被标记为待处理,并被提交到一个全局的容器中去. 当Observer监听的事件到来时,回调函数中会遍历所有的待处理的UIView/CALayer以执行实际的绘制和调整,并更新界面.</p>
+<p>如果此处有动画,通过DisplayLink稳定的刷新机制会不断的唤醒RunLoop,使得不断地有机会执行Observer回调,从而根据时间来不断更新这个动画的属性值,并描绘出来.</p>
+<p><strong>函数内部调用栈</strong></p>
+<p><img src="https://s1.ax2x.com/2018/07/06/oYpJq.jpg" alt="Example17"></p>
+<p>绘图和动画有两种处理方式:CPU(中央处理器)和GPU(图像处理器)<br>CPU: CPU中计算显示内容,比如视图的创建、布局计算、图片解码、文本绘制等<br>GPU: GPU进行变化、合成、渲染</p>
+<p><strong>关于CADisplayLink的描述有两种</strong></p>
+<blockquote>
+<p>CADisplayLink是一个和屏幕刷新率一致的定时器(但实际实现原理想到那复杂,和NSTimer并不一样,其内部实际是操作了一个Source). 如果两次屏幕刷新之间执行了一个长任务,那其中就会有一帧被跳过(和NSTimer相似),造成界面卡段的感觉,在快速滑动TableView的时候,即使是一帧的卡顿也会被觉察出来.</p>
+</blockquote>
+<p><br> </p>
+<blockquote>
+<p>CADisplayLink是一个执行频率(fps)和屏幕刷新频率相同(可以修改preferredFramesPerSecond改变刷新频率)的定时器,它也需要加入到RunLoop才能执行. 与NSTimer相似的,CADisplayLink同样是基于CFRunLoopTimerRef实现的,底层使用mk_timer(可以比较加入到RunLoop前后RunLoop中timer的变化). 和NSTimer相比它的精度更高(尽管NSTimer也可以修改精度),不过和NSTimer类似的是如果遇到大任务它仍然存在丢帧现象,通常情况下CADisplayLink用于构建帧动画,看起来相对更流畅,而NSTimer则有更广泛的用处.</p>
+</blockquote>
+<p>不管怎么样CADisplayLink和NSTimer还是有很大不同,具体的详情可以参考这篇文章:<a href="https://www.jianshu.com/p/72fedadf92e3" target="_blank" rel="external">CADisplayLink</a></p>
+<p>ibireme根据CADisplayLink的特性写了一个FPS指示器YYFPSLabel,代码非常少.原理是这样的:既然CADisplayLink可以以屏幕刷新的频率调用指定的seletor,而且iOS系统中正常的屏幕刷新频率为60HX,所以使用CADisplayLink的timestamp属性,配合timer的执行次数计算得出FPS数.</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.ibireme.com%2F2015%2F05%2F18%2Frunloop%2F" target="_blank" rel="external">深入理解RunLoop</a></li>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzAwNDY1ODY2OQ%3D%3D%26mid%3D400417748%26idx%3D1%26sn%3D0c5f6747dd192c5a0eea32bb4650c160%26scene%3D2%26srcid%3D1119Ya486T0mkUCVn6hiN4he%26from%3Dtimeline%26isappinstalled%3D0%23wechat_redirect" target="_blank" rel="external">iOS 事件处理机制与图像渲染过程</a></li>
+<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fblog.handy.wang%2Fblog%2F2014%2F05%2F26%2Frunloopxue-xi-bi-ji-1%2F" target="_blank" rel="external">RunLoop学习笔记(一) 基本原理介绍</a></li>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fwww.cnblogs.com%2Fkenshincui%2Fp%2F6823841.html" target="_blank" rel="external">iOS刨根问底-深入理解RunLoop</a></li>
+<li><a href="https://www.jianshu.com/p/37ab0397fec7#" target="_blank" rel="external">【iOS程序启动与运转】- RunLoop个人小结</a></li>
+<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fwww.gaoshilei.com%2F2016%2F11%2F20%2FRunLoop%2F" target="_blank" rel="external">RunLoop的前世今生</a></li>
+<li><a href="Runloop知识树">Runloop知识树</a></li>
+</ol>
+<p><br><br><br><br><br><br><br><br><br></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -328,7 +390,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop是什么"><span class="toc-number">1.</span> <span class="toc-text">Runloop是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop的组成"><span class="toc-number">2.</span> <span class="toc-text">Runloop的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Runloop构成"><span class="toc-number">2.1.</span> <span class="toc-text">Runloop构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop主要处理以下6类事件"><span class="toc-number">2.2.</span> <span class="toc-text">RunLoop主要处理以下6类事件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的Mode"><span class="toc-number">3.</span> <span class="toc-text">RunLoop的Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的运行机制"><span class="toc-number">4.</span> <span class="toc-text">RunLoop的运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的挂起和唤醒"><span class="toc-number">4.1.</span> <span class="toc-text">RunLoop的挂起和唤醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的挂起"><span class="toc-number">4.1.1.</span> <span class="toc-text">RunLoop的挂起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的唤醒"><span class="toc-number">4.1.2.</span> <span class="toc-text">RunLoop的唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理事件"><span class="toc-number">4.1.3.</span> <span class="toc-text">处理事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理完成进行判断"><span class="toc-number">4.1.4.</span> <span class="toc-text">事件处理完成进行判断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的底层实现"><span class="toc-number">4.2.</span> <span class="toc-text">RunLoop的底层实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop和线程"><span class="toc-number">5.</span> <span class="toc-text">RunLoop和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#苹果用RunLoop实现的功能"><span class="toc-number">6.</span> <span class="toc-text">苹果用RunLoop实现的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Autoreleasepool"><span class="toc-number">6.1.</span> <span class="toc-text">Autoreleasepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-timer触发"><span class="toc-number">6.2.</span> <span class="toc-text">NSTimer(timer触发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和GCD的关系"><span class="toc-number">6.3.</span> <span class="toc-text">和GCD的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PerformSelector"><span class="toc-number">6.4.</span> <span class="toc-text">PerformSelector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-number">6.5.</span> <span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件响应"><span class="toc-number">6.6.</span> <span class="toc-text">事件响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手势识别"><span class="toc-number">6.7.</span> <span class="toc-text">手势识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI更新"><span class="toc-number">6.8.</span> <span class="toc-text">UI更新</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop是什么"><span class="toc-number">1.</span> <span class="toc-text">Runloop是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runloop的组成"><span class="toc-number">2.</span> <span class="toc-text">Runloop的组成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Runloop构成"><span class="toc-number">2.1.</span> <span class="toc-text">Runloop构成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop主要处理以下6类事件"><span class="toc-number">2.2.</span> <span class="toc-text">RunLoop主要处理以下6类事件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的Mode"><span class="toc-number">3.</span> <span class="toc-text">RunLoop的Mode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop的运行机制"><span class="toc-number">4.</span> <span class="toc-text">RunLoop的运行机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的挂起和唤醒"><span class="toc-number">4.1.</span> <span class="toc-text">RunLoop的挂起和唤醒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的挂起"><span class="toc-number">4.1.1.</span> <span class="toc-text">RunLoop的挂起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop的唤醒"><span class="toc-number">4.1.2.</span> <span class="toc-text">RunLoop的唤醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理事件"><span class="toc-number">4.1.3.</span> <span class="toc-text">处理事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理完成进行判断"><span class="toc-number">4.1.4.</span> <span class="toc-text">事件处理完成进行判断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop的底层实现"><span class="toc-number">4.2.</span> <span class="toc-text">RunLoop的底层实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RunLoop和线程"><span class="toc-number">5.</span> <span class="toc-text">RunLoop和线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#苹果用RunLoop实现的功能"><span class="toc-number">6.</span> <span class="toc-text">苹果用RunLoop实现的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Autoreleasepool"><span class="toc-number">6.1.</span> <span class="toc-text">Autoreleasepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSTimer-timer触发"><span class="toc-number">6.2.</span> <span class="toc-text">NSTimer(timer触发)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和GCD的关系"><span class="toc-number">6.3.</span> <span class="toc-text">和GCD的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PerformSelector"><span class="toc-number">6.4.</span> <span class="toc-text">PerformSelector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-number">6.5.</span> <span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件响应"><span class="toc-number">6.6.</span> <span class="toc-text">事件响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手势识别"><span class="toc-number">6.7.</span> <span class="toc-text">手势识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI更新"><span class="toc-number">6.8.</span> <span class="toc-text">UI更新</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">7.</span> <span class="toc-text">参考资料</span></a></li></ol>
  
   </div>
 
@@ -409,15 +471,15 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 			
 		
 			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
 			
 		
 		</ul>
