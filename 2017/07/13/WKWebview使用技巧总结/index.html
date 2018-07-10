@@ -1,0 +1,585 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>WKWebview使用技巧总结 | 小川的博客·iXiaoChuan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="WKWebView使用技巧将WKWebView配置成属性webview很多时候是需要全屏展示的,但是如果是在控制器的viewDidLoad()方法中创建webview,并且展示到全屏,效率其实是不高的,这里有个简单实用的方法:就是给相应的控制器创建一个属性,并且在loadView()方法中创建webview,并将其添加到控制器上去. 这样的操作会让显示效率提高一些,并且使用过程中也会方便很多.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WKWebview使用技巧总结">
+<meta property="og:url" content="https://ixiaochuan.top/2017/07/13/WKWebview使用技巧总结/index.html">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
+<meta property="og:description" content="WKWebView使用技巧将WKWebView配置成属性webview很多时候是需要全屏展示的,但是如果是在控制器的viewDidLoad()方法中创建webview,并且展示到全屏,效率其实是不高的,这里有个简单实用的方法:就是给相应的控制器创建一个属性,并且在loadView()方法中创建webview,并将其添加到控制器上去. 这样的操作会让显示效率提高一些,并且使用过程中也会方便很多.">
+<meta property="og:updated_time" content="2018-07-09T01:59:19.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WKWebview使用技巧总结">
+<meta name="twitter:description" content="WKWebView使用技巧将WKWebView配置成属性webview很多时候是需要全屏展示的,但是如果是在控制器的viewDidLoad()方法中创建webview,并且展示到全屏,效率其实是不高的,这里有个简单实用的方法:就是给相应的控制器创建一个属性,并且在loadView()方法中创建webview,并将其添加到控制器上去. 这样的操作会让显示效率提高一些,并且使用过程中也会方便很多.">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/13/WKWebview使用技巧总结/" title="WKWebview使用技巧总结" itemprop="url">WKWebview使用技巧总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-13T02:49:25.000Z" itemprop="datePublished"> 发表于 07-13-2017</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WKWebView使用技巧"><span class="toc-number">1.</span> <span class="toc-text">WKWebView使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将WKWebView配置成属性"><span class="toc-number">1.1.</span> <span class="toc-text">将WKWebView配置成属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载网址的简化操作"><span class="toc-number">1.2.</span> <span class="toc-text">加载网址的简化操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取html片段"><span class="toc-number">1.3.</span> <span class="toc-text">读取html片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制访问站点"><span class="toc-number">1.4.</span> <span class="toc-text">限制访问站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用外部浏览器加载"><span class="toc-number">1.5.</span> <span class="toc-text">用外部浏览器加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载进度"><span class="toc-number">1.6.</span> <span class="toc-text">加载进度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取标题"><span class="toc-number">1.7.</span> <span class="toc-text">读取标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户访问过的页面"><span class="toc-number">1.8.</span> <span class="toc-text">用户访问过的页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#页面注入JavaScript"><span class="toc-number">1.9.</span> <span class="toc-text">页面注入JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookies的读取、删除"><span class="toc-number">1.10.</span> <span class="toc-text">Cookies的读取、删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UserAgent确定访问用户类型"><span class="toc-number">1.11.</span> <span class="toc-text">UserAgent确定访问用户类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截屏快照"><span class="toc-number">1.12.</span> <span class="toc-text">截屏快照</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<h2 id="WKWebView使用技巧"><a href="#WKWebView使用技巧" class="headerlink" title="WKWebView使用技巧"></a>WKWebView使用技巧</h2><h3 id="将WKWebView配置成属性"><a href="#将WKWebView配置成属性" class="headerlink" title="将WKWebView配置成属性"></a>将WKWebView配置成属性</h3><p>webview很多时候是需要全屏展示的,但是如果是在控制器的viewDidLoad()方法中创建webview,并且展示到全屏,效率其实是不高的,这里有个简单实用的方法:就是给相应的控制器创建一个属性,并且在loadView()方法中创建webview,并将其添加到控制器上去. 这样的操作会让显示效率提高一些,并且使用过程中也会方便很多.</p>
+<h3 id="加载网址的简化操作"><a href="#加载网址的简化操作" class="headerlink" title="加载网址的简化操作"></a>加载网址的简化操作</h3><p>webview需要加载远程内容的话,需要操作其实还是有几步的,就是需要将提供的字符串网址,装换成URL类型的链接,然后创建Request并添加URL,然后再让webview来加载它. 整个过程有一些步骤其实是可复用步骤,普通用法一般均是给定”网址字符串”,然后不关心中间件的创建,所以可以将中间操作都用分类来封装起来,将其做成一个固定加载方法,然后直接每次使用的时候,调用相应方法,并且传入”网址字符串”即可.</p>
+<h3 id="读取html片段"><a href="#读取html片段" class="headerlink" title="读取html片段"></a>读取html片段</h3><p>WKWebView可以加载html片段,需要使用loadHTMLString方法,然后将html字符串段直接提供给该方法即可.需要注意的是,如果还需要从bundle中加载css或者图片等资源,需要指定从bundle的resource中读取.</p>
+<h3 id="限制访问站点"><a href="#限制访问站点" class="headerlink" title="限制访问站点"></a>限制访问站点</h3><p>配置代理,然后在代理方法decidePolicyFor中添加排除逻辑来判定相应的网页是否允许被加载.</p>
+<h3 id="用外部浏览器加载"><a href="#用外部浏览器加载" class="headerlink" title="用外部浏览器加载"></a>用外部浏览器加载</h3><p>类似4点的操作,配置好代理后,在代理方法decidePolicyFor中添加跳转逻辑,需要用外部浏览器打开的则使用UIApplication的open方法打开即可.</p>
+<h3 id="加载进度"><a href="#加载进度" class="headerlink" title="加载进度"></a>加载进度</h3><p>这个需求是个比较常见的需求,就是监控网页的加载进度,在某些需要的步骤中进行一些特殊操作.最常见的就是定制加载进度条,展示网页加载进度,还有一些其他操作等等.  具体操作就是首先通过kvo,添加estimetedPropress属性的监听,然后在observeValueForKeypath的监听回调方法中,区分出来estimetedPropress</p>
+<h3 id="读取标题"><a href="#读取标题" class="headerlink" title="读取标题"></a>读取标题</h3><p>可以正常使用webView.title来读取网页标题,但是随着用户浏览,页面可能发生跳转,或者其他情况下,标题会改变,而需求又需要标题随时更新的话,那就可以采用和加载进度同样的操作方式:先注册监听webView的title属性,然后在观察者回调方法里,通过对比是否是标题发生了变化,来进行标题的改变.</p>
+<h3 id="用户访问过的页面"><a href="#用户访问过的页面" class="headerlink" title="用户访问过的页面"></a>用户访问过的页面</h3><p>如果想读取用户访问的页面的记录,来进行相关的操作,那就使用backForwardList属性,这个属性包含了backList和forwardList两个数组.  在每个列表中,都可以读取每个被浏览页面的URL,以及被使用的标题等.</p>
+<h3 id="页面注入JavaScript"><a href="#页面注入JavaScript" class="headerlink" title="页面注入JavaScript"></a>页面注入JavaScript</h3><p>在你的webView加载一些内容后,你可以使用evaluateJavaScript()方法在已渲染的页面中执行JavaScript.你只需要提供一些用于执行的JavaScript就可以了.例如:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">webView.evaluateJavaScript(<span class="string">"document.getElementById('username').innerText"</span>) &#123; (<span class="literal">result</span>, <span class="keyword">error</span>) <span class="keyword">in</span></div><div class="line">    <span class="keyword">if</span> let <span class="literal">result</span> = <span class="literal">result</span> &#123;</div><div class="line">        print(<span class="literal">result</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Cookies的读取、删除"><a href="#Cookies的读取、删除" class="headerlink" title="Cookies的读取、删除"></a>Cookies的读取、删除</h3><p>你可以使用web view的httpCookieStore属性,读取一个网站相关的完整cookies列表.它被埋藏在configuration.websiteDataStore属性下,但是只要你找到它,就可以用getAllCookies()来获取cookies列表,或用delete()来删除某个cookie.</p>
+<h3 id="UserAgent确定访问用户类型"><a href="#UserAgent确定访问用户类型" class="headerlink" title="UserAgent确定访问用户类型"></a>UserAgent确定访问用户类型</h3><p>用户代理让你的服务器鉴别出正在访问页面的是哪种浏览器,常用于开启/限制某些特性是否可用.如果你正在阅读自己的服务器上的网页,你可以把用户代理调整为你自己的字符串,这样你就可以鉴别你app的用户：<br><code>webView.customUserAgent = &quot;My hope App&quot;</code><br>注意：当访问其他资源时,你确实能够改变用户代理,但是记住一些网站也许会读取用户代理字符串,如果这和它期望的不同,会感到混乱.</p>
+<h3 id="截屏快照"><a href="#截屏快照" class="headerlink" title="截屏快照"></a>截屏快照</h3><p>你可以用常规的drawHierarchy()方法把页面转化为图片,此外还可以用WebKit的takeSnapshot()方法.它可以让你剪裁或调整图像大小.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/旧知新解/">旧知新解</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS优化/">iOS优化</a><a href="/tags/WKWebview/">WKWebview</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2017/07/13/WKWebview使用技巧总结/" data-title="WKWebview使用技巧总结 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/02/05/iOS11适配问题深入研析/" title="iOS11适配问题深入研析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS11适配问题深入研析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/06/25/Python学习笔记-12-常用内建模块/"  title="Python学习笔记_12_常用内建模块">
+ <strong>下一篇：</strong><br/> 
+ <span>Python学习笔记_12_常用内建模块
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/07/13/WKWebview使用技巧总结/" data-title="WKWebview使用技巧总结" data-url="https://ixiaochuan.top/2017/07/13/WKWebview使用技巧总结/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#WKWebView使用技巧"><span class="toc-number">1.</span> <span class="toc-text">WKWebView使用技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将WKWebView配置成属性"><span class="toc-number">1.1.</span> <span class="toc-text">将WKWebView配置成属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载网址的简化操作"><span class="toc-number">1.2.</span> <span class="toc-text">加载网址的简化操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取html片段"><span class="toc-number">1.3.</span> <span class="toc-text">读取html片段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制访问站点"><span class="toc-number">1.4.</span> <span class="toc-text">限制访问站点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用外部浏览器加载"><span class="toc-number">1.5.</span> <span class="toc-text">用外部浏览器加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载进度"><span class="toc-number">1.6.</span> <span class="toc-text">加载进度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取标题"><span class="toc-number">1.7.</span> <span class="toc-text">读取标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户访问过的页面"><span class="toc-number">1.8.</span> <span class="toc-text">用户访问过的页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#页面注入JavaScript"><span class="toc-number">1.9.</span> <span class="toc-text">页面注入JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cookies的读取、删除"><span class="toc-number">1.10.</span> <span class="toc-text">Cookies的读取、删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UserAgent确定访问用户类型"><span class="toc-number">1.11.</span> <span class="toc-text">UserAgent确定访问用户类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截屏快照"><span class="toc-number">1.12.</span> <span class="toc-text">截屏快照</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2017年度规划/" title="2017年度规划">2017年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@iXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

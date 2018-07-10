@@ -1,0 +1,591 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>iOS开发卡顿掉帧的研讨 | 小川的博客·iXiaoChuan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="原生卡顿卡顿原因IPhone的屏幕刷新频率是60FPS,也就是1秒钟60帧,也就是是说16ms左右完成一个渲染周期,而在一个渲染周期内如果设备无法将当前需要渲染的内容显示完全,就会出现掉帧. 
+正常状况下,app主线程在CUP中将需要显示的内容计算好(比如:创建视图、计算布局、图片编码、文本绘制…);随后,CPU会将计算好的内容传递给GPU,由GPU完成变换、渲染、合成等操作;随后GPU会将渲染">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发卡顿掉帧的研讨">
+<meta property="og:url" content="https://ixiaochuan.top/2018/02/28/iOS开发的卡顿掉帧解决/index.html">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
+<meta property="og:description" content="原生卡顿卡顿原因IPhone的屏幕刷新频率是60FPS,也就是1秒钟60帧,也就是是说16ms左右完成一个渲染周期,而在一个渲染周期内如果设备无法将当前需要渲染的内容显示完全,就会出现掉帧. 
+正常状况下,app主线程在CUP中将需要显示的内容计算好(比如:创建视图、计算布局、图片编码、文本绘制…);随后,CPU会将计算好的内容传递给GPU,由GPU完成变换、渲染、合成等操作;随后GPU会将渲染">
+<meta property="og:updated_time" content="2018-07-09T02:00:53.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发卡顿掉帧的研讨">
+<meta name="twitter:description" content="原生卡顿卡顿原因IPhone的屏幕刷新频率是60FPS,也就是1秒钟60帧,也就是是说16ms左右完成一个渲染周期,而在一个渲染周期内如果设备无法将当前需要渲染的内容显示完全,就会出现掉帧. 
+正常状况下,app主线程在CUP中将需要显示的内容计算好(比如:创建视图、计算布局、图片编码、文本绘制…);随后,CPU会将计算好的内容传递给GPU,由GPU完成变换、渲染、合成等操作;随后GPU会将渲染">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/02/28/iOS开发的卡顿掉帧解决/" title="iOS开发卡顿掉帧的研讨" itemprop="url">iOS开发卡顿掉帧的研讨</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2018-02-28T07:06:49.000Z" itemprop="datePublished"> 发表于 02-28-2018</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原生卡顿"><span class="toc-number">1.</span> <span class="toc-text">原生卡顿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#卡顿原因"><span class="toc-number">1.1.</span> <span class="toc-text">卡顿原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点和解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">注意点和解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网页卡顿"><span class="toc-number">2.</span> <span class="toc-text">网页卡顿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#卡顿原因-1"><span class="toc-number">2.1.</span> <span class="toc-text">卡顿原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点和解决方案-1"><span class="toc-number">2.2.</span> <span class="toc-text">注意点和解决方案</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<h2 id="原生卡顿"><a href="#原生卡顿" class="headerlink" title="原生卡顿"></a>原生卡顿</h2><h3 id="卡顿原因"><a href="#卡顿原因" class="headerlink" title="卡顿原因"></a>卡顿原因</h3><p>IPhone的屏幕刷新频率是60FPS,也就是1秒钟60帧,也就是是说16ms左右完成一个渲染周期,而在一个渲染周期内如果设备无法将当前需要渲染的内容显示完全,就会出现掉帧. </p>
+<p>正常状况下,app主线程在CUP中将需要显示的内容计算好(比如:创建视图、计算布局、图片编码、文本绘制…);随后,CPU会将计算好的内容传递给GPU,由GPU完成变换、渲染、合成等操作;随后GPU会将渲染完成的内容放到帧缓冲区,二iOS系统有两个帧缓冲区(双缓冲机制),具体的操作就是,GPU会先将渲染好的一帧放到一个缓冲区内,让视频控制器读取,而当下一帧渲染完成后,GPU会直接把视频控制器的指针指向第二个缓冲区.</p>
+<p>当视频控制器还没有读取完第一帧的内容时,也就是屏幕上渲染显示前一帧的一部分内容时,GPU又将新的一帧内容提交到了缓冲区,并且将视频控制器指向了新的缓冲区内容,就会造成渲染新的一帧一部分的内容,造成画面撕裂的现象出现.而为了解决这个问题,视频渲染器有一个机制叫做垂直同步(VSync),当开启垂直同步的时候,GPU会等待显示的VSync信号发出后,才度取并进行新的一帧的渲染,这样至少保证了画面的流畅度,并且不再出现撕裂现象,但是因为增加的操作造成的计算量的提升,所以有时会出现延迟. 由于垂直同步机制的存在,如果在一个VSync时间内,CPU或者GPU没有完成内容的提交,那么那一帧的内容就会被丢弃,等待下一帧的到来,而界面上仍然存在着旧的一帧内容,所以就表现成了卡顿的样子. 而这就是界面出现卡顿的原因.</p>
+<h3 id="注意点和解决方案"><a href="#注意点和解决方案" class="headerlink" title="注意点和解决方案"></a>注意点和解决方案</h3><p><strong> 视图尽量不要设置透明度 </strong></p>
+<p>UIImageView、UIView等常用可能会需要改变透明度的视图控件,都尽量不要设置成透明clearColor,这样会触发alpha透明通道的叠加,最要也不要使用带有alpha透明通道的图片,也尽量少使用圆角等需要离屏渲染的设计.</p>
+<p>将图片加载等吃CUP计算量、吃内存的操作延后或提前,尤其是滑动控件,比防说UITableView的cell设计,在滚动这种需要高速计算和渲染操作时尽量不要同时做加载图片的操作.</p>
+<p>让图片的绘制、图片的下载、对象的创建、文本的渲染等这些耗时的操作尽可能采用子线程异步的方式去处理.</p>
+<h2 id="网页卡顿"><a href="#网页卡顿" class="headerlink" title="网页卡顿"></a>网页卡顿</h2><h3 id="卡顿原因-1"><a href="#卡顿原因-1" class="headerlink" title="卡顿原因"></a>卡顿原因</h3><p>网页出现掉帧主要就是因为事件触发过于频繁,网页来不及处理导致在下一个事件被触发之前无法完成,特别在scroll resize这样的事件同时又涉及大量DOM操作和元素绘制的时候,网页掉帧就会比较严重.</p>
+<p>一个页面被呈现在用户面前之前,通常会经历JavaScript代码的加载和解释、计算样式、布局(layout)、为DOM元素填充像素(paint)、合并渲染层(DOM元素的绘制是在多个层上进行的,绘制完成后再进行合并).页面生成的时候会被至少渲染(layout+paint)一次,在被访问过程中也会不断地重排和重绘,特别是scroll resize的频繁触发会导致浏览器不停地重新渲染页面,</p>
+<h3 id="注意点和解决方案-1"><a href="#注意点和解决方案-1" class="headerlink" title="注意点和解决方案"></a>注意点和解决方案</h3><p>通过元素的分组当某个层内容改变的时候,就可以仅仅重绘这个层,不需要整个页面重绘.也可以通过防抖函数,减少事件在一定时间内的触发次数,这样对网页展示会有很好的提升.</p>
+<p>结合防抖,采用节流函数,只允许一个函数在X毫秒内执行一次,只有当上一次函数执行后过了规定的时间间隔才能进行下一次该函数的调用.效果会更好一些.</p>
+<p><strong> 前端需要注意的地方 </strong></p>
+<p>尽量减少layout<br>简化事件内操作,将一些变量的初始化,不依赖于位置变化的计算等都当在scroll外提前就绪<br>滑动过程中尝试使用pointer-events:none 禁止鼠标事件可以提高滚动时的帧频（使用后hover click事件会全部失效,要在停止滚动的时候移除掉这个属性）<br>简化DOM结构<br>适当的开启硬件加速<br>触发view前准备好数据,做好缓存</p>
+<p><strong> 客户端能做的事 </strong></p>
+<p>使用WKWebView 替换 UIWebView<br>合理实现页面缓存技术（预加载Web页面, NSURLCache、NSURLProtocol ）<br>采用Hybrid等技术<br>网页转成Native 等</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/旧知新解/">旧知新解</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS优化/">iOS优化</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2018/02/28/iOS开发的卡顿掉帧解决/" data-title="iOS开发卡顿掉帧的研讨 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/03/09/蓝牙打印电子面单系统的实践和总结/" title="蓝牙打印电子面单系统iOS端的技术实现和总结">
+  <strong>上一篇：</strong><br/>
+  <span>
+  蓝牙打印电子面单系统iOS端的技术实现和总结</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/02/10/2018年-展望与规划/"  title="2018年 展望与规划">
+ <strong>下一篇：</strong><br/> 
+ <span>2018年 展望与规划
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/02/28/iOS开发的卡顿掉帧解决/" data-title="iOS开发卡顿掉帧的研讨" data-url="https://ixiaochuan.top/2018/02/28/iOS开发的卡顿掉帧解决/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原生卡顿"><span class="toc-number">1.</span> <span class="toc-text">原生卡顿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#卡顿原因"><span class="toc-number">1.1.</span> <span class="toc-text">卡顿原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点和解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">注意点和解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网页卡顿"><span class="toc-number">2.</span> <span class="toc-text">网页卡顿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#卡顿原因-1"><span class="toc-number">2.1.</span> <span class="toc-text">卡顿原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意点和解决方案-1"><span class="toc-number">2.2.</span> <span class="toc-text">注意点和解决方案</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2017年度规划/" title="2017年度规划">2017年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@iXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

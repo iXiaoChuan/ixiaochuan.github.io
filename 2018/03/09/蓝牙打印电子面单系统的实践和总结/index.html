@@ -1,0 +1,726 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>蓝牙打印电子面单系统iOS端的技术实现和总结 | 小川的博客·iXiaoChuan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
+
+第一部分：蓝牙打印电子面单的需求来源。
+第二部分：蓝牙打印电子面单的需求分析。
+第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
+第四部分：需要注意的细节总结。
+第五部分：资源推荐。
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
+<meta property="og:url" content="https://ixiaochuan.top/2018/03/09/蓝牙打印电子面单系统的实践和总结/index.html">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
+<meta property="og:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
+
+第一部分：蓝牙打印电子面单的需求来源。
+第二部分：蓝牙打印电子面单的需求分析。
+第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
+第四部分：需要注意的细节总结。
+第五部分：资源推荐。
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPzOl.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPFXY.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UyUSK.jpg">
+<meta property="og:updated_time" content="2018-07-09T02:00:15.478Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
+<meta name="twitter:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
+
+第一部分：蓝牙打印电子面单的需求来源。
+第二部分：蓝牙打印电子面单的需求分析。
+第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
+第四部分：需要注意的细节总结。
+第五部分：资源推荐。
+
+
+需求来源
+蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta name="twitter:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/09/蓝牙打印电子面单系统的实践和总结/" title="蓝牙打印电子面单系统iOS端的技术实现和总结" itemprop="url">蓝牙打印电子面单系统iOS端的技术实现和总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-09T07:01:15.000Z" itemprop="datePublished"> 发表于 03-09-2018</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a>   </p>
+<p>首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   </p>
+<ul>
+<li>第一部分：蓝牙打印电子面单的需求来源。</li>
+<li>第二部分：蓝牙打印电子面单的需求分析。</li>
+<li>第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。</li>
+<li>第四部分：需要注意的细节总结。</li>
+<li>第五部分：资源推荐。</li>
+</ul>
+<blockquote>
+<h2 id="需求来源"><a href="#需求来源" class="headerlink" title="需求来源"></a>需求来源</h2></blockquote>
+<p>蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以通过该App实现向中邮速递易相关智能设备<font color="red">投件</font>，以及从中<font color="red">取件</font>的交互流程。   </p>
+<p>而打印电子面单的需求来源于取件流程，取件流程需要快递员从智能设备中取出用户所投快件，并生成相应面单<font color="gray">(手填面单，站点机打面单，便携机打面单)</font>，并将面单贴到快件上，完成标记发货流程。然而手填面单效率极低，并且出错率很高；而站点机打面单也存在需要额外标记措施，快件送回站点过程中易混乱，并且效率也比较低等等问题；所以，现在主流快递公司很多采用了蓝牙便携设备打印电子面单的方案，可以方便快递员实现现场发货操作，极大提高了取件效率，同时也大大降低了人工操作的出错率。   </p>
+<p>而本次的需求就是：<font color="red">实现快递员App支持多家快递公司、多种型号蓝牙便携打印设备的电子面单打印功能。</font>   </p>
+<blockquote>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2></blockquote>
+<p>经过技术调研，发现移动端Android和iOS两边的技术实现不尽相同，Android那边采用的是比较通用的端口输入输出流的方式，和其他的硬件操作比较类似，并且普适了各种设备；而iOS这边技术更多元化，但是从技术实用和更新角度来看，采用BLE4.0的CoreBluetooth框架更合适。   </p>
+<p>而后台系统，则采用了快递鸟的API通用接口，获取各家快递公司的面单单号支持，然后将订单数据绑定到对应的面单号上，生成特有的模板。   </p>
+<p>考虑到Android和iOS系统不同的实现方式，为了实现统一和复用，最后跟后台人员数次会议商议后敲定了如下整体方案：<font color="red">蓝牙打印电子面单采用CPCL指令集下发的模式，先由App端开发人员根据实际面单格式编写(对应公司+对应设备型号)CPCL指令集，然后交由后台配置数据，再统一管理、下发给移动端，移动端再将模板下发便携蓝牙打印设备，打印出电子面单，快递员再将面单贴到快件上完成整个打印电子面单、标记、发货流程。</font>但是仍然存在不使用电子面单的快递公司无法覆盖到的问题，所以这里在实现蓝牙打印电子面单的同时，保留了手写面单绑定的入口，这样就可以全面的满足快递员<font color="red">取件+发货</font>的需求了。   </p>
+<blockquote>
+<h2 id="代码实现与问题解决"><a href="#代码实现与问题解决" class="headerlink" title="代码实现与问题解决"></a>代码实现与问题解决</h2></blockquote>
+<p>本篇主要提供iOS端的技术实现方案。   </p>
+<blockquote>
+<h3 id="CoreBluetooth框架介绍"><a href="#CoreBluetooth框架介绍" class="headerlink" title="CoreBluetooth框架介绍"></a>CoreBluetooth框架介绍</h3></blockquote>
+<p>iOS端的CoreBluetooth库，解决了大部分跟硬件直接交互的问题，给开发人员提供了友好便捷的集成方式。CoreBluetooth框架主要分为以下两种模式：   </p>
+<ul>
+<li>CBCentralMannager中心模式 ：以手机(app)作为中心，连接其他外设。(本次主要使用的方式)</li>
+<li>CBPeripheralManager外设模式：以手机作为外设，连接其他中心设备。  </li>
+</ul>
+<p>本次需求的场景，使用到的是CBCentralManager中心模式。CBCentralManager中心模式将蓝牙设备硬件构建成如下几个层级结构：   </p>
+<div align="center"><img src="https://s1.ax2x.com/2018/03/20/UPzOl.jpg" alt="&lt;font size=2&gt;&lt;font color=red&gt;CBPerpheral外设&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;CBService服务&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;CBCharacteristic特征&lt;/font&gt;==(包含多个)==&gt;&lt;font color=red&gt;Description描述&lt;/font&gt;&lt;/font&gt;"></div>
+
+<p><font color="red">外设</font>是CoreBluetooth对外部设备的抽象对象，外设具有<font color="red">name</font>等属性，一个外设可以包含多种<font color="red">服务</font>，服务具有一个唯一的标识量：<font color="green">UUID</font>，服务集合中的每个服务都提供不同的服务内容，比方说提供设备信息、提供写入数据接口等，对于硬件开发商来说可以自己定制自己的服务，不过一般都有默认的服务提供；一个服务可以包含多个<font color="red">特征值</font>，每个特征值也具有自己的唯一标识量：<font color="green">UUID</font>，每个特征值提供具体的比方写入、读取、广播等可操作行为，是一般蓝牙开发操作的最小单位；一个特征值包含多个<font color="red">描述</font>。   </p>
+<p>CoreBluetooth框架秉承了Objective-C语言编写的系统框架的一贯风格，采用了协议代理的开发方式。主要遵循两个协议CBCentralManagerDelegate和CBPeripheralDelegate。CBCentralManagerDelegate主要包含了中心对象连接外设时的状态获取回调方法；而CBPeripheralDelegate则主要包含了外设对象的服务、特征值等等的发现回调方法。   </p>
+<p>而CoreBluetooth框架的<font color="red">中心模式</font>的开发规则如下：  </p>
+<ol>
+<li><p>创建CBCentralManager实例，配置代理控制器，然后调用扫描外设方法：<code>-(void)scanForPeripheralsWithServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs options:(nullable NSDictionary&lt;NSString *,id&gt; *)options;</code></p>
+</li>
+<li><p>在代理控制器中，实现扫描到外设的代理方法: <code>-(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary&lt;NSString *, id&gt; *)advertisementData RSSI:(NSNumber *)RSSI;</code> ，在该方法中可以获取到扫描到的外设列表，用来进行相应的展示或者操作。</p>
+</li>
+<li><p>在扫描到的外设列表中，选择需要的外设，调用CBCentralManager的连接外设方法: <code>- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary&lt;NSString *, id&gt; *)options；</code></p>
+</li>
+<li><p>在代理控制器中，实现连接到外设的代理方法: <code>- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral；</code>，在该方法中，继续调用发现服务的方法：<code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code> </p>
+</li>
+<li><p>在代理控制器中，实现发现外设服务的代理方法： <code>- (void)discoverServices:(nullable NSArray&lt;CBUUID *&gt; *)serviceUUIDs；</code>，在该方法中，继续调用发现特征值的方法：<code>- (void)discoverCharacteristics:(nullable NSArray&lt;CBUUID *&gt; *)characteristicUUIDs forService:(CBService *)service；</code> </p>
+</li>
+<li><p>在代理控制器中，实现发现特征值的代理方法： <code>- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error</code>，在该方法中就可以获取到对应的特征值，具体的写入和读取操作，就来源于这些特征值。</p>
+</li>
+<li><p>在第6步中获取到的特征值中，筛选出需要的特征值，进行相应的写入、读取、注册广播操作。     </p>
+</li>
+</ol>
+<blockquote>
+<h3 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a>技术实现</h3></blockquote>
+<p>因为考虑到蓝牙设备的全局唯一性和通用性，所以在项目中建立了一个管理单例<code>PrintManager</code>用来管理蓝牙连接和操作相关的内容。而管理类作为CBCenterManager代理，处理大多数跟系统蓝牙沟通的问题：   </p>
+<div align="center"><img src="https://s1.ax2x.com/2018/03/20/UPFXY.jpg" alt="系统代理方法"></div><br>然后配置一套自身的协议，只对外公开一些必要的业务相关的操作即可：<br><div align="center"><img src="https://s1.ax2x.com/2018/03/20/UyUSK.jpg" alt="管理类公开方法"></div>
+
+<p>通过两层协议(PrintManager遵守系统协议、业务层遵守PrintManager协议)的方式，将与系统蓝牙框架交互的处理跟与业务层交互的处理分离开了，并将项目中使用蓝牙的操作分为了如下几个阶段：<br></p>
+<ul>
+<li><strong>搜索外设阶段</strong></li>
+</ul>
+<p>这里在系统蓝牙硬件搜索到外设的时候，CBCenterManager的回调方法每次都是扫描到外设就会回调，包含可能已经扫描到过的外设，所以这里需要进行排除重复处理。<br></p>
+<p>这里有个小处理，就是业务里面有一个需求，链接过某个设备之后，如果手机打开了蓝牙，那就自动连接之前的设备。所以这里添加了自动连接的属性配置，如果打开自动链接，会在搜索阶段从本地缓存取出之前最后一次链接过的外设的identifier，然后对比扫描到的外设，如果符合，则会自动调用连接方法，从而实现<font color="red">“自动连接”</font>。<br></p>
+<p>这里还有个小技巧，就是连接方法，系统提供了根据对应服务UUID集合扫描含有特定服务的外设的方法，根据业务需求，可以将特定的服务UUID集合传入给扫描方法，这样可以排除很多具有蓝牙但是不为打印业务所用的设备。<br></p>
+<p>而在对应的系统回调方法里，还可以获取到外设的广播信息，以及外设的信号强度信息，在有需要的项目里可以使用，本项目未使用到，就不多做解释了。<br></p>
+<p>最后PrintManager通过协议，将扫描到的设备信息，回调给业务层使用。<br></p>
+<ul>
+<li><strong>链接外设阶段</strong></li>
+</ul>
+<p>PrintManager自动连接，或者业务层主动调用PrintManager的链接方法，主动链接某个外设后，会有链接成功和连接失败的回调方法，如果主动调用了断开连接的方法，还有断开连接回调的方法。<br></p>
+<p>这里在连接成功后，对连上的外设的identifier进行了本地缓存处理，以供下次自动链接时使用，同时通过PrintManager协议方法，将获取到的状态信息回调给业务层处理，然后自动调用了系统发现服务的方法。<br></p>
+<p>而在连接失败的方法里面也进行了同样的回调处理，将重连或者其他操作的权限，交给了业务层。<br></p>
+<ul>
+<li><strong>发现服务阶段</strong></li>
+</ul>
+<p>发现服务阶段，同样的会有系统回调方法，操作和上面的连接回调方法基本类似，PrintManager对发现的服务将继续进行发现特征值操作，PrintManager同样的会将该步骤回调给业务层，业务层将对发现服务的外设进行相应的处理。<br></p>
+<p>这里有个小问题，因为我们是便携蓝牙打印机，大部分厂商的机型都提供了一个通用UUID<code>类似FF00或者49535343-FE7D-4AE5-8FA9-9FAFD205E455</code>的带有可写入特征值的服务，所以只需要发现对应UUID服务下的特征值并写入模板就可以了。这里还有一个<font color="red">除杂</font>的操作比较有意思，就是在发现的各种蓝牙设备里面，只有蓝牙打印设备才具有某个特殊的服务UUID，所以这里还在业务层进行了除杂操作，就是将不符合UUID的外设，在连接之前就排除掉了，这样省去了连接到其他类型设备的冗余操作。<br></p>
+<ul>
+<li><strong>发现特征值阶段</strong></li>
+</ul>
+<p>这里有个小技巧，涉及到我们业务上的一些有意思的东西，因为我们采用了CPCL指令集下发的形式，并且便携蓝牙打印机的型号比较多，需要定位到某一个型号的打印机，并且对应到是哪个快递公司的，才能唯一确定下发的模板。而通过对各个型号的打印机提供的服务的整理分析，大部分打印机都会有一个通用UUID的服务里提供了通用的写入特征值，可以写入对应的模板，但是有部分打印机的通用服务下的通用特征值并不能支持，所以这里需要根据相应的机型进行判断处理，将对应的写入特征值缓存到本地，特殊机型使用特殊的特征值写入。<br></p>
+<p>还有一个问题，因为服务下的写入特征值是不同属性的，分为如下两种：<code>CBCharacteristicWriteWithResponse</code>和<code>CBCharacteristicWriteWithoutResponse</code>，写入带回调和写入不带回调，而取用不同的属性的特征值，将直接影响到数据的写入操作，所以使用的时候要根据相应的业务进行特殊处理，这里我们项目中取用了带有写入回调属性的特征值。<br></p>
+<ul>
+<li><strong>写数据阶段</strong></li>
+</ul>
+<p>首先最需要注意的就是，不管之前连接的设备是什么状态的，都要在写入数据之前进行判断，当前的设备是不是还在连接开启状态，只有连接开启状态的设备才能进行写入操作。<br></p>
+<p>这里还有几个比较有意思的小事情。<font color="red">一个是关于写入类型的：</font>因为系统给特征值的写入方法如下：<code>- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type；</code>，这里需要注意type必须传入之前提到过的枚举类型，如果是带有回调的类型，可以在PrintManager里面实现相应的回调方法，并在相应的方法里面进行一些业务操作。<br></p>
+<p><font color="red">另一个是关于下发数据类型的：</font>需要注意的是数据下发是以NSData类型下发的，而我们项目采用的是CPCL指令集下发的方案，移动端从后台直接获取的是一段文本，这里需要将文本类型转换成NSData类型，并且要注意使用相应的编码规范，这里我们使用<code>kCFStringEncodingGB_18030_2000</code>。<br></p>
+<p><font color="red">还有一个是数据下发分段的：</font>这个就比较有意思了，是在同一套代码，大部分机型正常打印，部分机型没有反应的情况下发现的这个问题，检查并多次调试了代码，发现仍然无法打印，所以就联系了打印机硬件厂商的技术人员，通过沟通和调试，发现了这个问题所在：因为打印机厂商的硬件系统都是自己烧的单片，部分硬件厂商对单次传入打印机的数据量做了限制，所以我们项目中将模板一次性下发的时候，部分机子处理不了，就将相应的数据忽略掉了，造成下发无效果的情况。所以，这里更新了下发方案：在选用特征值类型的时候就取用之前提到的带有回调类型的特征值，然后定义了一个全局参数，限制每次下发的数据量，将整体模板根据限制进行分片，在每次下发之后，监听下发数据回调方法，如果下发成功，则继续下发下一片数据，直到最后一片数据下发完成。然后修改代码，测试各种机型，全部通过~<br></p>
+<p>而在解决数据分段的问题的同时，某个机型出现过本地模板下发机子正常打印，后台获取的模板下发机子无反应的奇怪情况。通过和硬件厂商技术人员的多次远程会议沟通，定位到了两个比较有意思的专业性问题：<font color="red">CPCL指令集格式和系统文本编码问题：</font>因为CPCL指令对我们的移动端开发人员来说不是常用语言，需求排期内研究语法加写出可以使用的模板是可以的，但是有些CPCL本身的细节问题，还是有所欠缺。在硬件厂商技术人员的协助下，发现了原来我们的后台同事在移动端同事编码好的指令集中绑定数据的时候，因为后台系统本身的问题，会略微改动指令集的编码格式，涉及到Windows系统的文本BOM头问题，打印机识别不了；同时指令集有固定的格式，数据最后需要以命令<code>PRINT</code>+<code>\r\n(回车符)</code>结束，用以通知打印机数据发送完毕，可以打印。然而后台小伙伴处理过后的模板，因为编码的问题只剩下<code>\n</code>，打印机并不认同，和Android的小伙伴儿沟通过后，发现Android端存在同样的问题，所以最后和后台小伙伴、Android小伙伴一起商议决定，后台处理掉关于BOM的问题，下发纯文本文档模板，而两个移动端负责判断特殊机型，在模板最后拼接<code>PIRNT+\r\n</code>后，再编码下发给打印机。最后测试通过，完美解决了这个奇葩的问题~<br></p>
+<ul>
+<li><strong>断开外设阶段</strong></li>
+</ul>
+<p>最后，发现、连接、下发数据打印，都正常完成了，一定不要忘记了，在业务层不再需要蓝牙打印功能的时候，将蓝牙连接断开，并且停止发现外设的操作，一方面是出于技术考虑的角度，虽然BLE4.0是低功耗的，但是不使用的时候还是要关闭，避免App对系统资源的一直占用；另一方面，出于业务角度考虑，不使用的时候关闭蓝牙，可以节省电量，降低手机发热，给App的用户更好的使用体验。<br></p>
+<p>因为项目方案是采用的单例，在关闭扫描外设和断开外设连接的时候，需要注意涉及到的业务层是不是都进行了避险处理，并且PrintManager采用了协议代理+Block回调的方式处理跟业务层的交互，所以一定要注意Block和Delegate的判空处理，避免出现野指针崩溃的问题。<br></p>
+<blockquote>
+<h2 id="细节注意问题总结"><a href="#细节注意问题总结" class="headerlink" title="细节注意问题总结"></a>细节注意问题总结</h2></blockquote>
+<p>最后总结了一下本次方案开发过程中遇到的或者需要注意的一些问题，以及建议解决方法：</p>
+<ul>
+<li><p>因为CoreBluetooth框架是硬件回调系统，存在不确定性，所以不管是系统蓝牙的哪个阶段的回调，都要留心蓝牙状态、Error处理。</p>
+</li>
+<li><p>因为使用了单例的方式管理了蓝牙相关开发，所以享受便利性的同时，一定要注意谨慎使用Delegate和Block，使用时一定要加判空，防止野指针奔溃发生。</p>
+</li>
+<li><p>扫描外设阶段，系统框架存在蓝牙状态不稳定的情况，在UpdateState的系统回调里面，一定要判断当前硬件状态，如果状态更新为可用，再继续进行相应的处理。</p>
+</li>
+<li><p>扫描外设阶段的去重处理。如果业务中需要将扫描到的外设显示到列表，不去重就会发现列表里边出现一堆重复外设信息，可以通过Service或者Characteristic来判断是否为业务所需外设。</p>
+</li>
+<li><p>数据下发这块，不单单只有我们采用的CPCL指令下发的模式，还有很多其他方式，单条十六进制指令下发、ESC指令下发、EPL指令下发、ZPL指令下发等等，大部分都类似，有兴趣的小伙伴儿可以研究一下其他方式。</p>
+</li>
+<li><p>数据下发的分段问题，不同机型可能存在不同的单次数据受用量，上边已经详细描述过了，这里就不赘述了，还是要注意这个点。</p>
+</li>
+<li><p>最后就是指令的格式问题，不同的指令格式一定要注意，避免因为指令本身的问题造成不必要的麻烦。</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="资源推荐"><a href="#资源推荐" class="headerlink" title="资源推荐"></a>资源推荐</h2></blockquote>
+<p>先推荐一个iOS端蓝牙开发的调试利器：<a href="https://itunes。apple.com/cn/app/lightblue-explorer/id557428110?mt=8" target="_blank" rel="external">LightBlue</a>。手机安装LightBlue，打开后可以自动扫描范围内支持的蓝牙设备，并且可以清晰地看到对应设备的名称、信号强度、服务、特征值等等信息，是iOS端蓝牙开发调试不可或缺的工具。</p>
+<p>然后推荐一下个人封装的iOS蓝牙开发管理类(标题图片所示)，现已开放到Github上以供大家参考：<a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external">ZJCBluetoothManager</a>。当前还是比较简单的一个初期框架，后期会持续不定时更新优化，希望能帮助到正在项目中使用到蓝牙的各位小伙伴。当然如果各位小伙伴在iOS蓝牙开发过程中遇到了什么困惑的问题，也欢迎提出来一起讨论解决!<br></p>
+<p>祝各位好!<br><br>以上<br></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/项目技术总结/">项目技术总结</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS进阶/">iOS进阶</a><a href="/tags/蓝牙/">蓝牙</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2018/03/09/蓝牙打印电子面单系统的实践和总结/" data-title="蓝牙打印电子面单系统iOS端的技术实现和总结 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/03/22/iOS开发中的单元测试/" title="iOS开发中的单元测试">
+  <strong>上一篇：</strong><br/>
+  <span>
+  iOS开发中的单元测试</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/02/28/iOS开发的卡顿掉帧解决/"  title="iOS开发卡顿掉帧的研讨">
+ <strong>下一篇：</strong><br/> 
+ <span>iOS开发卡顿掉帧的研讨
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/03/09/蓝牙打印电子面单系统的实践和总结/" data-title="蓝牙打印电子面单系统iOS端的技术实现和总结" data-url="https://ixiaochuan.top/2018/03/09/蓝牙打印电子面单系统的实践和总结/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求来源"><span class="toc-number">1.</span> <span class="toc-text">需求来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求分析"><span class="toc-number">2.</span> <span class="toc-text">需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现与问题解决"><span class="toc-number">3.</span> <span class="toc-text">代码实现与问题解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CoreBluetooth框架介绍"><span class="toc-number">3.1.</span> <span class="toc-text">CoreBluetooth框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#技术实现"><span class="toc-number">3.2.</span> <span class="toc-text">技术实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#细节注意问题总结"><span class="toc-number">4.</span> <span class="toc-text">细节注意问题总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#资源推荐"><span class="toc-number">5.</span> <span class="toc-text">资源推荐</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2017年度规划/" title="2017年度规划">2017年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@iXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

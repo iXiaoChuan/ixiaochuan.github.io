@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>深入理解@property及其修饰词 | 上善若水•坚持者•思考者</title>
+    <title>深入理解@property及其修饰词 | 小川的博客·iXiaoChuan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解@property及其修饰词">
 <meta property="og:url" content="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/index.html">
-<meta property="og:site_name" content="上善若水•坚持者•思考者">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
 <meta property="og:description" content="@property(属性)这个iOS开发中最常用的东西肯定都不陌生~那大家聊一下属性及其修饰符,肯定也是说起来一套一套的,然而是不是都真的理解了属性,还有属性的修饰符的意义呢?可以用以下几个问题来考察一下自己:
 
 @property到底什么东西?它后面可以有哪些修饰符?
@@ -35,7 +35,7 @@
 怎么用copy关键字?哪些时候可以用,哪些时候必须用,哪些时候用了会出">
 
     
-    <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -53,11 +53,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="上善若水•坚持者•思考者" title="上善若水•坚持者•思考者"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="上善若水•坚持者•思考者">上善若水•坚持者•思考者</a></h1>
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
 				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
@@ -127,14 +127,14 @@
 <p>是不是感觉有点虚了,那好接下来就一起来聊一聊属性和属性修饰符的相关问题~</p>
 <h2 id="property的前世今生"><a href="#property的前世今生" class="headerlink" title="@property的前世今生"></a>@property的前世今生</h2><p>说到属性,就不得不讲成员变量,何为成员变量?因为Objective-C是面向对象开发,当你需要构建类的时候呢,就肯定需要空间来储存类的相关信息的,并且还可能修改它读取它,那通过什么来操作这些空间呢?那就是成员变量(指针).这个深究起来可能就远了,因为OC语言是从C扩展来的,所以继承了C语言的很多特色,尤其是C的主要特性–指针.而Objective-C的类创建并调用实例的时候是指针,那类的成员变量呢,其实也是指针,说白了就是指针指向了一堆空间(类实例),然后该空间里面包含了很多小空间,并且有指针指着(成员变量指针).大概就是这么个意思吧~</p>
 <p>接下来就得从Xcode和Objective-C还小的时候说起了,开始的时候它们呢并不像现在这样用起来这么方便,当时Xcode并不能自动合成操作方法(就是所谓的设置方法setter和读取方法getter,就是现在通过self点来点去的时候调用的方法<code>self.view ...</code>),最开始的时候是以下风格的,需要工程师自己来写相应存取方法,这也是为什么老一辈的iOS工程师都是这么个写法的原因,这里还涉及到了一些工程优化的问题,暂不赘述:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@interface ViewController ()&#123;</div><div class="line">    UIView * _myCeshiView;</div><div class="line">&#125;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    _myCeshiView = [[UIView alloc] init];</div><div class="line">&#125;</div><div class="line">- (void)setmyCeshiView:(UIView *)view&#123;</div><div class="line">&#125;</div><div class="line">- (UIView *)myCeshiView&#123;</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span>&#123;</div><div class="line">    <span class="built_in">UIView</span> * _myCeshiView;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    _myCeshiView = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)setmyCeshiView:(<span class="built_in">UIView</span> *)view&#123;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">UIView</span> *)myCeshiView&#123;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
 <p>后来呢,Xcode和它的编译器小伙伴就厉害了一些,可以通过一个叫做@synthesize的关键字,来自动帮你生成对应成员变量的存取方法了,如下所示:(这也是现在遇到把系统关键字作为属性的情况的常用处理手段)(同时也要提一下@dynamic关键字,他的作用和@synthesize正好相反,就是告诉编译器存取方法运行时会有的,由工程师自己来生成):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@implementation ViewController</div><div class="line">@synthesize mynumber;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@implementation</span> ViewController</div><div class="line"><span class="variable">@synthesize</span> mynumber;</div><div class="line"><span class="variable">@end</span></div></pre></td></tr></table></figure>
 <p>当然了,Xcode和它的编译器小伙伴儿也在努力完善自己,现在的编译器已经可以帮我们自动做好以下工作:生成方法代码getter、setter，自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，以此作为实例变量的名字.并且工程师也有了一个更简单的写法如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@interface ViewController : UIViewController</div><div class="line">@property (assign, nonatomic) NSInteger mynumber;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@interface</span> <span class="attribute">ViewController </span>: UIViewController</div><div class="line"><span class="variable">@property</span> (assign, nonatomic) NSInteger mynumber;</div><div class="line"><span class="variable">@end</span></div></pre></td></tr></table></figure>
 <h2 id="property的本质"><a href="#property的本质" class="headerlink" title="@property的本质"></a>@property的本质</h2><p>那么,到底什么是@property呢?通过以上的内容,其实不难总结出来:@property = ivar + setter + getter.其实属性归根结底还是要操作成员变量,只是强大的编译器帮我们做了一些可以自动化合成的操作.</p>
 <h2 id="property在-protocol和category中如何使用"><a href="#property在-protocol和category中如何使用" class="headerlink" title="@property在@protocol和category中如何使用"></a>@property在@protocol和category中如何使用</h2><p>首先在协议和分类中我们是可以添加属性的(并非实例变量).因为在协议和分类中支持添加方法,所以在协议和分类中使用@property其实就是添加了对应的存取方法.<br>如果我们想让遵守我们协议的对象,实现我们协议中的属性(生成实例变量),那可以使用刚才提到过的关键字来处理:@synthesize myCeshiView = _myCeshiView;<br>而分类里面不能添加实例变量,所以需要用到运行时方法来处理,其实是把对象看成是存着数据的字典,通过KVC的思想来处理的:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSString *)tag &#123;</div><div class="line">    return objc_getAssociatedObject(self, tagKey);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setTag:(NSString *)tag &#123;</div><div class="line">    objc_setAssociatedObject(self, tagKey, tag, OBJC_ASSOCIATION_COPY_NONATOMIC);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (NSString *)<span class="keyword">tag</span> &#123;</div><div class="line">    return objc_getAssociatedObject(<span class="literal">self</span>, <span class="keyword">tag</span>Key);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)<span class="built_in">set</span>Tag:(NSString *)<span class="keyword">tag</span> &#123;</div><div class="line">    objc_setAssociatedObject(<span class="literal">self</span>, <span class="keyword">tag</span>Key, <span class="keyword">tag</span>, OBJC_ASSOCIATION_COPY_NONATOMIC);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="property的修饰符"><a href="#property的修饰符" class="headerlink" title="@property的修饰符"></a>@property的修饰符</h2><p>上面已经差不多解释了@property到底是什么的问题,接下来就开始处理@property的修饰符的问题.因为@property的对应存取方法和实例变量是自动生成的,所以可配置的修饰符在这里就起到了尤为重要的作用.先来看看修饰符有哪些,一般有以下几组:</p>
 <ul>
 <li>引用性修饰符: copy/retain/weak/strong/assign</li>
@@ -147,7 +147,7 @@
 <h4 id="strong和retain"><a href="#strong和retain" class="headerlink" title="strong和retain"></a>strong和retain</h4><p>retain和assign是之前MRC的时候遗留下来的内存管理修饰符.其实retain和现在的strong是一样的用途,都是为了保持强引用,关于内存管理的原理,回头专门开一篇深入研究一下,这里就不多做解释了.两者平常使用过程中并没有太大区别,只不过一个是MRC下使用,另一个是ARC下使用.如果硬要说有一点区别,就是strong中可能加了类似@synchronized的锁,然后如果感兴趣做一下实验的话,ARC下将Block属性配置成retain会造成assign效果,而strong会造成copy效果.(注意:block属性需要配置为copy)</p>
 <h4 id="weak和assign的理解"><a href="#weak和assign的理解" class="headerlink" title="weak和assign的理解"></a>weak和assign的理解</h4><p>这个就有点老生常谈了.weak是ARC新引入的安全型弱引用,用在需要弱引用的<strong>对象</strong>属性上,类似xib开发中的@IBOutlet属性就是弱引用,相比较strong的强引用,弱引用并不持有对象,也就是说一旦对象身上的强引用都消失了,那这个对象就会被回收,并且这个对象指针会被置为nil,是防止野指针的安全的弱引用.相比来说,assign在ARC下适用于<strong>常量</strong>属性,类似int、BOOL、NSInteger等.当实例变量回收以后,也不会像weak一样将被回收对象的指针置为nil,所以相对来说不太安全.<br>所以weak会给回收的对象指针置空,不会让悬垂指针指来指去变成没人管的野指针,而assign在ARC时代,就用来修饰常量属性就好了.</p>
 <h4 id="copy的理解"><a href="#copy的理解" class="headerlink" title="copy的理解"></a><span id="copy">copy的理解</span></h4><p>这个修饰符就比较有意思了~每次说到copy必提到深拷贝和浅拷贝,这两个拷贝的定义一直都是混淆不清的,大家各说纷纭,今天来好好研究研究这个copy,然后再在最后分析深浅拷贝的含义~先从copy修饰的属性的setter方法开始看起,如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-  (void)setName:(NSString *)name &#123;</div><div class="line">   if(_name == name)&#123;</div><div class="line">     return;</div><div class="line">   &#125;</div><div class="line">   else&#123;</div><div class="line">     [_name release];</div><div class="line">     _name = [name copy];</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-  (void)<span class="built_in">setName</span>:(NSString *)<span class="built_in">name</span> &#123;</div><div class="line">   <span class="keyword">if</span>(<span class="variable">_name</span> == <span class="built_in">name</span>)&#123;</div><div class="line">     return;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">else</span>&#123;</div><div class="line">     [<span class="variable">_name</span> release];</div><div class="line">     <span class="variable">_name</span> = [<span class="built_in">name</span> copy];</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>其实和retain、strong的内部实现很像是不是.其实就是判断传入的对象和既存对象是否一样,如果一样不操作,如果不一样就release旧对象,然后copy新对象给对应属性指针.而retain是持有,指针复制,并且对象retainconter+1,而copy其实是复制内容.这个操作其实是一种限制,因为Objective-C语言的多态特性,所以父类指针指向子类对象很普遍,比防说NSString对象的一个属性,外部可能会传入一个可变的NSMutablestring子对象,为了避免外部修改影响内部属性,就使用copy,这样内部对象是内容复制,其实copy完后内部成员变量其实是不可变的,就不受外界改变的影响了.<br>关于<a href="#jump">深浅拷贝</a>在下边一同解释.</p>
 <h3 id="nonatomic的理解-原子操作"><a href="#nonatomic的理解-原子操作" class="headerlink" title="nonatomic的理解(原子操作)"></a>nonatomic的理解(原子操作)</h3><p>包含两个参数,但是只有nonatomic是可以设置的,atomic不用显式设置,属于默认配置,但是显式设置编译器也不会报错.<br>atomic,为setter方法加锁(默认配置)(类似多线程中的互斥锁)实现一定程度的线程安全,但需要消耗大量资源,一般会在MacApp开发的时候用到.<br>nonatomic,非原子属性,不为setter方法加锁,非线程安全,适合内存小的移动设备,一般情况下iOS开发都是默认使用nonatomic.<br>这里呢再深入地讲一点,就是这个atomic是原子性的,但并不是一定”线程安全”的,要实现线程安全,还需要更加深入的线程锁机制来实现.比方说一个atomic属性property,在一个线程A操作下进行了写操作,这时候来了一个线程B也要写操作该属性,确实B线程会等待A线程写完,但是如果A写完了,那么B就进场进行了写操作,当A需要读它写完的property的时候,发现数据已经被B线程篡改了,所以atomic是保证原子操作,并不是保证严格的线程安全.<br>再深入一点,如果有兴趣可以进一步了解atomic原子操作实现机制,其实就是在存取方法里面加了类似这样的<code>@synchronized(self) {}</code>限制域.至于这个<code>@synchronized(self) {}</code>在单例设计模式里面常用的,这里就不过多解释了.</p>
 <h3 id="readonly、readWrite-可读性"><a href="#readonly、readWrite-可读性" class="headerlink" title="readonly、readWrite(可读性)"></a>readonly、readWrite(可读性)</h3><p>这个就没什么特别大的歧义了,各种资料对于文档的解读和试验已经非常详细了.就是对于属性的可读性的限制,如果是readOnly修饰符修饰的属性,那么编译器将不会生成对应的setter方法,对外只可以读对应属性,并不可写.默认是读写可用的.<br>还有一点就是,如果使用了对应的修饰符修饰属性,那么如果我们重新定义了setter或者getter方法(比方说懒加载),默认是不会生成对应的以”_”开头的成员变量的.</p>
@@ -156,9 +156,9 @@
 <h4 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h4><p>使用copy修饰符.以上<a href="#copy">copy</a>那里解释的很清楚了,这里就不过多解释了.</p>
 <h4 id="代理属性"><a href="#代理属性" class="headerlink" title="代理属性"></a>代理属性</h4><p>使用weak修饰符.总的来说就是防止<strong>“循环引用”</strong>.举个例子,如果代理属性使用strong修饰,比方说有一个A类,持有一个B类,如果当前生成A类实例并持有(A retainconter=1),然后该A类实例生成并持有一个B类实例(B retainconter=1),然后该B类实例的代理是该A类实例(A retainconter=2),那么当释放A实例的时候,(retainconter–,但是retainconter=1),这个时候A实例还持有B实例(B retainconter=1),都释放不掉了,就造成了内存泄露.而使用weak的代理的时候,当A实例的持有者不再持有A实例的时候,B实例对A实例的代理引用是weak弱引用,这时A实例(retainconter=0),就释放掉了,然后B实例不再有持有者,B实例也释放掉了,就不会有内存泄漏啦.</p>
 <h4 id="集合类及深浅拷贝的讨论-代表有NSArray和NSMutableArray"><a href="#集合类及深浅拷贝的讨论-代表有NSArray和NSMutableArray" class="headerlink" title="集合类及深浅拷贝的讨论(代表有NSArray和NSMutableArray)"></a>集合类及深浅拷贝的讨论(代表有NSArray和NSMutableArray)</h4><p>这里只讨论一下深拷贝浅拷贝的问题,关于深拷贝和浅拷贝,每个人理解不同,我比较倾向于这种三个深度的理解:浅拷贝就是指针拷贝,深拷贝就是完全拷贝,个人认为还应该区分出一种中间程度的拷贝叫内容拷贝.这里需要澄清一点就是:copy操作和mutableCopy并非是深拷贝和浅拷贝!!!通过一些对象的拷贝来对比一下就比较容易理解了:<br><br> <strong>非集合对象:</strong><br>典型的以NSString为代表.<br>对mutable非集合对象(e.g.NSMutablestring)的copy和mutableCopy都是深拷贝,就是另外开辟一个空间,并生成一个指向该地址的指针,所以就算是修改原对象,新得到的对象也不受影响,形象化来讲就是有两座房子,每个人一座,自己有自己的钥匙;<br>而对immutable非集合对象(e.g.NSString)的copy,是浅拷贝,就是生成一个指向同样一块内存地址(也就是对象)的指针,哪个操作改变都会改变原对象,形象化来讲就是两个人合租,两个人每人一把钥匙,都能开这房子的门;而mutableCopy就是深拷贝,同上道理,不赘言了.总结如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[immutableObject copy]        // 浅拷贝</div><div class="line">[immutableObject mutableCopy] // 深拷贝</div><div class="line"></div><div class="line">[mutableObject copy]          // 深拷贝</div><div class="line">[mutableObject mutableCopy]   // 深拷贝</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[immutableObject copy]</span>        <span class="comment">// 浅拷贝</span></div><div class="line"><span class="selector-attr">[immutableObject mutableCopy]</span> <span class="comment">// 深拷贝</span></div><div class="line"></div><div class="line"><span class="selector-attr">[mutableObject copy]</span>          <span class="comment">// 深拷贝</span></div><div class="line"><span class="selector-attr">[mutableObject mutableCopy]</span>   <span class="comment">// 深拷贝</span></div></pre></td></tr></table></figure>
 <p><br><strong>集合对象:</strong><br>集合类对象以数组、字典、集合为代表.<br>在集合类对象中,对immutable对象进行copy,是指针拷贝,mutableCopy是内容拷贝;对mutable对象进行copy和mutableCopy都是内容拷贝.这里所说的内容拷贝,个人认为内容拷贝的概念独立于深拷贝,是因为内容拷贝并非是严格意义上的深拷贝,其实是指对集合对象的拷贝仅限于对象本身,对象内元素仍然是指针拷贝的.也就是说,我要拷贝数组,把数组重新复制了一份,但是数组内的对象指针指向的还是原数组内对象指针所指向的空间.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[immutableObject copy]        // 浅拷贝</div><div class="line">[immutableObject mutableCopy] // 单层深拷贝 - 内容拷贝</div><div class="line"></div><div class="line">[mutableObject copy]          // 单层深拷贝 - 内容拷贝</div><div class="line">[mutableObject mutableCopy]   // 单层深拷贝 - 内容拷贝</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[immutableObject copy]</span>        <span class="comment">// 浅拷贝</span></div><div class="line"><span class="selector-attr">[immutableObject mutableCopy]</span> <span class="comment">// 单层深拷贝 - 内容拷贝</span></div><div class="line"></div><div class="line"><span class="selector-attr">[mutableObject copy]</span>          <span class="comment">// 单层深拷贝 - 内容拷贝</span></div><div class="line"><span class="selector-attr">[mutableObject mutableCopy]</span>   <span class="comment">// 单层深拷贝 - 内容拷贝</span></div></pre></td></tr></table></figure>
 <h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><h3 id="参考博文"><a href="#参考博文" class="headerlink" title="参考博文"></a>参考博文</h3><p><a href="http://blog.sina.com.cn/s/blog_134b6ff380102v1y1.html" target="_blank" rel="external">1.block为什么可以用weak修饰</a><br><br><a href="http://www.cocoachina.com/ios/20151102/14007.html" target="_blank" rel="external">2.关于 @synchronized，这儿比你想知道的还要多</a><br><br><a href="https://my.oschina.net/openlab/blog/89354" target="_blank" rel="external">3.形象解释属性修饰符的内存操作原理</a><br><br><a href="http://www.cocoachina.com/ios/20170328/18962.html" target="_blank" rel="external">4.最强weak内涵解释!!</a></p>
 <h3 id="开发文档"><a href="#开发文档" class="headerlink" title="开发文档"></a>开发文档</h3><p><a href="https://developer.apple.com/library/content/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank" rel="external">Transitioning to ARC Release Notes</a><br><br><a href="http://clang.llvm.org/docs/AutomaticReferenceCounting.html" target="_blank" rel="external">Objective-C Automatic Reference Counting (ARC)</a><br><br><br><br><br><br><br><br><br><br><br></p>
   
@@ -183,7 +183,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/" data-title="深入理解@property及其修饰词 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2017/03/02/深入理解-property的几个修饰词/" data-title="深入理解@property及其修饰词 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -197,10 +197,10 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/02/10/2018年-展望与规划/" title="2018年 展望与规划">
+ <a href="/2017/04/15/Python学习笔记-08-错误、调试和测试/" title="Python学习笔记_08_错误、调试和测试">
   <strong>上一篇：</strong><br/>
   <span>
-  2018年 展望与规划</span>
+  Python学习笔记_08_错误、调试和测试</span>
 </a>
 </div>
 
@@ -246,35 +246,6 @@
 
 
   
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/个人规划/" title="个人规划">个人规划<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/学习笔记/" title="学习笔记">学习笔记<sup>7</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/旧知新解/学习笔记/" title="学习笔记">学习笔记<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>6</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/项目技术总结/" title="项目技术总结">项目技术总结<sup>4</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
@@ -296,7 +267,7 @@
 			
 		
 			
-				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -308,11 +279,11 @@
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
 			
 		
 			
@@ -321,6 +292,10 @@
 		
 			
 				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -333,55 +308,31 @@
         
           <li>
             
-            	<a href="http://pingguohe.net" target="_blank" title="阿里团队_苹果核_电商动态解决方案">阿里团队_苹果核_电商动态解决方案</a>
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
             
           </li>
         
           <li>
             
-            	<a href="http://blog.devtang.com" target="_blank" title="猿题库_唐巧_iOS进阶">猿题库_唐巧_iOS进阶</a>
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
             
           </li>
         
           <li>
             
-            	<a href="http://www.liaoxuefeng.com" target="_blank" title="技术写作者_廖雪峰_综合">技术写作者_廖雪峰_综合</a>
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
             
           </li>
         
           <li>
             
-            	<a href="http://www.wanglongshuai.com" target="_blank" title="趣点_王隆帅_iOS|PHP">趣点_王隆帅_iOS|PHP</a>
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
             
           </li>
         
           <li>
             
-            	<a href="http://kittenyang.com" target="_blank" title="独立开发者_杨骑滔_动画经验">独立开发者_杨骑滔_动画经验</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://lvwenhan.com" target="_blank" title="独立开发者_吕文翰_PHP|iOS">独立开发者_吕文翰_PHP|iOS</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="技术大牛博客集">技术大牛博客集</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS杂货铺">iOS杂货铺</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com" target="_blank" title="Github">Github</a>
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
             
           </li>
         
@@ -401,7 +352,7 @@
 	
 	<section class="info">
 		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
-			@IXiaoChuan PersonalBlog.</p>
+			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">

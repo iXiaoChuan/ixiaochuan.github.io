@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 上善若水•坚持者•思考者</title>
+    <title>笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 小川的博客·iXiaoChuan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记_书籍_<<编写高质量iOS和OS X代码的52个有效方法>>_第一章">
 <meta property="og:url" content="https://ixiaochuan.top/2017/02/03/编写高质量的iOS代码的52个有效方法-第一章/index.html">
-<meta property="og:site_name" content="上善若水•坚持者•思考者">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
 <meta property="og:description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;最近看了几本书,挑了里面几个内容比较好的做了笔记,比较精髓的就分享到博客里面.&amp;#160; &amp;#160; &amp;#160; &amp;#160;这本是《Effective Objective-C 2.0》,里面的内容非常好,通过分条的形式来总结知识点,这边呢我会时常更新笔记内容.
 第一章 熟悉我们所使用的Objective-C(以后简称OC)第1条 了解O">
 <meta property="og:image" content="http://i1.piimg.com/567571/7746f80f602a329d.jpg">
@@ -28,7 +28,7 @@
 <meta name="twitter:image" content="http://i1.piimg.com/567571/7746f80f602a329d.jpg">
 
     
-    <link rel="alternative" href="/atom.xml" title="上善若水•坚持者•思考者" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
     
     
     <link rel="icon" href="/img/favicon.ico">
@@ -46,11 +46,11 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="上善若水•坚持者•思考者" title="上善若水•坚持者•思考者"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="上善若水•坚持者•思考者">上善若水•坚持者•思考者</a></h1>
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
 				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
@@ -141,7 +141,7 @@
 <p>&#160; &#160; &#160; &#160;本来呢enum是需要这么定义的<code>enum AnimationType type = AnimationTypeFromTop</code>,很麻烦吼,但是呢咖啡有伴侣,enum有typedef~通过typedef这么一幻化,叮~</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">enum AnimationType&#123;</div><div class="line">AnimationTop,</div><div class="line">AnimationLeft,</div><div class="line">AnimationRight,</div><div class="line">&#125;;</div><div class="line">typedef enum AnimationType AnimatioTYpoe;</div></pre></td></tr></table></figure>
 <p>好的,接下来我们就可以这样定义枚举类型了:<code>AnimationTYpe animationType</code>,是不是方便又简洁,但是要注意我写的示例代码细节哦~其实呢,系统有一个定义enum的超级快速方法:在需要定义enum的地方,键入eunm,回车就搞定一个简易的Enum,</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef enum : NSUInteger &#123;</div><div class="line">    &lt;#MyEnumValueA#&gt;,</div><div class="line">    &lt;#MyEnumValueB#&gt;,</div><div class="line">    &lt;#MyEnumValueC#&gt;,</div><div class="line">&#125; &lt;#MyEnum#&gt;;</div></pre></td></tr></table></figure>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef <span class="class"><span class="keyword">enum</span> : <span class="title">NSUInteger</span> &#123;</span></div><div class="line">    &lt;<span class="comment">#MyEnumValueA#&gt;,</span></div><div class="line">    &lt;<span class="comment">#MyEnumValueB#&gt;,</span></div><div class="line">    &lt;<span class="comment">#MyEnumValueC#&gt;,</span></div><div class="line">&#125; &lt;<span class="comment">#MyEnum#&gt;;</span></div></pre></td></tr></table></figure>
 <p>然后就可以使用啦~咋使用?我要杀人…好吧,可以把他当做是类属性,可以把它定义到接口中当参数……很多很多,常用就好~</p>
 <p>&#160; &#160; &#160; &#160;下面说点有意思的,自从C++11定制以来,不要问我啥是C++11,也不要问我为啥C++的标准OC也能受益,请允许我杀人…OC的enum可以定义枚举的”底层保存类型”,不单单只可以用NSInteger哦!不过平常也不太会用到这个,知道有这么一个情况就好了.</p>
 <p>&#160; &#160; &#160; &#160;下面说说重点,就是<code>typedef NS_OPTIONS</code>和<code>typedef NS_ENUM</code>这两个宏的区别以及用处.其实枚举是系统级别API极为常用一个语法,可以说随时可见,举个栗子:</p>
@@ -174,7 +174,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2017/02/03/编写高质量的iOS代码的52个有效方法-第一章/" data-title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 上善若水•坚持者•思考者" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2017/02/03/编写高质量的iOS代码的52个有效方法-第一章/" data-title="笔记_书籍_&lt;&lt;编写高质量iOS和OS X代码的52个有效方法&gt;&gt;_第一章 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -237,35 +237,6 @@
 
 
   
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/个人规划/" title="个人规划">个人规划<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/学习笔记/" title="学习笔记">学习笔记<sup>7</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/旧知新解/学习笔记/" title="学习笔记">学习笔记<sup>2</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/旧知新解/" title="旧知新解">旧知新解<sup>6</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/项目技术总结/" title="项目技术总结">项目技术总结<sup>4</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
@@ -287,7 +258,7 @@
 			
 		
 			
-				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -299,11 +270,11 @@
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
 			
 		
 			
@@ -312,6 +283,10 @@
 		
 			
 				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -324,55 +299,31 @@
         
           <li>
             
-            	<a href="http://pingguohe.net" target="_blank" title="阿里团队_苹果核_电商动态解决方案">阿里团队_苹果核_电商动态解决方案</a>
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
             
           </li>
         
           <li>
             
-            	<a href="http://blog.devtang.com" target="_blank" title="猿题库_唐巧_iOS进阶">猿题库_唐巧_iOS进阶</a>
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
             
           </li>
         
           <li>
             
-            	<a href="http://www.liaoxuefeng.com" target="_blank" title="技术写作者_廖雪峰_综合">技术写作者_廖雪峰_综合</a>
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
             
           </li>
         
           <li>
             
-            	<a href="http://www.wanglongshuai.com" target="_blank" title="趣点_王隆帅_iOS|PHP">趣点_王隆帅_iOS|PHP</a>
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
             
           </li>
         
           <li>
             
-            	<a href="http://kittenyang.com" target="_blank" title="独立开发者_杨骑滔_动画经验">独立开发者_杨骑滔_动画经验</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://lvwenhan.com" target="_blank" title="独立开发者_吕文翰_PHP|iOS">独立开发者_吕文翰_PHP|iOS</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="技术大牛博客集">技术大牛博客集</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS杂货铺">iOS杂货铺</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="https://github.com" target="_blank" title="Github">Github</a>
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
             
           </li>
         
@@ -392,7 +343,7 @@
 	
 	<section class="info">
 		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
-			@IXiaoChuan PersonalBlog.</p>
+			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
 	<div class="social-font" class="clearfix">

@@ -1,0 +1,606 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python学习笔记_08_错误、调试和测试 | 小川的博客·iXiaoChuan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="iXiaoChuan">
+    
+
+    
+    <meta name="description" content="编写的错误叫Bug,必须要修复;用户操作出现的问题,需要提前检测和预防;还有一些文件操作、网络状况超出预期的,叫做异常,需要在程序中进行特殊处理. 所以,调试和测试非常必要.
+
+错误处理
+try…expcept…finally…当我们认为某些代码可能会出错时,就可以用try来运行这段代码,如果执行出错,则后续代码不会继续执行,而是直接跳转至错误处理代码,即except语句块,执行完except后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习笔记_08_错误、调试和测试">
+<meta property="og:url" content="https://ixiaochuan.top/2017/04/15/Python学习笔记-08-错误、调试和测试/index.html">
+<meta property="og:site_name" content="小川的博客·iXiaoChuan">
+<meta property="og:description" content="编写的错误叫Bug,必须要修复;用户操作出现的问题,需要提前检测和预防;还有一些文件操作、网络状况超出预期的,叫做异常,需要在程序中进行特殊处理. 所以,调试和测试非常必要.
+
+错误处理
+try…expcept…finally…当我们认为某些代码可能会出错时,就可以用try来运行这段代码,如果执行出错,则后续代码不会继续执行,而是直接跳转至错误处理代码,即except语句块,执行完except后">
+<meta property="og:updated_time" content="2018-07-09T01:54:26.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python学习笔记_08_错误、调试和测试">
+<meta name="twitter:description" content="编写的错误叫Bug,必须要修复;用户操作出现的问题,需要提前检测和预防;还有一些文件操作、网络状况超出预期的,叫做异常,需要在程序中进行特殊处理. 所以,调试和测试非常必要.
+
+错误处理
+try…expcept…finally…当我们认为某些代码可能会出错时,就可以用try来运行这段代码,如果执行出错,则后续代码不会继续执行,而是直接跳转至错误处理代码,即except语句块,执行完except后">
+
+    
+    <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小川的博客·iXiaoChuan">小川的博客·iXiaoChuan</a></h1>
+				<h2 class="blog-motto">零散知识整理、技术脉络总结、工作人生规划</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/usedapp">常用软件</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://ixiaochuan.top" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/15/Python学习笔记-08-错误、调试和测试/" title="Python学习笔记_08_错误、调试和测试" itemprop="url">Python学习笔记_08_错误、调试和测试</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-15T14:45:09.000Z" itemprop="datePublished"> 发表于 04-15-2017</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理"><span class="toc-number">1.</span> <span class="toc-text">错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#try…expcept…finally…"><span class="toc-number">1.1.</span> <span class="toc-text">try…expcept…finally…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用栈"><span class="toc-number">1.2.</span> <span class="toc-text">调用栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记录错误"><span class="toc-number">1.3.</span> <span class="toc-text">记录错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抛出错误"><span class="toc-number">1.4.</span> <span class="toc-text">抛出错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">2.</span> <span class="toc-text">调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-number">2.1.</span> <span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#断言"><span class="toc-number">2.2.</span> <span class="toc-text">断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logging"><span class="toc-number">2.3.</span> <span class="toc-text">logging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pdb、pdb-set-trace"><span class="toc-number">2.4.</span> <span class="toc-text">pdb、pdb.set_trace()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDE"><span class="toc-number">2.5.</span> <span class="toc-text">IDE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">3.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文档测试"><span class="toc-number">4.</span> <span class="toc-text">文档测试</span></a></li></ol>
+		
+		</div>
+		
+		<a id="more"></a>
+<p>编写的错误叫Bug,必须要修复;用户操作出现的问题,需要提前检测和预防;还有一些文件操作、网络状况超出预期的,叫做异常,需要在程序中进行特殊处理. 所以,调试和测试非常必要.<br></p>
+<blockquote>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2></blockquote>
+<h3 id="try…expcept…finally…"><a href="#try…expcept…finally…" class="headerlink" title="try…expcept…finally…"></a><font color="#3194d5" size="3">try…expcept…finally…</font></h3><p>当我们认为某些代码可能会出错时,就可以用try来运行这段代码,如果执行出错,则后续代码不会继续执行,而是直接跳转至错误处理代码,即except语句块,执行完except后,如果有finally语句块,则执行finally语句块,至此,执行完毕.<br><br>错误应该有很多种类,如果发生了不同类型的错误,应该由不同的except语句块处理.<br><br>此外,如果没有错误发生,可以在except语句块后面加一个else,当没有错误发生时,会自动执行else语句.<br><br>使用try…except捕获错误还有一个巨大的好处,就是可以跨越多层调用,比如函数main()调用foo(),foo()调用bar(),结果bar()出错了,这时,只要main()捕获到了,就可以处理.</p>
+<h3 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a><font color="#3194d5" size="3">调用栈</font></h3><font color="red">▶出错的时候,一定要分析错误的调用栈信息,才能定位错误的位置.</font>
+
+<h3 id="记录错误"><a href="#记录错误" class="headerlink" title="记录错误"></a><font color="#3194d5" size="3">记录错误</font></h3><p>可以把错误堆栈打印出来,然后分析错误原因,同时,让程序继续执行下去.通过配置,logging还可以把错误记录到日志文件里,方便事后排查 </p>
+<h3 id="抛出错误"><a href="#抛出错误" class="headerlink" title="抛出错误"></a><font color="#3194d5" size="3">抛出错误</font></h3><p>因为错误是class,捕获一个错误就是捕获到该class的一个实例.因此,错误并不是凭空产生的,而是有意创建并抛出的.Python的内置函数会抛出很多类型的错误,我们自己编写的函数也可以抛出错误.如果要抛出错误,首先根据需要,可以定义一个错误的class,选择好继承关系,然后,用raise语句抛出一个错误的实例.<br><br>只有在必要的时候才定义我们自己的错误类型.如果可以选择Python已有的内置的错误类型（比如ValueError,TypeError）,尽量使用Python内置的错误类型.<br></p>
+<p>还有一种特殊情况如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(s)</span>:</span></div><div class="line">    n = int(s)</div><div class="line">    <span class="keyword">if</span> n==<span class="number">0</span>:</div><div class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'invalid value: %s'</span> % s)</div><div class="line">    <span class="keyword">return</span> <span class="number">10</span> / n</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        foo(<span class="string">'0'</span>)</div><div class="line">    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</div><div class="line">        print(<span class="string">'ValueError!'</span>)</div><div class="line">        <span class="keyword">raise</span></div><div class="line"></div><div class="line">bar()</div></pre></td></tr></table></figure>
+<p>捕获错误后,输出了相应的错误信息,但是还使用了raise将错误抛出了.raise语句如果不带参数,就会把当前错误原样抛出,在except中raise一个Error,还可以把一种类型的错误转化成另一种类型.并且,由于当前函数不知道应该怎么处理该错误,所以,最恰当的方式是继续往上抛,让顶层调用者去处理.</p>
+<blockquote>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2></blockquote>
+<h3 id="print"><a href="#print" class="headerlink" title="print"></a><font color="#3194d5" size="3">print</font></h3><p>纯输出打印信息,但是实在是非常繁琐,全部代码都携带Print代码.</p>
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a><font color="#3194d5" size="3">断言</font></h3><p>和print类似的作用,但是相对来说,可以添加判断逻辑到断言里.</p>
+<h3 id="logging"><a href="#logging" class="headerlink" title="logging"></a><font color="#3194d5" size="3">logging</font></h3><p>比较灵活,和assert比,logging不会抛出错误,而且可以输出到文件.这就是logging的好处,它允许你指定记录信息的级别,有debug、info、warning、error等几个级别,当我们指定level=INFO时,logging.debug就不起作用了.同理,指定level=WARNING后,debug和info就不起作用了.这样一来,你可以放心地输出不同级别的信息,也不用删除,最后统一控制输出哪个级别的信息.<br><br>logging的另一个好处是通过简单的配置,一条语句可以同时输出到不同的地方,比如console和文件.</p>
+<h3 id="pdb、pdb-set-trace"><a href="#pdb、pdb-set-trace" class="headerlink" title="pdb、pdb.set_trace()"></a><font color="#3194d5" size="3">pdb、pdb.set_trace()</font></h3><p>pdb方式以参数-m pdb启动.<br><br>pdb.set_trace()在可能出错的地方放一个pdb.set_trace(),就可以设置一个断点,运行代码,程序会自动在pdb.set_trace()暂停并进入pdb调试环境,可以用命令p查看变量,或者用命令c继续运行.</p>
+<h3 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a><font color="#3194d5" size="3">IDE</font></h3><p>不过最舒服的调试方式,当然还是集成开发环境啦,比方说Visual Studio Code、PyCharm.</p>
+<blockquote>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2></blockquote>
+<p>比较难,后期运用到了再进一步了解.可以在单元测试中编写两个特殊的setUp()和tearDown()方法。这两个方法会分别在每调用一个测试方法的前后分别被执行。</p>
+<blockquote>
+<h2 id="文档测试"><a href="#文档测试" class="headerlink" title="文档测试"></a>文档测试</h2></blockquote>
+<p>比较麻烦,后期运用到了再进一步了解.<br>Python内置的“文档测试”（doctest）模块可以直接提取注释中的代码并执行测试.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/学习笔记/">学习笔记</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python学习/">Python学习</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://ixiaochuan.top/2017/04/15/Python学习笔记-08-错误、调试和测试/" data-title="Python学习笔记_08_错误、调试和测试 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/29/Python学习笔记-09-IO编程/" title="Python学习笔记_09_IO编程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Python学习笔记_09_IO编程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/02/深入理解-property的几个修饰词/"  title="深入理解@property及其修饰词">
+ <strong>下一篇：</strong><br/> 
+ <span>深入理解@property及其修饰词
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/04/15/Python学习笔记-08-错误、调试和测试/" data-title="Python学习笔记_08_错误、调试和测试" data-url="https://ixiaochuan.top/2017/04/15/Python学习笔记-08-错误、调试和测试/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理"><span class="toc-number">1.</span> <span class="toc-text">错误处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#try…expcept…finally…"><span class="toc-number">1.1.</span> <span class="toc-text">try…expcept…finally…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用栈"><span class="toc-number">1.2.</span> <span class="toc-text">调用栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记录错误"><span class="toc-number">1.3.</span> <span class="toc-text">记录错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抛出错误"><span class="toc-number">1.4.</span> <span class="toc-text">抛出错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">2.</span> <span class="toc-text">调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#print"><span class="toc-number">2.1.</span> <span class="toc-text">print</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#断言"><span class="toc-number">2.2.</span> <span class="toc-text">断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logging"><span class="toc-number">2.3.</span> <span class="toc-text">logging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pdb、pdb-set-trace"><span class="toc-number">2.4.</span> <span class="toc-text">pdb、pdb.set_trace()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDE"><span class="toc-number">2.5.</span> <span class="toc-text">IDE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">3.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文档测试"><span class="toc-number">4.</span> <span class="toc-text">文档测试</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/iOS进阶/" title="iOS进阶">iOS进阶<sup>10</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/2017年度规划/" title="2017年度规划">2017年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://pingguohe.net" target="_blank" title="阿里技术团队">阿里技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://tech.meituan.com" target="_blank" title="美团点评技术团队">美团点评技术团队</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://www.jianshu.com/p/49bc447cad19?from=timeline&isappinstalled=0" target="_blank" title="iOS各大技术团队博客汇总">iOS各大技术团队博客汇总</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" title="iOS前沿开发者_博客集">iOS前沿开发者_博客集</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.jianshu.com/c/49bfa36740cc" target="_blank" title="iOS进阶指南_博客集">iOS进阶指南_博客集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+			@iXiaoChuan PersonalBlog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/iXiaoChuan" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/iXiaoChuan" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:xiaochuan171090331@outlook.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="iXiaoChuan">iXiaoChuan</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ixiaochuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
