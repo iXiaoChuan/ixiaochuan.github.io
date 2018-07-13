@@ -4,20 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Runtime给类别添加属性 | 小川的博客·iXiaoChuan</title>
+    <title>深入理解RunLoop进阶 | 小川的博客·iXiaoChuan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="iXiaoChuan">
     
 
     
-    <meta property="og:type" content="article">
-<meta property="og:title" content="Runtime给类别添加属性">
-<meta property="og:url" content="https://ixiaochuan.top/2018/06/27/Runtime给类别添加属性/index.html">
+    <meta name="description" content="RunLoop 概念RunLoop 概念解释
+先来看一下官方文档的定义:
+Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解RunLoop进阶">
+<meta property="og:url" content="https://ixiaochuan.top/2018/07/13/深入理解RunLoop进阶/index.html">
 <meta property="og:site_name" content="小川的博客·iXiaoChuan">
-<meta property="og:updated_time" content="2018-06-29T01:22:32.813Z">
+<meta property="og:description" content="RunLoop 概念RunLoop 概念解释
+先来看一下官方文档的定义:
+Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate th">
+<meta property="og:updated_time" content="2018-07-13T03:54:15.413Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Runtime给类别添加属性">
+<meta name="twitter:title" content="深入理解RunLoop进阶">
+<meta name="twitter:description" content="RunLoop 概念RunLoop 概念解释
+先来看一下官方文档的定义:
+Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate th">
 
     
     <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
@@ -82,14 +91,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/06/27/Runtime给类别添加属性/" title="Runtime给类别添加属性" itemprop="url">Runtime给类别添加属性</a>
+      <a href="/2018/07/13/深入理解RunLoop进阶/" title="深入理解RunLoop进阶" itemprop="url">深入理解RunLoop进阶</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
   <p class="article-time">
-    <time datetime="2018-06-27T01:39:27.000Z" itemprop="datePublished"> 发表于 06-27-2018</time>
+    <time datetime="2018-07-13T02:36:33.000Z" itemprop="datePublished"> 发表于 07-13-2018</time>
     
   </p>
 </header>
@@ -98,25 +107,35 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-概念"><span class="toc-number">1.</span> <span class="toc-text">RunLoop 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-概念解释"><span class="toc-number">1.1.</span> <span class="toc-text">RunLoop 概念解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-核心技术"><span class="toc-number">1.2.</span> <span class="toc-text">RunLoop 核心技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-构成详解"><span class="toc-number">1.3.</span> <span class="toc-text">RunLoop 构成详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Modes"><span class="toc-number">1.3.1.</span> <span class="toc-text">RunLoop Modes </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Source"><span class="toc-number">1.3.2.</span> <span class="toc-text">RunLoop Source </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Timer"><span class="toc-number">1.3.3.</span> <span class="toc-text">RunLoop Timer </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Observer"><span class="toc-number">1.3.4.</span> <span class="toc-text">RunLoop Observer </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-运行机制"><span class="toc-number">1.4.</span> <span class="toc-text">RunLoop 运行机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-官方的应用"><span class="toc-number">2.</span> <span class="toc-text">RunLoop 官方的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-开发中实践"><span class="toc-number">3.</span> <span class="toc-text">RunLoop 开发中实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引申概念解释"><span class="toc-number">4.</span> <span class="toc-text">引申概念解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#①进程"><span class="toc-number">4.1.</span> <span class="toc-text">①进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
 		
 		</div>
 		
-		<a id="more"></a>
-  
+		<h2 id="RunLoop-概念"><a href="#RunLoop-概念" class="headerlink" title="RunLoop 概念"></a>RunLoop 概念</h2><h3 id="RunLoop-概念解释"><a href="#RunLoop-概念解释" class="headerlink" title="RunLoop 概念解释"></a>RunLoop 概念解释</h3><blockquote>
+<p>先来看一下官方文档的定义:</p>
+<p>Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate the receipt of incoming events. The purpose of a run loop is to keep your thread busy when there is work to do and put your thread to sleep when there is none.</p>
+<p>RunLoop是与线程相关的系统基础框架的一部分。而RunLoop的作用，顾名思义就是用来接收、协调所传入事件的”事件处理循环”。RunLoop目的就是让线程在有任务的时候努力工作，在没有任务的时候进入休眠。</p>
+</blockquote>
+<p>有没有接地气一点的解释？有。RunLoop说白了就是一个一直运行着的循环(带条件)。跟我们平常经常使用的for循环类似，只是RunLoop采用了一些特殊的机制用来处理系统的事件了。</p>
+<p>从Spring board上点击一个App图标启动这个App开始，这个App就可以进行接收用户操作、跟远程服务器进行网络数据交换、将数据展示到各种类型的视图上去……系统是怎么实现这些操作的呢？原理就是系统给运行的App分配了<a href="#process">进程<sup>①</sup></a>。</p>
+<p>RunLoop存在的意义是什么?</p>
+<h3 id="RunLoop-核心技术"><a href="#RunLoop-核心技术" class="headerlink" title="RunLoop 核心技术"></a>RunLoop 核心技术</h3><h3 id="RunLoop-构成详解"><a href="#RunLoop-构成详解" class="headerlink" title="RunLoop 构成详解"></a>RunLoop 构成详解</h3><h4 id="RunLoop-Modes"><a href="#RunLoop-Modes" class="headerlink" title="RunLoop Modes "></a>RunLoop Modes <!-- CFRunLoopSource --></h4><h4 id="RunLoop-Source"><a href="#RunLoop-Source" class="headerlink" title="RunLoop Source "></a>RunLoop Source <!-- CFRunLoopSource --></h4><h4 id="RunLoop-Timer"><a href="#RunLoop-Timer" class="headerlink" title="RunLoop Timer "></a>RunLoop Timer <!-- CFRunLoopTimer --></h4><h4 id="RunLoop-Observer"><a href="#RunLoop-Observer" class="headerlink" title="RunLoop Observer "></a>RunLoop Observer <!-- CFRunLoopObserver --></h4><h3 id="RunLoop-运行机制"><a href="#RunLoop-运行机制" class="headerlink" title="RunLoop 运行机制"></a>RunLoop 运行机制</h3><h2 id="RunLoop-官方的应用"><a href="#RunLoop-官方的应用" class="headerlink" title="RunLoop 官方的应用"></a>RunLoop 官方的应用</h2><h2 id="RunLoop-开发中实践"><a href="#RunLoop-开发中实践" class="headerlink" title="RunLoop 开发中实践"></a>RunLoop 开发中实践</h2><h2 id="引申概念解释"><a href="#引申概念解释" class="headerlink" title="引申概念解释"></a>引申概念解释</h2><h3 id="①进程"><a href="#①进程" class="headerlink" title="①进程"></a><font size="3"><span id="process">①进程</span><font></font></font></h3><p><font size="2">进程是计算机科学的一个基础概念.是计算机中一个具有独立功能的程序关于某个数据集合的一次运行活动。进程其实就是程序处理任务的实例，进程还可以包含多个线程，而线程就是处理某个具体任务的实例。接地气点解释就是：程序相当于一个工厂，而进程就是生产车间，而线程就是生产线；正常状态下，一个工厂可以有多个生产车间，一个生产车间可以有多条生产线；而每个车间具体生成某个产品，而每条生产线具体生产产品的某个部件，大概就是这么个意思。</font></p>
+<p>线程才是处理具体任务的对象，开启多线程的原因就是为了防止线程的堵塞，比方说处理界面更新操作、处理大批计算操作如果同步进行，CPU同步处理，就可能会出现CPU忙不过来造成界面卡顿的问题，而给每个任务开单独的线程，就可以将任务异步进行，不会彼此影响（CPU允许范围内）。接地气点解释就是：就有点类似于生产车间生产摩拜（摩拜请付给我广告费~）自行车，如果只有一条生产线（线程），就只能车把、车轮、链条……这样一个部分等着另一部分完成再继续生产的进行；而有多条生产线，就可以同时生产各个部分，最后组装即可。</p>
+<p>而当下的移动端开发同样的也采用了类似的操作。但是Android系统和iOS系统还有点不太一样，Android系统可以给一个App开启多个进程，而在iOS中一个App只能开启一个进程。但是线程都是同样的，可以开启多个。而一般情况下一个线程只能执行一个任务，执行完毕就会退出销毁。但是不行啊，有时候我们需要一个线程一直运行着，不管有没有任务，需要它等着随时有任务的到来（App主线程），所以才有了这么一个机制叫做时间循环，iOS中叫做RunLoop，Android中大概叫Looper。<font></font></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/旧知新解/">旧知新解</a>
+  <a class="article-category-link" href="/categories/旧知新解/">旧知新解</a>►<a class="article-category-link" href="/categories/旧知新解/学习笔记/">学习笔记</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/iOS进阶/">iOS进阶</a><a href="/tags/Runtime/">Runtime</a>
+  <span></span> <a href="/tags/iOS进阶/">iOS进阶</a><a href="/tags/Runloop/">Runloop</a>
   </div>
 
 </div>
@@ -125,7 +144,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://ixiaochuan.top/2018/06/27/Runtime给类别添加属性/" data-title="Runtime给类别添加属性 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
+	  <div data-url="https://ixiaochuan.top/2018/07/13/深入理解RunLoop进阶/" data-title="深入理解RunLoop进阶 | 小川的博客·iXiaoChuan" data-tsina="3051719850" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,19 +157,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2018/07/13/深入理解RunLoop进阶/" title="深入理解RunLoop进阶">
-  <strong>上一篇：</strong><br/>
-  <span>
-  深入理解RunLoop进阶</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2018/06/23/深入理解RunLoop/"  title="深入理解RunLoop">
+<a href="/2018/06/27/Runtime给类别添加属性/"  title="Runtime给类别添加属性">
  <strong>下一篇：</strong><br/> 
- <span>深入理解RunLoop
+ <span>Runtime给类别添加属性
 </span>
 </a>
 </div>
@@ -159,7 +170,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2018/06/27/Runtime给类别添加属性/" data-title="Runtime给类别添加属性" data-url="https://ixiaochuan.top/2018/06/27/Runtime给类别添加属性/"></div>
+	<div class="ds-thread" data-thread-key="2018/07/13/深入理解RunLoop进阶/" data-title="深入理解RunLoop进阶" data-url="https://ixiaochuan.top/2018/07/13/深入理解RunLoop进阶/"></div>
 </section>
 
 
@@ -169,7 +180,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-概念"><span class="toc-number">1.</span> <span class="toc-text">RunLoop 概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-概念解释"><span class="toc-number">1.1.</span> <span class="toc-text">RunLoop 概念解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-核心技术"><span class="toc-number">1.2.</span> <span class="toc-text">RunLoop 核心技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-构成详解"><span class="toc-number">1.3.</span> <span class="toc-text">RunLoop 构成详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Modes"><span class="toc-number">1.3.1.</span> <span class="toc-text">RunLoop Modes </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Source"><span class="toc-number">1.3.2.</span> <span class="toc-text">RunLoop Source </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Timer"><span class="toc-number">1.3.3.</span> <span class="toc-text">RunLoop Timer </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RunLoop-Observer"><span class="toc-number">1.3.4.</span> <span class="toc-text">RunLoop Observer </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RunLoop-运行机制"><span class="toc-number">1.4.</span> <span class="toc-text">RunLoop 运行机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-官方的应用"><span class="toc-number">2.</span> <span class="toc-text">RunLoop 官方的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RunLoop-开发中实践"><span class="toc-number">3.</span> <span class="toc-text">RunLoop 开发中实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引申概念解释"><span class="toc-number">4.</span> <span class="toc-text">引申概念解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#①进程"><span class="toc-number">4.1.</span> <span class="toc-text">①进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
  
   </div>
 
