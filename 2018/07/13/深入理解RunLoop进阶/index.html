@@ -21,7 +21,7 @@ Run loops are part of the fundamental infrastructure associated with threads.A r
 <meta property="og:description" content="RunLoop 概念RunLoop 概念解释
 先来看一下官方文档的定义:
 Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate th">
-<meta property="og:updated_time" content="2018-07-13T09:46:22.229Z">
+<meta property="og:updated_time" content="2018-08-02T09:37:12.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop进阶">
 <meta name="twitter:description" content="RunLoop 概念RunLoop 概念解释
@@ -116,7 +116,7 @@ Run loops are part of the fundamental infrastructure associated with threads.A r
 <p>Run loops are part of the fundamental infrastructure associated with threads.A run loop is an event processing loop that you use to schedule work and coordinate the receipt of incoming events. The purpose of a run loop is to keep your thread busy when there is work to do and put your thread to sleep when there is none.</p>
 <p>RunLoop是与线程相关的系统基础框架的一部分。而RunLoop的作用，顾名思义就是用来接收、协调所传入事件的”事件处理循环”。RunLoop目的就是让线程在有任务的时候努力工作，在没有任务的时候进入休眠。</p>
 </blockquote>
-<p>有没有接地气一点的解释？有。RunLoop说白了就是一个一直运行着的循环(带条件)。跟我们平常经常使用的for循环类似，只是RunLoop采用了一些特殊的机制用来处理系统的事件了。</p>
+<p>有没有接地气一点的解释？有。RunLoop说白了就是一个一直运行着的循环(带条件)。跟我们平常经常使用的for循环类似，只是RunLoop采用了一些特殊的机制以用来处理系统收到的事件。</p>
 <p>从Spring board上点击一个App图标启动这个App开始，这个App就可以进行接收用户操作、跟远程服务器进行网络数据交换、将数据展示到各种类型的视图上去……系统是怎么实现这些操作的呢？原理就是系统给运行的App分配了<a href="#process">进程<sup>①</sup></a>。</p>
 <p>RunLoop存在的意义是什么?</p>
 <h3 id="RunLoop-核心技术"><a href="#RunLoop-核心技术" class="headerlink" title="RunLoop 核心技术"></a>RunLoop 核心技术</h3><h3 id="RunLoop-构成详解"><a href="#RunLoop-构成详解" class="headerlink" title="RunLoop 构成详解"></a>RunLoop 构成详解</h3><h4 id="RunLoop-Modes"><a href="#RunLoop-Modes" class="headerlink" title="RunLoop Modes "></a>RunLoop Modes <!-- CFRunLoopSource --></h4><h4 id="RunLoop-Source"><a href="#RunLoop-Source" class="headerlink" title="RunLoop Source "></a>RunLoop Source <!-- CFRunLoopSource --></h4><h4 id="RunLoop-Timer"><a href="#RunLoop-Timer" class="headerlink" title="RunLoop Timer "></a>RunLoop Timer <!-- CFRunLoopTimer --></h4><h4 id="RunLoop-Observer"><a href="#RunLoop-Observer" class="headerlink" title="RunLoop Observer "></a>RunLoop Observer <!-- CFRunLoopObserver --></h4><h3 id="RunLoop-运行机制"><a href="#RunLoop-运行机制" class="headerlink" title="RunLoop 运行机制"></a>RunLoop 运行机制</h3><h2 id="RunLoop-官方的应用"><a href="#RunLoop-官方的应用" class="headerlink" title="RunLoop 官方的应用"></a>RunLoop 官方的应用</h2><h2 id="RunLoop-开发中实践"><a href="#RunLoop-开发中实践" class="headerlink" title="RunLoop 开发中实践"></a>RunLoop 开发中实践</h2><h2 id="引申概念解释"><a href="#引申概念解释" class="headerlink" title="引申概念解释"></a>引申概念解释</h2><h3 id="①进程"><a href="#①进程" class="headerlink" title="①进程"></a><font size="3"><span id="process">①进程</span><font></font></font></h3><p><font size="2">进程是计算机科学的一个基础概念.是计算机中一个具有独立功能的程序关于某个数据集合的一次运行活动。进程其实就是程序处理任务的实例，进程还可以包含多个线程，而线程就是处理某个具体任务的实例。接地气点解释就是：程序相当于一个工厂，而进程就是生产车间，而线程就是生产线；正常状态下，一个工厂可以有多个生产车间，一个生产车间可以有多条生产线；而每个车间具体生成某个产品，而每条生产线具体生产产品的某个部件，大概就是这么个意思。<font></font></font></p>
@@ -220,7 +220,11 @@ Run loops are part of the fundamental infrastructure associated with threads.A r
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
 			
 		
 			
@@ -228,7 +232,7 @@ Run loops are part of the fundamental infrastructure associated with threads.A r
 			
 		
 			
-				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
 			
 		
 			
@@ -236,15 +240,11 @@ Run loops are part of the fundamental infrastructure associated with threads.A r
 			
 		
 			
-				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
 			
 		
 			
