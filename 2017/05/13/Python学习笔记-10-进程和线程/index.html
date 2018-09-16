@@ -130,7 +130,7 @@ fork操作(Unix/Linux)Unix/Linux操作系统提供了一个fork()系统调用,�
 <blockquote>
 <h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2></blockquote>
 <p>在多线程环境下,每个线程都有自己的数据.一个线程使用自己的局部变量比使用全局变量好,因为局部变量只有线程自己能看见,不会影响其他线程,而全局变量的修改必须加锁.但是局部变量也有问题,就是在函数调用的时候,传递起来很麻烦.可以在本地建立一个dict,然后把对应线程需要操作的对象以该线程id为key放进去,在需要用到的函数里面直接根据当前线程id取出来使用即可,但是这种方式仍然存在弊端,就是存取dict的操作看起来非常突兀,比较杂乱.<br><br>所,这个时候ThreadLocal就应运而生了,不用查找dict,ThreadLocal帮你自动做这件事,示例如下:</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> threading</div><div class="line"></div><div class="line"><span class="comment"># 创建全局ThreadLocal对象:</span></div><div class="line"><span class="attr">local_school</span> = threading.local()</div><div class="line"></div><div class="line">def process_student():</div><div class="line">    <span class="comment"># 获取当前线程关联的student:</span></div><div class="line">    <span class="attr">std</span> = local_school.student</div><div class="line">    print('Hello, %s (<span class="keyword">in</span> %s)' % (std, threading.current_thread().name))</div><div class="line"></div><div class="line">def process_thread(name):</div><div class="line">    <span class="comment"># 绑定ThreadLocal的student:</span></div><div class="line">    local_school.<span class="attr">student</span> = name</div><div class="line">    process_student()</div><div class="line"></div><div class="line"><span class="attr">t1</span> = threading.Thread(<span class="attr">target=</span> process_thread, <span class="attr">args=('Alice',),</span> <span class="attr">name='Thread-A')</span></div><div class="line"><span class="attr">t2</span> = threading.Thread(<span class="attr">target=</span> process_thread, <span class="attr">args=('Bob',),</span> <span class="attr">name='Thread-B')</span></div><div class="line">t1.start()</div><div class="line">t2.start()</div><div class="line">t1.join()</div><div class="line">t2.join()</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> threading</div><div class="line"></div><div class="line"><span class="comment"># 创建全局ThreadLocal对象:</span></div><div class="line">local_school = threading.local()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_student</span><span class="params">()</span>:</span></div><div class="line">    <span class="comment"># 获取当前线程关联的student:</span></div><div class="line">    std = local_school.student</div><div class="line">    print(<span class="string">'Hello, %s (in %s)'</span> % (std, threading.current_thread().name))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">process_thread</span><span class="params">(name)</span>:</span></div><div class="line">    <span class="comment"># 绑定ThreadLocal的student:</span></div><div class="line">    local_school.student = name</div><div class="line">    process_student()</div><div class="line"></div><div class="line">t1 = threading.Thread(target= process_thread, args=(<span class="string">'Alice'</span>,), name=<span class="string">'Thread-A'</span>)</div><div class="line">t2 = threading.Thread(target= process_thread, args=(<span class="string">'Bob'</span>,), name=<span class="string">'Thread-B'</span>)</div><div class="line">t1.start()</div><div class="line">t2.start()</div><div class="line">t1.join()</div><div class="line">t2.join()</div></pre></td></tr></table></figure>
 <p>全局变量local_school就是一个ThreadLocal对象,每个Thread对它都可以读写student属性,但互不影响.你可以把local_school看成全局变量,但每个属性如local_school.student都是线程的局部变量,可以任意读写而互不干扰,也不用管理锁的问题,ThreadLocal内部会处理.<br><br>可以理解为全局变量local_school是一个dict,不但可以用local_school.student,还可以绑定其他变量,如local_school.teacher等等.<br><br>ThreadLocal最常用的地方就是为每个线程绑定一个数据库连接,HTTP请求,用户身份信息等,这样一个线程的所有调用到的处理函数都可以非常方便地访问这些资源.<br><br>一个ThreadLocal变量虽然是全局变量,但每个线程都只能读写自己线程的独立副本,互不干扰.ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题.</p>
 <blockquote>
 <h2 id="进程-VS-线程"><a href="#进程-VS-线程" class="headerlink" title="进程 VS 线程"></a>进程 VS 线程</h2></blockquote>
@@ -253,15 +253,11 @@ fork操作(Unix/Linux)Unix/Linux操作系统提供了一个fork()系统调用,�
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
 			
 		
 			
@@ -269,7 +265,7 @@ fork操作(Unix/Linux)Unix/Linux操作系统提供了一个fork()系统调用,�
 			
 		
 			
-				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -277,11 +273,15 @@ fork操作(Unix/Linux)Unix/Linux操作系统提供了一个fork()系统调用,�
 			
 		
 			
-				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
+				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+				<li><a href="/tags/单元测试/" title="单元测试">单元测试<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/博客阅读笔记/" title="博客阅读笔记">博客阅读笔记<sup>1</sup></a></li>
 			
 		
 			
@@ -289,11 +289,11 @@ fork操作(Unix/Linux)Unix/Linux操作系统提供了一个fork()系统调用,�
 			
 		
 			
-				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
+				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/属性/" title="属性">属性<sup>1</sup></a></li>
+				<li><a href="/tags/蓝牙/" title="蓝牙">蓝牙<sup>1</sup></a></li>
 			
 		
 		</ul>
