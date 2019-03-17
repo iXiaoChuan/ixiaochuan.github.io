@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
 <html lang="zh-CN">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>Python学习笔记_09_IO编程 | 小川的博客·iXiaoChuan</title>
@@ -11,25 +11,18 @@
     
 
     
-    <meta name="description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).
-
-文件读写
-读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
+    <meta name="description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).  文件读写 读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
+<meta name="keywords" content="Python学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python学习笔记_09_IO编程">
 <meta property="og:url" content="https://ixiaochuan.top/2017/04/29/Python学习笔记-09-IO编程/index.html">
 <meta property="og:site_name" content="小川的博客·iXiaoChuan">
-<meta property="og:description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).
-
-文件读写
-读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
+<meta property="og:description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).  文件读写 读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-07-09T01:54:49.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python学习笔记_09_IO编程">
-<meta name="twitter:description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).
-
-文件读写
-读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
+<meta name="twitter:description" content="IO是InputStream输入流和OutputStream输出流的简称, IO一般分为同步IO(等待IO结果再继续执行),异步IO(继续执行,轮询或者被通知结果).  文件读写 读写文件前,我们先必须了解一下,在磁盘上读写文件的功能都是由操作系统提供的,现代操作系统不允许普通的程序直接操作磁盘,所以,读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符）,然后,通过操作系统提供的接口从">
 
     
     <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
@@ -43,14 +36,14 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -79,12 +72,12 @@
  					
 						<form class="search" action="http://ixiaochuan.top" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value="10090999781559433000"><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
 				</ul>
-			</nav>			
+			</ul></nav>			
 </div>
     </header>
     <div id="container">
@@ -100,7 +93,7 @@
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
-  <p class="article-time">
+  </p><p class="article-time">
     <time datetime="2017-04-29T15:13:55.000Z" itemprop="datePublished"> 发表于 04-29-2017</time>
     
   </p>
@@ -131,7 +124,7 @@
 <p>Python内置的os模块可以直接调用操作系统提供的接口函数.</p>
 <h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a><font color="#3194d5" size="3">环境变量</font></h3><p>要获取详细的系统信息,可以调用uname()函数.<br><br>在操作系统中定义的环境变量,全部保存在os.environ这个变量中,可以直接查看,要获取某个环境变量的值,可以调用os.environ.get(‘key’)<br></p>
 <h3 id="操作目录"><a href="#操作目录" class="headerlink" title="**操作目录"></a><font color="#3194d5" size="3">**操作目录</font></h3><p>操作文件和目录的函数一部分放在os模块中,一部分放在os.path模块中,这一点要注意一下.查看、创建和删除目录可以如下调用:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看当前目录的绝对路径:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="string">'.'</span>)</div><div class="line"><span class="string">'/Users/michael'</span></div><div class="line"></div><div class="line"><span class="comment"># 在某个目录下创建一个新目录,首先把新目录的完整路径表示出来:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">'/Users/michael'</span>, <span class="string">'testdir'</span>)</div><div class="line"><span class="string">'/Users/michael/testdir'</span></div><div class="line"></div><div class="line"><span class="comment"># 然后创建一个目录:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.mkdir(<span class="string">'/Users/michael/testdir'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span></div><div class="line"><span class="comment"># 删掉一个目录:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>os.rmdir(<span class="string">'/Users/michael/testdir'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前目录的绝对路径:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="string">'.'</span>)</span><br><span class="line"><span class="string">'/Users/michael'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在某个目录下创建一个新目录,首先把新目录的完整路径表示出来:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">'/Users/michael'</span>, <span class="string">'testdir'</span>)</span><br><span class="line"><span class="string">'/Users/michael/testdir'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后创建一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.mkdir(<span class="string">'/Users/michael/testdir'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="comment"># 删掉一个目录:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.rmdir(<span class="string">'/Users/michael/testdir'</span>)</span><br></pre></td></tr></table></figure>
 <p>把两个路径合成一个时,不要直接拼字符串,而要通过os.path.join()函数,这样可以正确处理不同操作系统的路径分隔符.<br><br>同样的道理,要拆分路径时,也不要直接去拆字符串,而要通过os.path.split()函数,这样可以把一个路径拆分为两部分,后一部分总是最后级别的目录或文件名.<br><br>os.path.splitext()可以直接让你得到文件扩展名,很多时候非常方便.<br><br>这些合并、拆分路径的函数并不要求目录和文件要真实存在,它们只对字符串进行操作.<br></p>
 <h3 id="操作文件"><a href="#操作文件" class="headerlink" title="操作文件"></a><font color="#3194d5" size="3">操作文件</font></h3><p>待补充.</p>
 <blockquote>
@@ -140,7 +133,7 @@
 <h3 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a><font color="#3194d5" size="3">pickle</font></h3><p>Python提供了pickle模块来实现序列化.<br><br>Pickle的问题和所有其他编程语言特有的序列化问题一样,就是它只能用于Python,并且可能不同版本的Python彼此都不兼容,因此,只能用Pickle保存那些不重要的数据,不能成功地反序列化也没关系.</p>
 <h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a><font color="#3194d5" size="3">JSON</font></h3><p>如果我们要在不同的编程语言之间传递对象,就必须把对象序列化为标准格式,比如XML,但更好的方法是序列化为JSON,因为JSON表示出来就是一个字符串,可以被所有语言读取,也可以方便地存储到磁盘或者通过网络传输.JSON不仅是标准格式,并且比XML更快,而且可以直接在Web页面中读取,非常方便.<br><br>Python内置的json模块提供了非常完善的Python对象到JSON格式的转换.</p>
 <h3 id="JSON进阶"><a href="#JSON进阶" class="headerlink" title="JSON进阶"></a><font color="#3194d5" size="2">JSON进阶</font></h3><p>在将Python对象序列化为json对象的时候,json模块的dumps方法默认参数并不能满足使用条件,还需要传入一个参数:default=转换函数,通过转换函数将对应的对象的属性,装换成dict,才能自动序列化.除了配置了<strong>slots</strong>的对象之外,Python对象就自带一个<strong>dict</strong>属性,他就是个dict,用来储存实例变量.所以可以写成通用的转换函数如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(json.dumps(s, default=<span class="keyword">lambda</span> obj: obj.__dict__))</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(json.dumps(s, default=<span class="keyword">lambda</span> obj: obj.__dict__))</span><br></pre></td></tr></table></figure>
 <p>而将json对象序列化为Python对象,需要给json模块的loads函数,传入另一个参数:object_hook=转换函数,通过转换函数,将序列化的dict生成为对象.</p>
   
 	</div>
@@ -177,9 +170,9 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
+ <div class="prev">
  <a href="/2017/05/13/Python学习笔记-10-进程和线程/" title="Python学习笔记_10_进程和线程">
-  <strong>上一篇：</strong><br/>
+  <strong>上一篇：</strong><br>
   <span>
   Python学习笔记_10_进程和线程</span>
 </a>
@@ -187,8 +180,8 @@
 
 
 <div class="next">
-<a href="/2017/04/15/Python学习笔记-08-错误、调试和测试/"  title="Python学习笔记_08_错误、调试和测试">
- <strong>下一篇：</strong><br/> 
+<a href="/2017/04/15/Python学习笔记-08-错误、调试和测试/" title="Python学习笔记_08_错误、调试和测试">
+ <strong>下一篇：</strong><br> 
  <span>Python学习笔记_08_错误、调试和测试
 </span>
 </a>
@@ -220,7 +213,7 @@
 <div class="github-card">
 <p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 </div>
   </div>
 
@@ -236,19 +229,15 @@
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
 			
 		
 			
@@ -257,6 +246,14 @@
 		
 			
 				<li><a href="/tags/2019年度规划/" title="2019年度规划">2019年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 			
@@ -273,10 +270,6 @@
 		
 			
 				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -327,7 +320,7 @@
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>
@@ -336,11 +329,11 @@
 	
 	
 	<section class="info">
-		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+		<p> Welcome to XiaoChuan&#39;s blog~ <br>
 			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
-	<div class="social-font" class="clearfix">
+	<div class="social-font">
 		
 		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
 		
@@ -564,7 +557,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

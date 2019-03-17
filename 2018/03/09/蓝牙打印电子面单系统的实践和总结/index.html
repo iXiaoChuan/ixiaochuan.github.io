@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
 <html lang="zh-CN">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>蓝牙打印电子面单系统iOS端的技术实现和总结 | 小川的博客·iXiaoChuan</title>
@@ -11,32 +11,14 @@
     
 
     
-    <meta name="description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
-
-第一部分：蓝牙打印电子面单的需求来源。
-第二部分：蓝牙打印电子面单的需求分析。
-第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
-第四部分：需要注意的细节总结。
-第五部分：资源推荐。
-
-
-需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+    <meta name="description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：     第一部分：蓝牙打印电子面单的需求来源。 第二部分：蓝牙打印电子面单的需求分析。 第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。 第四部分：需要注意的细节总结。 第五部分：资源推荐。   需求来源 蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta name="keywords" content="iOS进阶,蓝牙">
 <meta property="og:type" content="article">
 <meta property="og:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
 <meta property="og:url" content="https://ixiaochuan.top/2018/03/09/蓝牙打印电子面单系统的实践和总结/index.html">
 <meta property="og:site_name" content="小川的博客·iXiaoChuan">
-<meta property="og:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
-
-第一部分：蓝牙打印电子面单的需求来源。
-第二部分：蓝牙打印电子面单的需求分析。
-第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
-第四部分：需要注意的细节总结。
-第五部分：资源推荐。
-
-
-需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta property="og:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：     第一部分：蓝牙打印电子面单的需求来源。 第二部分：蓝牙打印电子面单的需求分析。 第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。 第四部分：需要注意的细节总结。 第五部分：资源推荐。   需求来源 蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPzOl.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2018/03/20/UPFXY.jpg">
@@ -44,17 +26,7 @@
 <meta property="og:updated_time" content="2018-07-09T02:00:15.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="蓝牙打印电子面单系统iOS端的技术实现和总结">
-<meta name="twitter:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   
-
-第一部分：蓝牙打印电子面单的需求来源。
-第二部分：蓝牙打印电子面单的需求分析。
-第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。
-第四部分：需要注意的细节总结。
-第五部分：资源推荐。
-
-
-需求来源
-蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
+<meta name="twitter:description" content="首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：     第一部分：蓝牙打印电子面单的需求来源。 第二部分：蓝牙打印电子面单的需求分析。 第三部分：技术实现(大体内容)，遇到的问题，以及解决方案。 第四部分：需要注意的细节总结。 第五部分：资源推荐。   需求来源 蓝牙打印电子面单的需求来源于面向快递员用户的”中邮速递易快递员App(以下简称快递员App)”开发线，快递员可以">
 <meta name="twitter:image" content="https://s1.ax2x.com/2018/03/19/UYjAX.md.png">
 
     
@@ -69,14 +41,14 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -105,12 +77,12 @@
  					
 						<form class="search" action="http://ixiaochuan.top" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value="10090999781559433000"><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
 				</ul>
-			</nav>			
+			</ul></nav>			
 </div>
     </header>
     <div id="container">
@@ -126,7 +98,7 @@
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
-  <p class="article-time">
+  </p><p class="article-time">
     <time datetime="2018-03-09T07:01:15.000Z" itemprop="datePublished"> 发表于 03-09-2018</time>
     
   </p>
@@ -141,7 +113,7 @@
 		</div>
 		
 		<a id="more"></a>
-<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a>   </p>
+<p><a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2018/03/19/UYjAX.md.png" alt="titleImage"></a>   </p>
 <p>首先简要介绍本文内容(看前最好对iOS蓝牙开发做一定了解)：   </p>
 <ul>
 <li>第一部分：蓝牙打印电子面单的需求来源。</li>
@@ -256,8 +228,8 @@
 </ul>
 <blockquote>
 <h2 id="资源推荐"><a href="#资源推荐" class="headerlink" title="资源推荐"></a>资源推荐</h2></blockquote>
-<p>先推荐一个iOS端蓝牙开发的调试利器：<a href="https://itunes。apple.com/cn/app/lightblue-explorer/id557428110?mt=8" target="_blank" rel="external">LightBlue</a>。手机安装LightBlue，打开后可以自动扫描范围内支持的蓝牙设备，并且可以清晰地看到对应设备的名称、信号强度、服务、特征值等等信息，是iOS端蓝牙开发调试不可或缺的工具。</p>
-<p>然后推荐一下个人封装的iOS蓝牙开发管理类(标题图片所示)，现已开放到Github上以供大家参考：<a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="external">ZJCBluetoothManager</a>。当前还是比较简单的一个初期框架，后期会持续不定时更新优化，希望能帮助到正在项目中使用到蓝牙的各位小伙伴。当然如果各位小伙伴在iOS蓝牙开发过程中遇到了什么困惑的问题，也欢迎提出来一起讨论解决!<br></p>
+<p>先推荐一个iOS端蓝牙开发的调试利器：<a href="https://itunes。apple.com/cn/app/lightblue-explorer/id557428110?mt=8" target="_blank" rel="noopener">LightBlue</a>。手机安装LightBlue，打开后可以自动扫描范围内支持的蓝牙设备，并且可以清晰地看到对应设备的名称、信号强度、服务、特征值等等信息，是iOS端蓝牙开发调试不可或缺的工具。</p>
+<p>然后推荐一下个人封装的iOS蓝牙开发管理类(标题图片所示)，现已开放到Github上以供大家参考：<a href="https://github.com/iXiaoChuan/ZJCBluetoothManger.git" target="_blank" rel="noopener">ZJCBluetoothManager</a>。当前还是比较简单的一个初期框架，后期会持续不定时更新优化，希望能帮助到正在项目中使用到蓝牙的各位小伙伴。当然如果各位小伙伴在iOS蓝牙开发过程中遇到了什么困惑的问题，也欢迎提出来一起讨论解决!<br></p>
 <p>祝各位好!<br><br>以上<br></p>
   
 	</div>
@@ -294,9 +266,9 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
+ <div class="prev">
  <a href="/2018/03/22/iOS开发中的单元测试/" title="iOS开发中的单元测试">
-  <strong>上一篇：</strong><br/>
+  <strong>上一篇：</strong><br>
   <span>
   iOS开发中的单元测试</span>
 </a>
@@ -304,8 +276,8 @@
 
 
 <div class="next">
-<a href="/2018/02/28/iOS开发的卡顿掉帧解决/"  title="iOS开发卡顿掉帧的研讨">
- <strong>下一篇：</strong><br/> 
+<a href="/2018/02/28/iOS开发的卡顿掉帧解决/" title="iOS开发卡顿掉帧的研讨">
+ <strong>下一篇：</strong><br> 
  <span>iOS开发卡顿掉帧的研讨
 </span>
 </a>
@@ -337,7 +309,7 @@
 <div class="github-card">
 <p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 </div>
   </div>
 
@@ -353,19 +325,15 @@
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
 			
 		
 			
@@ -374,6 +342,14 @@
 		
 			
 				<li><a href="/tags/2019年度规划/" title="2019年度规划">2019年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 			
@@ -390,10 +366,6 @@
 		
 			
 				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -444,7 +416,7 @@
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>
@@ -453,11 +425,11 @@
 	
 	
 	<section class="info">
-		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+		<p> Welcome to XiaoChuan&#39;s blog~ <br>
 			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
-	<div class="social-font" class="clearfix">
+	<div class="social-font">
 		
 		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
 		
@@ -681,7 +653,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

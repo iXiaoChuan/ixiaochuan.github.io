@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
 <html lang="zh-CN">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>深入理解RunLoop(转载) | 小川的博客·iXiaoChuan</title>
@@ -11,20 +11,14 @@
     
 
     
-    <meta name="description" content="在简书上浏览到了一篇文章,总结了Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
-Runloop是什么
-RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.
-
-Runloop实际上是一个对象,这个对象在循环中用来处理程序运行过程中出现的个各种事件(比如说">
+    <meta name="description" content="在简书上浏览到了一篇文章,总结了&amp;lt;font/ color=red&amp;gt;Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于&amp;lt;font/ color=red&amp;gt;Runloop的一些知识点. Runloop是什么 RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.  R">
+<meta name="keywords" content="iOS进阶,Runloop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解RunLoop(转载)">
 <meta property="og:url" content="https://ixiaochuan.top/2018/06/23/深入理解RunLoop-转载/index.html">
 <meta property="og:site_name" content="小川的博客·iXiaoChuan">
-<meta property="og:description" content="在简书上浏览到了一篇文章,总结了Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
-Runloop是什么
-RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.
-
-Runloop实际上是一个对象,这个对象在循环中用来处理程序运行过程中出现的个各种事件(比如说">
+<meta property="og:description" content="在简书上浏览到了一篇文章,总结了&amp;lt;font/ color=red&amp;gt;Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于&amp;lt;font/ color=red&amp;gt;Runloop的一些知识点. Runloop是什么 RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.  R">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-abe10670fb56f6e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2086987-61f8570e16e458b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://s1.ax2x.com/2018/06/30/natVA.md.jpg">
@@ -45,11 +39,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <meta property="og:updated_time" content="2018-08-07T08:10:47.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解RunLoop(转载)">
-<meta name="twitter:description" content="在简书上浏览到了一篇文章,总结了Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于Runloop的一些知识点.
-Runloop是什么
-RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.
-
-Runloop实际上是一个对象,这个对象在循环中用来处理程序运行过程中出现的个各种事件(比如说">
+<meta name="twitter:description" content="在简书上浏览到了一篇文章,总结了&amp;lt;font/ color=red&amp;gt;Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于&amp;lt;font/ color=red&amp;gt;Runloop的一些知识点. Runloop是什么 RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.  R">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2086987-abe10670fb56f6e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 
     
@@ -64,14 +54,14 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -100,12 +90,12 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
  					
 						<form class="search" action="http://ixiaochuan.top" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value="10090999781559433000"><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
 				</ul>
-			</nav>			
+			</ul></nav>			
 </div>
     </header>
     <div id="container">
@@ -121,7 +111,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
-  <p class="article-time">
+  </p><p class="article-time">
     <time datetime="2018-06-23T01:19:52.000Z" itemprop="datePublished"> 发表于 06-23-2018</time>
     
   </p>
@@ -135,7 +125,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 		
 		</div>
 		
-		<p>在简书上浏览到了一篇文章,总结了<font color="red">Runloop</font>这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于<font color="red">Runloop</font>的一些知识点.</p>
+		<p>在简书上浏览到了一篇文章,总结了&lt;font/ color=red&gt;Runloop这个技术点的大大小小的几乎全部内容,看完感觉写的不错,然后就转载过来,趁此机会自己也梳理一下关于&lt;font/ color=red&gt;Runloop的一些知识点.</p>
 <h1 id="Runloop是什么"><a href="#Runloop是什么" class="headerlink" title="Runloop是什么"></a>Runloop是什么</h1><blockquote>
 <p>RunLoop是一个接收处理异步消息事件的循环,一个循环中：等待事件发生,然后将这个事件送到能处理它的地方.</p>
 </blockquote>
@@ -143,7 +133,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <p><img src="https://upload-images.jianshu.io/upload_images/2086987-abe10670fb56f6e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example1"></p>
 <ul>
 <li>mach kernel属于苹果内核,RunLoop依靠它实现了休眠和唤醒而避免了CPU的空转.</li>
-<li>Runloop是基于pthread进行管理的,pthread是基于c的跨平台多线程操作底层API,它是mach thread的上层封装(可以参见<a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Fdocumentation%2FDarwin%2FConceptual%2FKernelProgramming%2FMach%2FMach.html" target="_blank" rel="external">Kernel Programing Guide</a>),和NSTread一一对应(而NSTread是一套面向对象的API,所以在iOS开发中我们也几乎不用直接使用pthread).</li>
+<li>Runloop是基于pthread进行管理的,pthread是基于c的跨平台多线程操作底层API,它是mach thread的上层封装(可以参见<a href="https://link.jianshu.com/?t=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Fdocumentation%2FDarwin%2FConceptual%2FKernelProgramming%2FMach%2FMach.html" target="_blank" rel="noopener">Kernel Programing Guide</a>),和NSTread一一对应(而NSTread是一套面向对象的API,所以在iOS开发中我们也几乎不用直接使用pthread).</li>
 </ul>
 <p><img src="https://upload-images.jianshu.io/upload_images/2086987-61f8570e16e458b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example2"></p>
 <h1 id="Runloop的组成"><a href="#Runloop的组成" class="headerlink" title="Runloop的组成"></a>Runloop的组成</h1><h2 id="Runloop构成"><a href="#Runloop构成" class="headerlink" title="Runloop构成"></a>Runloop构成</h2><p>在Foundation Framework中有相应的NSRunLoop API来操作RunLoop,其实它是对CoreFoundation Framework中的CFRunLoop的封装.CFRunLoop的底层实现用到了machkernel、block、pthread等技术.这里核心的是machkernel,RunLoop依靠它实现了休眠和唤醒而避免了CPU的空转.</p>
@@ -151,7 +141,11 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <p>以下是关于RunLoop的一些官方文档解释:</p>
 <blockquote>
 <p>CFRunLoop对象可以检测某个task或者dispath的输入事件,当检测到有输入源事件,CFRunLoop将会将其加入到线程中进行处理.比方说用户输入事件、网络连接事件、周期性或者延时事件、异步的回调等.</p>
+</blockquote>
+<blockquote>
 <p>RunLoop可以监测的事件类型一共有3种,分别是CFRunLoopSource、CFRunLoopTimer、CFRunLoopObserver,可以通过CFRunLoopAddSource、CFRunLoopAddTimer或者CFRunLoopAddObserver添加相应的事件类型.</p>
+</blockquote>
+<blockquote>
 <p>要让一个RunLoop跑起来还需要run loop modes,每一个source、timer和observe添加到RunLoop中时必须要与一个模式(CFRunLoopMode)相关联才可以运行.</p>
 </blockquote>
 <p><strong>RunLoop的主要组成</strong></p>
@@ -184,10 +178,10 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <li>UIInitializationRunLoopMode: 在刚启动app的时候进入的第一个Mode,启动完成后就不再使用了.</li>
 <li>GSEventReceiveRunLoopMode: 接受系统事件的内部Mode,不是一种真正的Mode.</li>
 </ul>
-<font color="red">其中kCFDefaultRunLoopMode、UITrackingRunLoopMode是苹果公开的,其余的mode都是无法添加的.</font>
+&lt;font/ color=red&gt;其中kCFDefaultRunLoopMode、UITrackingRunLoopMode是苹果公开的,其余的mode都是无法添加的.
 
 <p>但是,我们平常使用RunLoop的时候却有以下的这种用法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</span><br></pre></td></tr></table></figure>
 <p>不是说只有上面提到的Default、Tracking的mode可以用么,为什么我们还可以使用CommonMode?什么是CommonMode?</p>
 <blockquote>
 <p>一个mode可以将自己标记为”Common”属性(通过将其ModeName添加到RunLoop的”CommonModes”中).每当RunLoop的内容发生了变化时,RunLoop都会自动将_commonModeItems里的Source/Observer/Timer同步到具有”Common”标记的所有Mode里.</p>
@@ -201,8 +195,8 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 </blockquote>
 <h1 id="RunLoop的运行机制"><a href="#RunLoop的运行机制" class="headerlink" title="RunLoop的运行机制"></a>RunLoop的运行机制</h1><p><img src="https://upload-images.jianshu.io/upload_images/2086987-266de04fb837ee8a..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example8"></p>
 <p>当调用CFRunLoopRun()时,线程就会一直停留在这个循环里,直到超时或被手动停止,该函数才会返回.每次线程运行RunLoop都会自动处理之前未处理的消息,并且将消息发送给观察者,让事件得到执行.RunLoop运行时首先根据ModeName找到对应的Mode,如果mode里没有source/tiemr/observer,直接返回.</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 用DefaultMode启动</span></div><div class="line">void <span class="type">CFRunLoopRun</span>(void) &#123;</div><div class="line">    <span class="type">CFRunLoopRunSpecific</span>(<span class="type">CFRunLoopGetCurrent</span>(), kCFRunLoopDefaultMode, <span class="number">1.0e10</span>, <span class="literal">false</span>);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/// 用指定的Mode启动,允许设置RunLoop超时时间</span></div><div class="line">int <span class="type">CFRunLoopRunInMode</span>(<span class="type">CFStringRef</span> modeName, <span class="type">CFTimeInterval</span> seconds, <span class="type">Boolean</span> stopAfterHandle) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">CFRunLoopRunSpecific</span>(<span class="type">CFRunLoopGetCurrent</span>(), modeName, seconds, returnAfterSourceHandled);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">/// RunLoop的实现</span></div><div class="line">int <span class="type">CFRunLoopRunSpecific</span>(runloop, modeName, seconds, stopAfterHandle) &#123;</div><div class="line">    </div><div class="line">    <span class="comment">/// 首先根据modeName找到对应mode</span></div><div class="line">    <span class="type">CFRunLoopModeRef</span> currentMode = __CFRunLoopFindMode(runloop, modeName, <span class="literal">false</span>);</div><div class="line">    <span class="comment">/// 如果mode里没有source/timer/observer, 直接返回.</span></div><div class="line">    <span class="keyword">if</span> (__CFRunLoopModeIsEmpty(currentMode)) <span class="keyword">return</span>;</div><div class="line">    </div><div class="line">    <span class="comment">/// 1. 通知 Observers: RunLoop 即将进入 loop.</span></div><div class="line">    __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopEntry);</div><div class="line">    </div><div class="line">    <span class="comment">/// 内部函数,进入loop</span></div><div class="line">    __CFRunLoopRun(runloop, currentMode, seconds, returnAfterSourceHandled) &#123;</div><div class="line">        </div><div class="line">        <span class="type">Boolean</span> sourceHandledThisLoop = <span class="type">NO</span>;</div><div class="line">        int retVal = <span class="number">0</span>;</div><div class="line">        <span class="keyword">do</span> &#123;</div><div class="line"> </div><div class="line">            <span class="comment">/// 2. 通知 Observers: RunLoop 即将触发 Timer 回调.</span></div><div class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeTimers);</div><div class="line">            <span class="comment">/// 3. 通知 Observers: RunLoop 即将触发 Source0 (非port) 回调.</span></div><div class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeSources);</div><div class="line">            <span class="comment">/// 执行被加入的block</span></div><div class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</div><div class="line">            </div><div class="line">            <span class="comment">/// 4. RunLoop 触发 Source0 (非port) 回调.</span></div><div class="line">            sourceHandledThisLoop = __CFRunLoopDoSources0(runloop, currentMode, stopAfterHandle);</div><div class="line">            <span class="comment">/// 执行被加入的block</span></div><div class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</div><div class="line"> </div><div class="line">            <span class="comment">/// 5. 如果有 Source1 (基于port) 处于 ready 状态,直接处理这个 Source1 然后跳转去处理消息.</span></div><div class="line">            <span class="keyword">if</span> (__Source0DidDispatchPortLastTime) &#123;</div><div class="line">                <span class="type">Boolean</span> hasMsg = __CFRunLoopServiceMachPort(dispatchPort, &amp;msg)</div><div class="line">                <span class="keyword">if</span> (hasMsg) goto handle_msg;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">/// 通知 Observers: RunLoop 的线程即将进入休眠(sleep).</span></div><div class="line">            <span class="keyword">if</span> (!sourceHandledThisLoop) &#123;</div><div class="line">                __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeWaiting);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">/// 7. 调用 mach_msg 等待接受 mach_port 的消息.线程将进入休眠, 直到被下面某一个事件唤醒.</span></div><div class="line">            <span class="comment">/// • 一个基于 port 的Source 的事件.</span></div><div class="line">            <span class="comment">/// • 一个 Timer 到时间了</span></div><div class="line">            <span class="comment">/// • RunLoop 自身的超时时间到了</span></div><div class="line">            <span class="comment">/// • 被其他什么调用者手动唤醒</span></div><div class="line">            __CFRunLoopServiceMachPort(waitSet, &amp;msg, <span class="built_in">sizeof</span>(msg_buffer), &amp;livePort) &#123;</div><div class="line">                mach_msg(msg, <span class="type">MACH_RCV_MSG</span>, port); <span class="comment">// thread wait for receive msg</span></div><div class="line">            &#125;</div><div class="line"> </div><div class="line">            <span class="comment">/// 8. 通知 Observers: RunLoop 的线程刚刚被唤醒了.</span></div><div class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopAfterWaiting);</div><div class="line">            </div><div class="line">            <span class="comment">/// 收到消息,处理消息.</span></div><div class="line">            handle_msg:</div><div class="line"> </div><div class="line">            <span class="comment">/// 9.1 如果一个 Timer 到时间了,触发这个Timer的回调.</span></div><div class="line">            <span class="keyword">if</span> (msg_is_timer) &#123;</div><div class="line">                __CFRunLoopDoTimers(runloop, currentMode, mach_absolute_time())</div><div class="line">            &#125; </div><div class="line"> </div><div class="line">            <span class="comment">/// 9.2 如果有dispatch到main_queue的block,执行block.</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (msg_is_dispatch) &#123;</div><div class="line">                __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__(msg);</div><div class="line">            &#125; </div><div class="line"> </div><div class="line">            <span class="comment">/// 9.3 如果一个 Source1 (基于port) 发出事件了,处理这个事件</span></div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="type">CFRunLoopSourceRef</span> source1 = __CFRunLoopModeFindSourceForMachPort(runloop, currentMode, livePort);</div><div class="line">                sourceHandledThisLoop = __CFRunLoopDoSource1(runloop, currentMode, source1, msg);</div><div class="line">                <span class="keyword">if</span> (sourceHandledThisLoop) &#123;</div><div class="line">                    mach_msg(reply, <span class="type">MACH_SEND_MSG</span>, reply);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">/// 执行加入到Loop的block</span></div><div class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</div><div class="line">            </div><div class="line"> </div><div class="line">            <span class="keyword">if</span> (sourceHandledThisLoop &amp;&amp; stopAfterHandle) &#123;</div><div class="line">                <span class="comment">/// 进入loop时参数说处理完事件就返回.</span></div><div class="line">                retVal = kCFRunLoopRunHandledSource;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (timeout) &#123;</div><div class="line">                <span class="comment">/// 超出传入参数标记的超时时间了</span></div><div class="line">                retVal = kCFRunLoopRunTimedOut;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopIsStopped(runloop)) &#123;</div><div class="line">                <span class="comment">/// 被外部调用者强制停止了</span></div><div class="line">                retVal = kCFRunLoopRunStopped;</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopModeIsEmpty(runloop, currentMode)) &#123;</div><div class="line">                <span class="comment">/// source/timer/observer一个都没有了</span></div><div class="line">                retVal = kCFRunLoopRunFinished;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">/// 如果没超时,mode里没空,loop也没被停止,那继续loop.</span></div><div class="line">        &#125; <span class="keyword">while</span> (retVal == <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/// 10. 通知 Observers: RunLoop 即将退出.</span></div><div class="line">    __CFRunLoopDoObservers(rl, currentMode, kCFRunLoopExit);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="RunLoop的挂起和唤醒"><a href="#RunLoop的挂起和唤醒" class="headerlink" title="RunLoop的挂起和唤醒"></a>RunLoop的挂起和唤醒</h2><h3 id="RunLoop的挂起"><a href="#RunLoop的挂起" class="headerlink" title="RunLoop的挂起"></a>RunLoop的挂起</h3><p>RunLoop的挂起是通过  <font color="red">_CFRunLoopServiceMachPort</font>  →<sup>call</sup>→  <font color="red">mach_msg</font>  →<sup>call</sup>→  <font color="red">mach_msg_trap</font>  这个调用顺序来告诉内核RunLoop监听哪个mach_port(上面提到的消息通道),然后等待事件的发生(等待InputSource、Timer描述内容相关的事件),这样内核就把RunLoop挂起了,即RunLoop休眠了.</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 用DefaultMode启动</span></span><br><span class="line">void <span class="type">CFRunLoopRun</span>(void) &#123;</span><br><span class="line">    <span class="type">CFRunLoopRunSpecific</span>(<span class="type">CFRunLoopGetCurrent</span>(), kCFRunLoopDefaultMode, <span class="number">1.0e10</span>, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/// 用指定的Mode启动,允许设置RunLoop超时时间</span></span><br><span class="line">int <span class="type">CFRunLoopRunInMode</span>(<span class="type">CFStringRef</span> modeName, <span class="type">CFTimeInterval</span> seconds, <span class="type">Boolean</span> stopAfterHandle) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">CFRunLoopRunSpecific</span>(<span class="type">CFRunLoopGetCurrent</span>(), modeName, seconds, returnAfterSourceHandled);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/// RunLoop的实现</span></span><br><span class="line">int <span class="type">CFRunLoopRunSpecific</span>(runloop, modeName, seconds, stopAfterHandle) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 首先根据modeName找到对应mode</span></span><br><span class="line">    <span class="type">CFRunLoopModeRef</span> currentMode = __CFRunLoopFindMode(runloop, modeName, <span class="literal">false</span>);</span><br><span class="line">    <span class="comment">/// 如果mode里没有source/timer/observer, 直接返回.</span></span><br><span class="line">    <span class="keyword">if</span> (__CFRunLoopModeIsEmpty(currentMode)) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 1. 通知 Observers: RunLoop 即将进入 loop.</span></span><br><span class="line">    __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopEntry);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 内部函数,进入loop</span></span><br><span class="line">    __CFRunLoopRun(runloop, currentMode, seconds, returnAfterSourceHandled) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="type">Boolean</span> sourceHandledThisLoop = <span class="type">NO</span>;</span><br><span class="line">        int retVal = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 2. 通知 Observers: RunLoop 即将触发 Timer 回调.</span></span><br><span class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeTimers);</span><br><span class="line">            <span class="comment">/// 3. 通知 Observers: RunLoop 即将触发 Source0 (非port) 回调.</span></span><br><span class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeSources);</span><br><span class="line">            <span class="comment">/// 执行被加入的block</span></span><br><span class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 4. RunLoop 触发 Source0 (非port) 回调.</span></span><br><span class="line">            sourceHandledThisLoop = __CFRunLoopDoSources0(runloop, currentMode, stopAfterHandle);</span><br><span class="line">            <span class="comment">/// 执行被加入的block</span></span><br><span class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 5. 如果有 Source1 (基于port) 处于 ready 状态,直接处理这个 Source1 然后跳转去处理消息.</span></span><br><span class="line">            <span class="keyword">if</span> (__Source0DidDispatchPortLastTime) &#123;</span><br><span class="line">                <span class="type">Boolean</span> hasMsg = __CFRunLoopServiceMachPort(dispatchPort, &amp;msg)</span><br><span class="line">                <span class="keyword">if</span> (hasMsg) goto handle_msg;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 通知 Observers: RunLoop 的线程即将进入休眠(sleep).</span></span><br><span class="line">            <span class="keyword">if</span> (!sourceHandledThisLoop) &#123;</span><br><span class="line">                __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopBeforeWaiting);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 7. 调用 mach_msg 等待接受 mach_port 的消息.线程将进入休眠, 直到被下面某一个事件唤醒.</span></span><br><span class="line">            <span class="comment">/// • 一个基于 port 的Source 的事件.</span></span><br><span class="line">            <span class="comment">/// • 一个 Timer 到时间了</span></span><br><span class="line">            <span class="comment">/// • RunLoop 自身的超时时间到了</span></span><br><span class="line">            <span class="comment">/// • 被其他什么调用者手动唤醒</span></span><br><span class="line">            __CFRunLoopServiceMachPort(waitSet, &amp;msg, <span class="built_in">sizeof</span>(msg_buffer), &amp;livePort) &#123;</span><br><span class="line">                mach_msg(msg, <span class="type">MACH_RCV_MSG</span>, port); <span class="comment">// thread wait for receive msg</span></span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 8. 通知 Observers: RunLoop 的线程刚刚被唤醒了.</span></span><br><span class="line">            __CFRunLoopDoObservers(runloop, currentMode, kCFRunLoopAfterWaiting);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 收到消息,处理消息.</span></span><br><span class="line">            handle_msg:</span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 9.1 如果一个 Timer 到时间了,触发这个Timer的回调.</span></span><br><span class="line">            <span class="keyword">if</span> (msg_is_timer) &#123;</span><br><span class="line">                __CFRunLoopDoTimers(runloop, currentMode, mach_absolute_time())</span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 9.2 如果有dispatch到main_queue的block,执行block.</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (msg_is_dispatch) &#123;</span><br><span class="line">                __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__(msg);</span><br><span class="line">            &#125; </span><br><span class="line"> </span><br><span class="line">            <span class="comment">/// 9.3 如果一个 Source1 (基于port) 发出事件了,处理这个事件</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="type">CFRunLoopSourceRef</span> source1 = __CFRunLoopModeFindSourceForMachPort(runloop, currentMode, livePort);</span><br><span class="line">                sourceHandledThisLoop = __CFRunLoopDoSource1(runloop, currentMode, source1, msg);</span><br><span class="line">                <span class="keyword">if</span> (sourceHandledThisLoop) &#123;</span><br><span class="line">                    mach_msg(reply, <span class="type">MACH_SEND_MSG</span>, reply);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 执行加入到Loop的block</span></span><br><span class="line">            __CFRunLoopDoBlocks(runloop, currentMode);</span><br><span class="line">            </span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (sourceHandledThisLoop &amp;&amp; stopAfterHandle) &#123;</span><br><span class="line">                <span class="comment">/// 进入loop时参数说处理完事件就返回.</span></span><br><span class="line">                retVal = kCFRunLoopRunHandledSource;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (timeout) &#123;</span><br><span class="line">                <span class="comment">/// 超出传入参数标记的超时时间了</span></span><br><span class="line">                retVal = kCFRunLoopRunTimedOut;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopIsStopped(runloop)) &#123;</span><br><span class="line">                <span class="comment">/// 被外部调用者强制停止了</span></span><br><span class="line">                retVal = kCFRunLoopRunStopped;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (__CFRunLoopModeIsEmpty(runloop, currentMode)) &#123;</span><br><span class="line">                <span class="comment">/// source/timer/observer一个都没有了</span></span><br><span class="line">                retVal = kCFRunLoopRunFinished;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/// 如果没超时,mode里没空,loop也没被停止,那继续loop.</span></span><br><span class="line">        &#125; <span class="keyword">while</span> (retVal == <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 10. 通知 Observers: RunLoop 即将退出.</span></span><br><span class="line">    __CFRunLoopDoObservers(rl, currentMode, kCFRunLoopExit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="RunLoop的挂起和唤醒"><a href="#RunLoop的挂起和唤醒" class="headerlink" title="RunLoop的挂起和唤醒"></a>RunLoop的挂起和唤醒</h2><h3 id="RunLoop的挂起"><a href="#RunLoop的挂起" class="headerlink" title="RunLoop的挂起"></a>RunLoop的挂起</h3><p>RunLoop的挂起是通过  &lt;font/ color=red&gt;_CFRunLoopServiceMachPort  →<sup>call</sup>→  &lt;font/ color=red&gt;mach_msg  →<sup>call</sup>→  &lt;font/ color=red&gt;mach_msg_trap  这个调用顺序来告诉内核RunLoop监听哪个mach_port(上面提到的消息通道),然后等待事件的发生(等待InputSource、Timer描述内容相关的事件),这样内核就把RunLoop挂起了,即RunLoop休眠了.</p>
 <h3 id="RunLoop的唤醒"><a href="#RunLoop的唤醒" class="headerlink" title="RunLoop的唤醒"></a>RunLoop的唤醒</h3><p><strong>以下情况下会被唤醒:</strong></p>
 <ol>
 <li>存在Source0被标记为待处理,系统调用CFRunLoopWakeUp唤醒线程处理事件</li>
@@ -224,23 +218,23 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <li>被外部调用者强制停止_CFRunLoopStopped(runloop)</li>
 <li>source/timer/observer全都空了_CFRunLoopModelsEmpty(runloop、currentMode)</li>
 </ol>
-<h2 id="RunLoop的底层实现"><a href="#RunLoop的底层实现" class="headerlink" title="RunLoop的底层实现"></a>RunLoop的底层实现</h2><p>关于RunLoop底层实现的原理,可以阅读ibireme的<a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.ibireme.com%2F2015%2F05%2F18%2Frunloop%2F" target="_blank" rel="external">深入理解RunLoop</a>一文.<br>Mach消息发送机制可以看这篇<a href="https://www.jianshu.com/p/a764aad31847" target="_blank" rel="external">Mach消息发送机制</a>.</p>
+<h2 id="RunLoop的底层实现"><a href="#RunLoop的底层实现" class="headerlink" title="RunLoop的底层实现"></a>RunLoop的底层实现</h2><p>关于RunLoop底层实现的原理,可以阅读ibireme的<a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.ibireme.com%2F2015%2F05%2F18%2Frunloop%2F" target="_blank" rel="noopener">深入理解RunLoop</a>一文.<br>Mach消息发送机制可以看这篇<a href="https://www.jianshu.com/p/a764aad31847" target="_blank" rel="noopener">Mach消息发送机制</a>.</p>
 <p>如下只介绍一些简单的原理知识:为了实现消息的发送和接收,mach_msg()函数实际上是调用了一个Mach陷阱(trap),也就是函数mach_msg_trap(),陷阱这个概念在Mach中等同于系统调用.当你在用户态调用mach_msg_trap()时会触发陷阱机制,切换到内核态;内核态中内核实现的mach_msg()函数会完成实际的工作.如下图:</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/2086987-5b60f73f915ad55c..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="Example9"></p>
 <p>RunLoop的核心就是一个mach_msg()(见上面代码的第7步),RunLoop调用这个函数去结束消息,如果没有别人发送port消息过来,内核会将线程置于等待状态.例如你在模拟器里跑起一个iOS的app,然后在App静止时点击暂停,你会看到主线程调用栈是停在mach_msg_trap()这个地方.</p>
 <h1 id="RunLoop和线程"><a href="#RunLoop和线程" class="headerlink" title="RunLoop和线程"></a>RunLoop和线程</h1><p>RunLoop和线程是息息相关的,我们知道线程的作用是用来执行特定的一个或者多个任务,但是在默认情况下,线程执行完了就会推出,就不能再执行任务了.这时我们就需要用一种方式来让线程能够持续处理任务,不会退出.所以,就有了RunLoop.</p>
 <p>iOS开发中能遇到两个线程对象: pthread_t和NSThread,pthread_t和NSThread是一一对应的.比如,获取主线程可以使用pthread_main_thread_np(),也可以使用[NSTread mainThread]; 获取当前线程,可以使用pthread_self(),也可以使用[NSThread currentThread].而CFRunLoop就是基于pthread来进行管理的.</p>
-<p>线程与RunLoop是一一对应的关系(对应关系保存在一个全局的Dictionary中),线程创建后是没有RunLoop的(主线程除外),RunLoop的创建是发生在第一次获取时,销毁则是在线程结束的时候.<font color="red">只能在当前线程中操作当前的RunLoop,不能去操作其他线程的RunLoop.</font></p>
+<p>线程与RunLoop是一一对应的关系(对应关系保存在一个全局的Dictionary中),线程创建后是没有RunLoop的(主线程除外),RunLoop的创建是发生在第一次获取时,销毁则是在线程结束的时候.&lt;font/ color=red&gt;只能在当前线程中操作当前的RunLoop,不能去操作其他线程的RunLoop.</p>
 <blockquote>
 <p>苹果不允许直接创建RunLoop,但是可以通过[NSRunLoop currentRunLoop]或者CFRunLoopGetCurrent()来获取(如果没有就自动创建一个).</p>
 </blockquote>
 <p><img src="https://s1.ax2x.com/2018/07/05/oXzjn.png" alt="Example10"></p>
 <p>开发过程中需要RunLoop时,则需要手动创建和运行RunLoop(尤其是在子线程中,主线程中的main RunLoop除外).下面有一个很有意思的例子:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">调用[NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]带有schedule的方法簇来启动Timer.</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用[NSTimer scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:]带有schedule的方法簇来启动Timer.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>用此方法会创建Timer,并把Timer放到当前线程的RunLoop中,随后RunLoop会在Timer设定的时间点回调Timer绑定的selector或者invocation.但是,在主线程和子线程中调用此方法的效果是有差异的,即在主线程中调用scheduledTimer方法时,timer可以在设定的时间点触发;但是在子线程中则不能触发.这是因为在子线程中没有创建RunLoop且没有启动RunLoop,而在主线程中RunLoop是默认创建好并且一直在运行的,所以,子线程中调用以上方法,需要使用如下的方法:</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(doTimer) userInfo:nil repeats:NO];</div><div class="line">  [[NSRunLoop currentRunLoop] run];</div><div class="line">&#125;);</div><div class="line"></div><div class="line">那为什么下面这样调用同样不会触发Timer呢？</div><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">  [[NSRunLoop currentRunLoop] run];</div><div class="line">  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(doTimer) userInfo:nil repeats:NO];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(doTimer) userInfo:nil repeats:NO];</span><br><span class="line">  [[NSRunLoop currentRunLoop] run];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">那为什么下面这样调用同样不会触发Timer呢？</span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">  [[NSRunLoop currentRunLoop] run];</span><br><span class="line">  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(doTimer) userInfo:nil repeats:NO];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>我分析原因是:shceduledTimerWithTimeInterval内部在向RunLoop传递Timer的时候,是调用了与线程实例相关的单例方法[NSRunLoop currentRunLoop]来获取RunLoop实例的,也就是如果RunLoop不存在就创建一个与当前线程相关的RunLoop并把Timer传递到RunLoop中,存在则直接传递Timer到RunLoop中即可.  而在RunLoop开始运行后再向其传递Timer时,由于dispatch_async中的代码是顺序执行的,[[NSRunLoop currentRunLoop] run]是一个么有结束时间的RunLoop,无法执行到”[NSTimer scheduledTimerWithTimeInterval:…”这行代码,Timer也就没有被加入到当前RunLoop中,所以更不会出发Timer了.</p>
 </blockquote>
@@ -322,15 +316,15 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <blockquote>
 <p>CADisplayLink是一个执行频率(fps)和屏幕刷新频率相同(可以修改preferredFramesPerSecond改变刷新频率)的定时器,它也需要加入到RunLoop才能执行. 与NSTimer相似的,CADisplayLink同样是基于CFRunLoopTimerRef实现的,底层使用mk_timer(可以比较加入到RunLoop前后RunLoop中timer的变化). 和NSTimer相比它的精度更高(尽管NSTimer也可以修改精度),不过和NSTimer类似的是如果遇到大任务它仍然存在丢帧现象,通常情况下CADisplayLink用于构建帧动画,看起来相对更流畅,而NSTimer则有更广泛的用处.</p>
 </blockquote>
-<p>不管怎么样CADisplayLink和NSTimer还是有很大不同,具体的详情可以参考这篇文章:<a href="https://www.jianshu.com/p/72fedadf92e3" target="_blank" rel="external">CADisplayLink</a></p>
+<p>不管怎么样CADisplayLink和NSTimer还是有很大不同,具体的详情可以参考这篇文章:<a href="https://www.jianshu.com/p/72fedadf92e3" target="_blank" rel="noopener">CADisplayLink</a></p>
 <p>ibireme根据CADisplayLink的特性写了一个FPS指示器YYFPSLabel,代码非常少.原理是这样的:既然CADisplayLink可以以屏幕刷新的频率调用指定的seletor,而且iOS系统中正常的屏幕刷新频率为60HX,所以使用CADisplayLink的timestamp属性,配合timer的执行次数计算得出FPS数.</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.ibireme.com%2F2015%2F05%2F18%2Frunloop%2F" target="_blank" rel="external">深入理解RunLoop</a></li>
-<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzAwNDY1ODY2OQ%3D%3D%26mid%3D400417748%26idx%3D1%26sn%3D0c5f6747dd192c5a0eea32bb4650c160%26scene%3D2%26srcid%3D1119Ya486T0mkUCVn6hiN4he%26from%3Dtimeline%26isappinstalled%3D0%23wechat_redirect" target="_blank" rel="external">iOS 事件处理机制与图像渲染过程</a></li>
-<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fblog.handy.wang%2Fblog%2F2014%2F05%2F26%2Frunloopxue-xi-bi-ji-1%2F" target="_blank" rel="external">RunLoop学习笔记(一) 基本原理介绍</a></li>
-<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fwww.cnblogs.com%2Fkenshincui%2Fp%2F6823841.html" target="_blank" rel="external">iOS刨根问底-深入理解RunLoop</a></li>
-<li><a href="https://www.jianshu.com/p/37ab0397fec7#" target="_blank" rel="external">【iOS程序启动与运转】- RunLoop个人小结</a></li>
-<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fwww.gaoshilei.com%2F2016%2F11%2F20%2FRunLoop%2F" target="_blank" rel="external">RunLoop的前世今生</a></li>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fblog.ibireme.com%2F2015%2F05%2F18%2Frunloop%2F" target="_blank" rel="noopener">深入理解RunLoop</a></li>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzAwNDY1ODY2OQ%3D%3D%26mid%3D400417748%26idx%3D1%26sn%3D0c5f6747dd192c5a0eea32bb4650c160%26scene%3D2%26srcid%3D1119Ya486T0mkUCVn6hiN4he%26from%3Dtimeline%26isappinstalled%3D0%23wechat_redirect" target="_blank" rel="noopener">iOS 事件处理机制与图像渲染过程</a></li>
+<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fblog.handy.wang%2Fblog%2F2014%2F05%2F26%2Frunloopxue-xi-bi-ji-1%2F" target="_blank" rel="noopener">RunLoop学习笔记(一) 基本原理介绍</a></li>
+<li><a href="https://link.jianshu.com/?t=https%3A%2F%2Fwww.cnblogs.com%2Fkenshincui%2Fp%2F6823841.html" target="_blank" rel="noopener">iOS刨根问底-深入理解RunLoop</a></li>
+<li><a href="https://www.jianshu.com/p/37ab0397fec7#" target="_blank" rel="noopener">【iOS程序启动与运转】- RunLoop个人小结</a></li>
+<li><a href="https://link.jianshu.com/?t=http%3A%2F%2Fwww.gaoshilei.com%2F2016%2F11%2F20%2FRunLoop%2F" target="_blank" rel="noopener">RunLoop的前世今生</a></li>
 <li><a href="Runloop知识树">Runloop知识树</a></li>
 </ol>
 <p><br><br><br><br><br><br><br><br><br></p>
@@ -369,9 +363,9 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
+ <div class="prev">
  <a href="/2018/06/27/Runtime给类别添加属性/" title="Runtime给类别添加属性">
-  <strong>上一篇：</strong><br/>
+  <strong>上一篇：</strong><br>
   <span>
   Runtime给类别添加属性</span>
 </a>
@@ -379,8 +373,8 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 
 
 <div class="next">
-<a href="/2018/05/29/iOS高效图片处理03/"  title="iOS高效图片处理03_常见的图片压缩方式">
- <strong>下一篇：</strong><br/> 
+<a href="/2018/05/29/iOS高效图片处理03/" title="iOS高效图片处理03_常见的图片压缩方式">
+ <strong>下一篇：</strong><br> 
  <span>iOS高效图片处理03_常见的图片压缩方式
 </span>
 </a>
@@ -412,7 +406,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 <div class="github-card">
 <p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 </div>
   </div>
 
@@ -428,19 +422,15 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
 			
 		
 			
@@ -449,6 +439,14 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 		
 			
 				<li><a href="/tags/2019年度规划/" title="2019年度规划">2019年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 			
@@ -465,10 +463,6 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 		
 			
 				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -519,7 +513,7 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>
@@ -528,11 +522,11 @@ Runloop实际上是一个对象,这个对象在循环中用来处理程序运行
 	
 	
 	<section class="info">
-		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+		<p> Welcome to XiaoChuan&#39;s blog~ <br>
 			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
-	<div class="social-font" class="clearfix">
+	<div class="social-font">
 		
 		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
 		
@@ -756,7 +750,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

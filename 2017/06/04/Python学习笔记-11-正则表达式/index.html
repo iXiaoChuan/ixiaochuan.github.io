@@ -1,7 +1,7 @@
 
  <!DOCTYPE HTML>
 <html lang="zh-CN">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
   
     <title>Python学习笔记_11_正则表达式 | 小川的博客·iXiaoChuan</title>
@@ -11,19 +11,18 @@
     
 
     
-    <meta name="description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法:
-\d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
+    <meta name="description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法: \d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
+<meta name="keywords" content="Python学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python学习笔记_11_正则表达式">
 <meta property="og:url" content="https://ixiaochuan.top/2017/06/04/Python学习笔记-11-正则表达式/index.html">
 <meta property="og:site_name" content="小川的博客·iXiaoChuan">
-<meta property="og:description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法:
-\d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
+<meta property="og:description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法: \d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-07-09T01:55:44.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python学习笔记_11_正则表达式">
-<meta name="twitter:description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法:
-\d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
+<meta name="twitter:description" content="正则表达式是一种用来匹配字符串的强有力的武器.它的设计思想是用一种描述性的语言来给字符串定义一个规则,凡是符合规则的字符串,我们就认为它“匹配”了,否则,该字符串就是不合法的.如下给出正则表达式的一些字符匹配用法: \d可以匹配一个数字\w可以匹配一个字母或数字\s可以匹配一个空格,包括Tab等空白符.可以匹配任意字符直接给出的字符,就是精确匹配要匹配变长的字符,用*表示任意个字符（包括0个）用">
 
     
     <link rel="alternative" href="/atom.xml" title="小川的博客·iXiaoChuan" type="application/atom+xml">
@@ -37,14 +36,14 @@
     
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
   <body>
     <header>
       
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"/></a>
+				<a href="/"><img src="/img/logo.png" alt="小川的博客·iXiaoChuan" title="小川的博客·iXiaoChuan"></a>
 			</div>
 			
 			<div id="textlogo">
@@ -73,12 +72,12 @@
  					
 						<form class="search" action="http://ixiaochuan.top" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= 10090999781559433000 ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value="10090999781559433000"><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
 				</ul>
-			</nav>			
+			</ul></nav>			
 </div>
     </header>
     <div id="container">
@@ -94,7 +93,7 @@
        
 		<a href="/about" title="iXiaoChuan" target="_blank" itemprop="author">iXiaoChuan</a>
 		
-  <p class="article-time">
+  </p><p class="article-time">
     <time datetime="2017-06-04T09:17:21.000Z" itemprop="datePublished"> 发表于 06-04-2017</time>
     
   </p>
@@ -113,7 +112,7 @@
 <font color="red"><br>\d可以匹配一个数字<br><br>\w可以匹配一个字母或数字<br><br>\s可以匹配一个空格,包括Tab等空白符<br><br>.可以匹配任意字符<br><br>直接给出的字符,就是精确匹配<br><br>要匹配变长的字符,用*表示任意个字符（包括0个）<br><br>用+表示至少一个字符<br><br>用?表示0个或1个字符<br><br>用{n}表示n个字符<br><br>用{n,m}表示n-m个字符<br><br></font>
 
 <p>下面举例说明具体的用法:</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">d</span><span class="string">&#123;3&#125;</span></span><span class="tag">\<span class="name">s</span></span>+<span class="tag">\<span class="name">d</span><span class="string">&#123;3,8&#125;</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">d</span><span class="string">&#123;3&#125;</span></span><span class="tag">\<span class="name">s</span></span>+<span class="tag">\<span class="name">d</span><span class="string">&#123;3,8&#125;</span></span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>\d{3}表示匹配3个数字,例如’010’；</li>
 <li>\s可以匹配一个空格（也包括Tab等空白符）,所以\s+表示至少有一个空格,例如匹配’ ‘,’ ‘等；</li>
@@ -125,39 +124,39 @@
 <font color="red"><br>要做更精确地匹配,可以用[]表示范围<br><br>|符号可以表示或,例如A|B可以匹配A或B<br><br>^表示行的开头,^\d表示必须以数字开头<br><br>$表示行的结束,\d$表示必须以数字结束<br><br></font>
 
 <p>下面举例说明具体的用法:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]可以匹配一个数字、字母或者下划线；</div><div class="line"></div><div class="line">[<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]+可以匹配至少由一个数字、字母或者下划线组成的字符串,比如<span class="string">'a100'</span>,<span class="string">'0_Z'</span>,<span class="string">'Py3000'</span>等等；</div><div class="line"></div><div class="line">[a-zA-Z\_][<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]*可以匹配由字母或下划线开头,后接任意个由一个数字、字母或者下划线组成的字符串,也就是Python合法的变量；</div><div class="line"></div><div class="line">[a-zA-Z\_][<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]&#123;<span class="number">0</span>, <span class="number">19</span>&#125;更精确地限制了变量的长度是<span class="number">1</span><span class="number">-20</span>个字符（前面<span class="number">1</span>个字符+后面最多<span class="number">19</span>个字符）.</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]可以匹配一个数字、字母或者下划线；</span><br><span class="line"></span><br><span class="line">[<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]+可以匹配至少由一个数字、字母或者下划线组成的字符串,比如<span class="string">'a100'</span>,<span class="string">'0_Z'</span>,<span class="string">'Py3000'</span>等等；</span><br><span class="line"></span><br><span class="line">[a-zA-Z\_][<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]*可以匹配由字母或下划线开头,后接任意个由一个数字、字母或者下划线组成的字符串,也就是Python合法的变量；</span><br><span class="line"></span><br><span class="line">[a-zA-Z\_][<span class="number">0</span><span class="number">-9</span>a-zA-Z\_]&#123;<span class="number">0</span>, <span class="number">19</span>&#125;更精确地限制了变量的长度是<span class="number">1</span><span class="number">-20</span>个字符（前面<span class="number">1</span>个字符+后面最多<span class="number">19</span>个字符）.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <h3 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a><font color="#3194d5" size="3">re模块</font></h3></blockquote>
 <p>有了准备知识,我们就可以在Python中使用正则表达式了.Python提供re模块,包含所有正则表达式的功能.由于Python的字符串本身也用\转义,所以要特别注意:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s = <span class="string">'ABC\\-001'</span> <span class="comment"># Python的字符串</span></div><div class="line"><span class="comment"># 对应的正则表达式字符串变成：</span></div><div class="line"><span class="comment"># 'ABC\-001'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'ABC\\-001'</span> <span class="comment"># Python的字符串</span></span><br><span class="line"><span class="comment"># 对应的正则表达式字符串变成：</span></span><br><span class="line"><span class="comment"># 'ABC\-001'</span></span><br></pre></td></tr></table></figure>
 <p>因此强烈建议使用Python的r前缀,就不用考虑转义的问题了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">s = <span class="string">r'ABC\-001'</span> <span class="comment"># Python的字符串</span></div><div class="line"><span class="comment"># 对应的正则表达式字符串不变：</span></div><div class="line"><span class="comment"># 'ABC\-001'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">r'ABC\-001'</span> <span class="comment"># Python的字符串</span></span><br><span class="line"><span class="comment"># 对应的正则表达式字符串不变：</span></span><br><span class="line"><span class="comment"># 'ABC\-001'</span></span><br></pre></td></tr></table></figure>
 <p>先看看如何判断正则表达式是否匹配：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^\d&#123;3&#125;\-\d&#123;3,8&#125;$'</span>, <span class="string">'010-12345'</span>)</div><div class="line">&lt;_sre.SRE_Match object; span=(<span class="number">0</span>, <span class="number">9</span>), match=<span class="string">'010-12345'</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^\d&#123;3&#125;\-\d&#123;3,8&#125;$'</span>, <span class="string">'010 12345'</span>)</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^\d&#123;3&#125;\-\d&#123;3,8&#125;$'</span>, <span class="string">'010-12345'</span>)</span><br><span class="line">&lt;_sre.SRE_Match object; span=(<span class="number">0</span>, <span class="number">9</span>), match=<span class="string">'010-12345'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^\d&#123;3&#125;\-\d&#123;3,8&#125;$'</span>, <span class="string">'010 12345'</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
 <p>match()方法判断是否匹配,如果匹配成功,返回一个Match对象,否则返回None.</p>
 <blockquote>
 <h3 id="切分字符串"><a href="#切分字符串" class="headerlink" title="切分字符串"></a><font color="#3194d5" size="3">切分字符串</font></h3></blockquote>
 <p>用正则表达式切分字符串比用固定的字符更灵活,请看正常的切分代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'a b   c'</span>.split(<span class="string">' '</span>)</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">'c'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'a b   c'</span>.split(<span class="string">' '</span>)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
 <p>嗯,无法识别连续的空格,用正则表达式试试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'\s+'</span>, <span class="string">'a b   c'</span>)</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'\s+'</span>, <span class="string">'a b   c'</span>)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</span><br></pre></td></tr></table></figure>
 <p>无论多少个空格都可以正常分割.加入,试试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'[\s\,]+'</span>, <span class="string">'a,b, c  d'</span>)</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'[\s\,]+'</span>, <span class="string">'a,b, c  d'</span>)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
 <p>再加入;试试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'[\s\,\;]+'</span>, <span class="string">'a,b;; c  d'</span>)</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'[\s\,\;]+'</span>, <span class="string">'a,b;; c  d'</span>)</span><br><span class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</span><br></pre></td></tr></table></figure>
 <blockquote>
 <h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a><font color="#3194d5" size="3">分组</font></h3></blockquote>
-<p>除了简单地判断是否匹配之外,正则表达式还有提取子串的强大功能.用()表示的就是要提取的分组（Group）.比如:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">^(\d&#123;<span class="number">3</span>&#125;)-(\d&#123;<span class="number">3</span>,<span class="number">8</span>&#125;)$</div></pre></td></tr></table></figure></p>
+<p>除了简单地判断是否匹配之外,正则表达式还有提取子串的强大功能.用()表示的就是要提取的分组（Group）.比如:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(\d&#123;<span class="number">3</span>&#125;)-(\d&#123;<span class="number">3</span>,<span class="number">8</span>&#125;)$</span><br></pre></td></tr></table></figure></p>
 <p>分别定义了两个组,可以直接从匹配的电话号码字符串中提取出区号和本地号码:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>m = re.match(<span class="string">r'^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$'</span>, <span class="string">'010-12345'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>m</div><div class="line">&lt;_sre.SRE_Match object; span=(<span class="number">0</span>, <span class="number">9</span>), match=<span class="string">'010-12345'</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)</div><div class="line"><span class="string">'010-12345'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)</div><div class="line"><span class="string">'010'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)</div><div class="line"><span class="string">'12345'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = re.match(<span class="string">r'^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$'</span>, <span class="string">'010-12345'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m</span><br><span class="line">&lt;_sre.SRE_Match object; span=(<span class="number">0</span>, <span class="number">9</span>), match=<span class="string">'010-12345'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">'010-12345'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'010'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)</span><br><span class="line"><span class="string">'12345'</span></span><br></pre></td></tr></table></figure>
 <p>如果正则表达式中定义了组,就可以在Match对象上用group()方法提取出子串来.注意到group(0)永远是原始字符串,group(1)、group(2)……表示第1、2、……个子串.</p>
 <blockquote>
 <h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a><font color="#3194d5" size="3">贪婪匹配</font></h3></blockquote>
 <p>最后需要特别指出的是,正则匹配默认是贪婪匹配,也就是匹配尽可能多的字符.举例如下,匹配出数字后面的0：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^(\d+)(0*)$'</span>, <span class="string">'102300'</span>).groups()</div><div class="line">(<span class="string">'102300'</span>, <span class="string">''</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^(\d+)(0*)$'</span>, <span class="string">'102300'</span>).groups()</span><br><span class="line">(<span class="string">'102300'</span>, <span class="string">''</span>)</span><br></pre></td></tr></table></figure>
 <p>由于\d+采用贪婪匹配,直接把后面的0全部匹配了,结果0*只能匹配空字符串了.</p>
 <p>必须让\d+采用非贪婪匹配（也就是尽可能少匹配）,才能把后面的0匹配出来,加个?就可以让\d+采用非贪婪匹配：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^(\d+?)(0*)$'</span>, <span class="string">'102300'</span>).groups()</div><div class="line">(<span class="string">'1023'</span>, <span class="string">'00'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.match(<span class="string">r'^(\d+?)(0*)$'</span>, <span class="string">'102300'</span>).groups()</span><br><span class="line">(<span class="string">'1023'</span>, <span class="string">'00'</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a><font color="#3194d5" size="3">编译</font></h3></blockquote>
 <p>当我们在Python中使用正则表达式时,re模块内部会干两件事情：</p>
@@ -166,7 +165,7 @@
 <li>用编译后的正则表达式去匹配字符串.</li>
 </ol>
 <p>如果一个正则表达式要重复使用几千次,出于效率的考虑,我们可以预编译该正则表达式,接下来重复使用时就不需要编译这个步骤了,直接匹配：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</div><div class="line"><span class="comment"># 编译:</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone = re.compile(<span class="string">r'^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$'</span>)</div><div class="line"><span class="comment"># 使用：</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone.match(<span class="string">'010-12345'</span>).groups()</div><div class="line">(<span class="string">'010'</span>, <span class="string">'12345'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone.match(<span class="string">'010-8086'</span>).groups()</div><div class="line">(<span class="string">'010'</span>, <span class="string">'8086'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="comment"># 编译:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone = re.compile(<span class="string">r'^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$'</span>)</span><br><span class="line"><span class="comment"># 使用：</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone.match(<span class="string">'010-12345'</span>).groups()</span><br><span class="line">(<span class="string">'010'</span>, <span class="string">'12345'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re_telephone.match(<span class="string">'010-8086'</span>).groups()</span><br><span class="line">(<span class="string">'010'</span>, <span class="string">'8086'</span>)</span><br></pre></td></tr></table></figure>
 <p>编译后生成Regular Expression对象,由于该对象自己包含了正则表达式,所以调用对应的方法时不用给出正则字符串.</p>
   
 	</div>
@@ -203,9 +202,9 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
+ <div class="prev">
  <a href="/2017/06/25/Python学习笔记-12-常用内建模块/" title="Python学习笔记_12_常用内建模块">
-  <strong>上一篇：</strong><br/>
+  <strong>上一篇：</strong><br>
   <span>
   Python学习笔记_12_常用内建模块</span>
 </a>
@@ -213,8 +212,8 @@
 
 
 <div class="next">
-<a href="/2017/05/13/Python学习笔记-10-进程和线程/"  title="Python学习笔记_10_进程和线程">
- <strong>下一篇：</strong><br/> 
+<a href="/2017/05/13/Python学习笔记-10-进程和线程/" title="Python学习笔记_10_进程和线程">
+ <strong>下一篇：</strong><br> 
  <span>Python学习笔记_10_进程和线程
 </span>
 </a>
@@ -246,7 +245,7 @@
 <div class="github-card">
 <p class="asidetitle">Github 名片</p>
 <div class="github-card" data-github="iXiaoChuan" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
 </div>
   </div>
 
@@ -262,19 +261,15 @@
 			
 		
 			
-				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Python学习/" title="Python学习">Python学习<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
+				<li><a href="/tags/iOS优化/" title="iOS优化">iOS优化<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
+				<li><a href="/tags/Runloop/" title="Runloop">Runloop<sup>2</sup></a></li>
 			
 		
 			
@@ -283,6 +278,14 @@
 		
 			
 				<li><a href="/tags/2019年度规划/" title="2019年度规划">2019年度规划<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/WKWebview/" title="WKWebview">WKWebview<sup>1</sup></a></li>
 			
 		
 			
@@ -299,10 +302,6 @@
 		
 			
 				<li><a href="/tags/2018年度规划/" title="2018年度规划">2018年度规划<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Runtime/" title="Runtime">Runtime<sup>1</sup></a></li>
 			
 		
 			
@@ -353,7 +352,7 @@
 </aside>
 </div>
     </div>
-    <footer><div id="footer" >
+    <footer><div id="footer">
 	
 	<div class="line">
 		<span></span>
@@ -362,11 +361,11 @@
 	
 	
 	<section class="info">
-		<p> Welcome to XiaoChuan&#39;s blog~ <br/>
+		<p> Welcome to XiaoChuan&#39;s blog~ <br>
 			@iXiaoChuan PersonalBlog.</p>
 	</section>
 	 
-	<div class="social-font" class="clearfix">
+	<div class="social-font">
 		
 		<a href="http://weibo.com/3051719850" target="_blank" class="icon-weibo" title="微博"></a>
 		
@@ -590,7 +589,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
